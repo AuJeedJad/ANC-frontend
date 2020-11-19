@@ -41,7 +41,7 @@
     left: -50px;
 }
 
-button {
+.selectRole {
     width: 32%;
     height: 100%;
     border: 2px solid var(--thirdaryDarkest-color);
@@ -98,14 +98,14 @@ button[type="submit"] {
     color: white;
     font-size: 12px;
 }
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 560px) {
     .pageBody{
         font-size: 10px;
     }
     .card{
         width: 200px;
         height: 150px;
-        padding: 35px;
+        padding: 50px;
     }
     .cardSelect{
         height: 25%;
@@ -119,7 +119,7 @@ button[type="submit"] {
         object-fit: cover;
     }
     
-    button {
+    .selectRole {
         font-size: 8px;
         margin: 5px;
     }

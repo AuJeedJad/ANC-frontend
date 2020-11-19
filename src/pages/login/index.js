@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
 import './login.css';
 import InputField from '../../components/inputField/index';
-import logo from '../../image/logo/logo01.png'
+import logo from '../../image/logo/logo01.png';
 
 function Login() {
     const [role, setRole] = useState("mother")
+    const [value, setValue] = useState({})
+
+    const valueGet = (fieldValue, field) => {
+        setValue({ ...value, [field]: fieldValue })
+    }
 
     return (
         <div className='page'>
@@ -12,8 +17,8 @@ function Login() {
                 <div className='card'>
                     <div className='cardSelect'>
                         <img className='logo' src={logo} alt="logo" />
-                        <button onClick={() => setRole("mother")}> มารดา </button>
-                        <button onClick={() => setRole("staff")}> โรงพยาบาล </button>
+                        <button className="selectRole" onClick={() => setRole("mother")}> มารดา </button>
+                        <button className="selectRole" onClick={() => setRole("staff")}> โรงพยาบาล </button>
                     </div>
                     {role === 'mother' ?
                         <form>
@@ -21,11 +26,13 @@ function Login() {
                                 fieldName='IdCard'
                                 fieldLabel='รหัสประจำตัวประชาชน'
                                 type='text'
+                                valueGet={(value, field) => valueGet(value, field)}
                             />
                             <InputField
                                 fieldName='Password'
                                 fieldLabel='กรอกรหัสผ่าน'
                                 type='password'
+                                valueGet={(value, field) => valueGet(value, field)}
                             />
                             <button type="submit">
                                 เข้าสู่ระบบ
@@ -37,11 +44,13 @@ function Login() {
                                 fieldName='Username'
                                 fieldLabel='username'
                                 type='text'
+                                valueGet={(value, field) => valueGet(value, field)}
                             />
                             <InputField
                                 fieldName='Password'
                                 fieldLabel='password'
                                 type='password'
+                                valueGet={(value, field) => valueGet(value, field)}
                             />
                             <button type="submit">
                                 LOGIN
