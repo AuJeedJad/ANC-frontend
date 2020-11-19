@@ -1,0 +1,135 @@
+.page{
+    display: flex; 
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
+    height: 100vh;
+    width: 100vw;
+}
+
+.pageBody{
+    display: flex; 
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
+    background-color: var(--primaryLightest-color);
+    height: 68%;
+    width: 100vw;
+    border-radius: 100% 0% 32% 68% / 0% 56% 44% 100%;
+}
+.card{
+    display: flex; 
+    flex-direction: column;
+    width: 300px;
+    height: 200px;
+    padding: 50px;
+    background-color: white;
+    border-radius: 20% 80% 20% 80% / 80% 20% 80% 20%;
+}
+.cardSelect{
+    display:flex;
+    height: 32%;
+    width: 120%;
+    justify-content: center;
+    position: relative;
+    top: -50px;
+}
+.logo{
+    height: 150%;
+    object-fit: cover;
+    position: relative;
+    left: -50px;
+}
+
+button {
+    width: 32%;
+    height: 100%;
+    border: 2px solid var(--thirdaryDarkest-color);
+    color: var(--secondaryDarkest-color);
+    background-color: var(--thirdaryLightest-color);
+    border-radius: 83% 17% 75% 25% / 84% 74% 26% 16%  ;
+    margin: 5px;
+    transform: rotate(-15deg);
+}
+
+button[type="submit"] {
+    width: 80px;
+    height: 40px;
+    color: var(--primaryDarkest-color);
+    border: 2px solid var(--primary-color);
+    background-color: var(--primaryLightest-color);
+    border-radius: 80% 20% 80% 20% / 30% 70% 30% 70% ;
+    transform: rotate(0deg);
+}
+
+.pageDeco{
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    z-index: -2;
+    position: fixed;
+    top: 0px;
+    left: 0px; 
+}
+.pageDecoLeft{
+    background-color: var(--primaryLightest-color);
+    height: 100%;
+    width: 68%;   
+}
+.pageDecoRight{
+    background-color: var(--primaryDarkest-color);
+    height: 100%;
+    width: 32%;
+}
+
+.pageFooter{
+    display: flex; 
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
+    background-color: var(--primaryDarkest-color);
+    height: 32%;
+    width: 100vw;
+    border-radius: 68% 32% 100% 0% / 38% 100% 0% 62% ;
+}
+.pageFooter div {
+    word-wrap: break-word;
+    width: 70%;
+    color: white;
+    font-size: 12px;
+}
+@media only screen and (max-width: 500px) {
+    .pageBody{
+        font-size: 10px;
+    }
+    .card{
+        width: 200px;
+        height: 150px;
+        padding: 35px;
+    }
+    .cardSelect{
+        height: 25%;
+        top:-20px
+    }
+    .logo{
+        position: relative;
+        left: -20px;
+        top: -20px;
+        height: 200%;
+        object-fit: cover;
+    }
+    
+    button {
+        font-size: 8px;
+        margin: 5px;
+    }
+    
+    button[type="submit"] {
+        font-size: 10px;
+        width: 60px;
+        height: 20px;
+    }
+    .pageFooter div {
+        font-size: 8px;
+    }
+}
