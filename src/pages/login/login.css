@@ -15,6 +15,7 @@
   position: fixed;
   top: 0px;
   left: 0px;
+  z-index: -10;
 }
 .deco-page-left {
   background-color: var(--primaryLightest-color);
