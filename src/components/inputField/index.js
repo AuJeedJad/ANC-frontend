@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from 'react';
-import './inputField.css';
+import './InputField.css';
 
 function InputField(props) {
     const { fieldName, type, fieldLabel } = props;
@@ -15,7 +15,7 @@ function InputField(props) {
                 id={fieldName}
                 onChange={(e) => {
                     setValue(e.target.value);
-                    if (props.valueGet) props.valueGet(e.target.value,fieldName)
+                    props.valueGet(e.target.value,fieldName);
                 }}
                 type={type}
             />
