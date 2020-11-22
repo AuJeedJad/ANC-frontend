@@ -1,22 +1,23 @@
-.inputField {
-    display: flex;
-    flex-direction: column;
-    padding: 10px;
-    margin: 5px;
+.input-field {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  margin: 5px;
 }
-.inputBox{
-    margin: 0px;
-    padding-top: 5px;
-    border-color: var(--primaryDark-color);
-    border-width: 2px;
-    border-style: hidden hidden dashed none;
-    color: var(--primaryDarkest-color);
+.input-box {
+  margin: 0px;
+  padding-top: 5px;
+  border-color: var(--primaryDark-color);
+  border-width: 2px;
+  border-style: hidden hidden dashed none;
+  color: var(--primaryDarkest-color);
 }
-.inputLabel {
-    position: absolute;
-    color: var(--primaryDarkest-color);
+.input-label {
+  position: absolute;
+  color: var(--primaryDarkest-color);
 }
 
-.inputBox:focus+.inputLabel,.inputBox+.existValue{
-    transform: translateY(-100%)
+.input-box:focus + .input-label,
+.input-box + .input-value--exist {
+  transform: translateY(-100%);
 }
