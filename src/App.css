@@ -1,23 +1,29 @@
 :root {
   /* Color Palette */
-  --primary-color: #FCAFB3;
-  --secondary-color: #80B9B4;
-  --thirdary-color: #DDF4A9;
-  --primaryLight-color: #FDBFC2;
-  --secondaryLight-color: #9ACCC8;
-  --thirdaryLight-color: #E4F7BB;
-  --primaryLightest-color: #FDCFD1;
-  --secondaryLightest-color: #B4DDDA;
-  --thirdaryLightest-color: #EBF9CC;
-  --primaryDark-color: #FB9EA2;
-  --secondaryDark-color: #66A39E;
-  --thirdaryDark-color: #D4F097;
-  --primaryDarkest-color: #EB8489;
-  --secondaryDarkest-color: #52938E;
-  --thirdaryDarkest-color: #C2E17E;
+  --primary-color: #fcafb3;
+  --secondary-color: #80b9b4;
+  --thirdary-color: #ddf4a9;
+  --primaryLight-color: #fdbfc2;
+  --secondaryLight-color: #9accc8;
+  --thirdaryLight-color: #e4f7bb;
+  --primaryLightest-color: #fdcfd1;
+  --secondaryLightest-color: #b4ddda;
+  --thirdaryLightest-color: #ebf9cc;
+  --primaryDark-color: #fb9ea2;
+  --secondaryDark-color: #66a39e;
+  --thirdaryDark-color: #d4f097;
+  --primaryDarkest-color: #eb8489;
+  --secondaryDarkest-color: #52938e;
+  --thirdaryDarkest-color: #c2e17e;
+}
+* {
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
 }
 .App {
   text-align: center;
+  font-family: 'TH Sarabun New', sans-serif;
 }
 
 .App-logo {

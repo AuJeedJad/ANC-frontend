@@ -12,22 +12,23 @@ function Login() {
   };
 
   return (
-    <div className="page">
-      <div className="pageBody">
+    <div className="page-login">
+      <div className="page-body">
+        <h1 className="header-login">สมุดฝากครรภ์ออนไลน์</h1>
         <div className="card">
-          <div className="cardSelect">
-            <img className="logo" src={logo} alt="logo" />
-            <button className="selectRole" onClick={() => setRole('mother')}>
-              {' '}
-              มารดา{' '}
-            </button>
-            <button className="selectRole" onClick={() => setRole('staff')}>
-              {' '}
-              โรงพยาบาล{' '}
-            </button>
+          <div className="card-select">
+            <img className="logo-login" src={logo} alt="logo" />
+            <div className="box-role--select">
+              <button className="role--select" onClick={() => setRole('mother')}>
+                มารดา
+              </button>
+              <button className="role--select" onClick={() => setRole('staff')}>
+                โรงพยาบาล
+              </button>
+            </div>
           </div>
           {role === 'mother' ? (
-            <form>
+            <form style={{ position: 'relative', top: '13%' }}>
               <InputField
                 fieldName="IdCard"
                 fieldLabel="รหัสประจำตัวประชาชน"
@@ -43,7 +44,7 @@ function Login() {
               <button type="submit">เข้าสู่ระบบ</button>
             </form>
           ) : (
-            <form>
+            <form style={{ position: 'relative', top: '13%' }}>
               <InputField
                 fieldName="Username"
                 fieldLabel="username"
@@ -62,16 +63,19 @@ function Login() {
         </div>
       </div>
 
-      <div className="pageDeco">
-        <div className="pageDecoLeft"></div>
-        <div className="pageDecoRight"></div>
+      <div className="deco-page">
+        <div className="deco-page-left"></div>
+        <div className="deco-page-right"></div>
       </div>
 
-      <div className="pageFooter">
-        <div>
+      <div className="page-footer">
+        <div style={{ width: '60%' }}>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ornare est dolor. Nam eros eros, molestie eget
           nisl nec, ultricies facilisis turpis. In hac habitasse platea dictumst. Morbi libero dui, euismod vitae odio
           sed, maximus pellentesque felis. Pellentesque blandit felis sed nibh maximus sagittis. Maecenas convallis
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', width: '30%', height: '100%' }}>
+          <button className="btn-content">อ่านบทความ</button>
         </div>
       </div>
     </div>
