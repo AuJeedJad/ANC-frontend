@@ -1,9 +1,51 @@
 import { Button, Checkbox, Col, Form, Input, Row, Table, Typography } from 'antd';
-import { PlusCircleOutlined } from '@ant-design/icons';
+import { PlusCircleOutlined, MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import React, { useState } from 'react';
 
 function MedicalHistory() {
   const { Title } = Typography;
+  const [cesarean, setCesarean] = useState(0);
+  const [drugAllergy, setDrugAllergy] = useState(0);
+  const arrCesarean = [];
+  const arrDrugAllergy = [];
+
+  const handleCesarean = () => {
+    setCesarean(cesarean + 1);
+  };
+
+  const handleDrugAllergy = () => {
+    setDrugAllergy(drugAllergy + 1);
+  };
+
+  for (let i = 0; i < cesarean; i++) {
+    arrCesarean.push(
+      <Form.Item style={{ marginBottom: 4 }}>
+        <Form.Item label="รายละเอียด" style={{ display: 'inline-flex', marginRight: 4 }}>
+          <Input />
+        </Form.Item>
+        <Form.Item label="เมื่อ พ.ศ." style={{ display: 'inline-flex', marginRight: 4 }}>
+          <Input />
+        </Form.Item>
+        <Form.Item label="โรงพยาบาล" style={{ display: 'inline-flex', marginRight: 4 }}>
+          <Input />
+        </Form.Item>
+      </Form.Item>
+    );
+  }
+
+  for (let i = 0; i < drugAllergy; i++) {
+    arrDrugAllergy.push(
+      <Form.Item style={{ marginBottom: 4 }}>
+        <Form.Item label="ชื่อยา" style={{ display: 'inline-flex', marginRight: 4 }}>
+          <Input />
+        </Form.Item>
+        <Form.Item label="อาการแพ้ยา" style={{ display: 'inline-flex', marginRight: 4 }}>
+          <Input />
+        </Form.Item>
+      </Form.Item>
+    );
+  }
+
   return (
     <>
       <Form>
@@ -90,6 +132,32 @@ function MedicalHistory() {
             </Row>
           </Checkbox.Group>
         </Form.Item>
+        <Form.Item>
+          <Button
+            icon={<PlusCircleOutlined />}
+            onClick={handleCesarean}
+            type="primary"
+            style={{
+              marginBottom: 16,
+            }}
+          >
+            ประวัติการตั้งครรภ์
+          </Button>
+        </Form.Item>
+        {arrCesarean}
+        <Form.Item>
+          <Button
+            icon={<PlusCircleOutlined />}
+            onClick={handleDrugAllergy}
+            type="primary"
+            style={{
+              marginBottom: 16,
+            }}
+          >
+            ประวัติแพ้ยา
+          </Button>
+        </Form.Item>
+        {arrDrugAllergy}
       </Form>
     </>
   );
