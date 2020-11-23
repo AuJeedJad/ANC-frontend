@@ -1,4 +1,4 @@
-import { Button, Col, DatePicker, Form, Input, Layout, Radio, Row, Select, Space, Typography } from 'antd';
+import { Button, Col, Layout, Row, Typography } from 'antd';
 import React from 'react';
 import MedicalHistory from './components/MedicalHistory';
 import MensCheck from './components/MensCheck';
@@ -38,6 +38,16 @@ function MotherInfomations() {
                   <MedicalHistory />
                 </Col>
               </Row>
+            </Row>
+            <Row justify="end">
+              <Col>
+                <Button type="primary" style={{ width: '150px', marginRight: '8px' }}>
+                  บันทึก
+                </Button>
+                <Button type="primary" style={{ width: '150px' }} danger>
+                  ยกเลิก
+                </Button>
+              </Col>
             </Row>
           </Content>
         </Layout>

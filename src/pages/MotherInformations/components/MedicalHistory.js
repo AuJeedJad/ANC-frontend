@@ -1,5 +1,5 @@
-import { Button, Checkbox, Col, Form, Input, Row, Table, Typography } from 'antd';
-import { PlusCircleOutlined, MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import { Button, Checkbox, Col, Form, Input, Row, Typography } from 'antd';
+import { PlusCircleOutlined } from '@ant-design/icons';
 import React, { useState } from 'react';
 
 function MedicalHistory() {
