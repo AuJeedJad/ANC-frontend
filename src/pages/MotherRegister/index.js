@@ -3,7 +3,7 @@ import './MotherRegister.css';
 import InputField from '../../components/InputField/index';
 
 function MotherRegister() {
-  const [existIdCard, setExistIdCard] = useState(null);
+  const [existIdCard, setExistIdCard] = useState(false);
   // ค่าตั้งต้น  false เจอ true ไม่เจอ false
   const [value, setValue] = useState({});
 
@@ -58,19 +58,9 @@ function MotherRegister() {
                 type="tel"
                 valueGet={(value, field) => valueGet(value, field)}
               />
-              <InputField
-                fieldName="Email"
-                fieldLabel="อีเมล"
-                type="email"
-                valueGet={(value, field) => valueGet(value, field)}
-              />
             </div>
           )}
         </form>
-      </div>
-      <div className="deco-page">
-        <div className="deco-page-left"></div>
-        <div className="deco-page-right"></div>
       </div>
 
       <div className="page-footer">

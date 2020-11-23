@@ -1,4 +1,5 @@
 import React from 'react';
+import './layout.css';
 import NavBar from '../NavBar/index';
 
 function Layout({ children }) {
@@ -7,6 +8,10 @@ function Layout({ children }) {
     <>
       <NavBar />
       {children}
+      <div className="deco-page">
+        <div className="deco-page-left"></div>
+        <div className="deco-page-right"></div>
+      </div>
     </>
   );
 }

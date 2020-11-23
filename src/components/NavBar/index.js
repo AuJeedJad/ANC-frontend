@@ -1,46 +1,51 @@
 import React, { useState, useContext } from 'react';
 import './navBar.css';
-import { Link } from 'react-router-dom';
-import UserContext from '../../context/userContext';
+import SideBar from '../SideBar/index';
+
+const navTab = [`เพิ่มเติม`, `ดูแลตามอายุครรภ์`, `ผลการตรวจทางห้องปฏิบัติการ`, `ตรวจครรภ์`, `หน้าหลักหญิงตั้งครรภ์`];
 
 function NavBar() {
+  const [tabStatus, setTabStatus] = useState({});
+  const [tabSelect, setTabSelect] = useState(navTab.length - 1);
+  const setZIndex = (tabNO) => {
+    let newTabStatus = {};
+    for (let i = 0; i <= navTab.length - 1; i++) {
+      // if (i === tabSelect) {
+      //   newTabStatus = { ...newTabStatus, [i]: 11 };
+      //   continue;
+      // }
+      // if (i === tabNO) {
+      //   if (tabSelect - tabNO === 1 || tabSelect - tabNO === -1) {
+      //     newTabStatus = { ...newTabStatus, [i]: 12 };
+      //     continue;
+      //   }
+      // }
+      newTabStatus = i >= tabNO ? { ...newTabStatus, [i]: tabNO - i + 10 } : { ...newTabStatus, [i]: i - tabNO + 10 };
+    }
+    setTabStatus(newTabStatus);
+  };
   return (
-    <nav className="nav-container">
-      <div className="nav-sidebar">
-        <div className="nav-link" style={{ left: '0%' }}>
-          โรงพยาบาล
-        </div>
-        <div className="side-container">ง่วงแล้ว ยังไม่เสร็จนะ</div>
-      </div>
-      <div className="nav-link" style={{ left: '10%' }}>
-        ประเมิน
-        <br />
-        ความเสี่ยง
-      </div>
-      <div className="nav-link" style={{ left: '20%' }}>
-        หลังคลอด
-      </div>
-      <div className="nav-link" style={{ left: '30%' }}>
-        ทันตกรรม
-      </div>
-      <div className="nav-link" style={{ left: '40%' }}>
-        ดูแล
-        <br />
-        ตามอายุครรภ์
-      </div>
-      <div className="nav-link--active" style={{ left: '50%' }}>
-        ผลการตรวจ
-        <br />
-        ทางห้องปฏิบัติการ
-      </div>
-      <div className="nav-link" style={{ left: '60%' }}>
-        ตรวจครรภ์
-      </div>
-      <div className="nav-link" style={{ left: '70%' }}>
-        หน้าหลัก
-        <br />
-        หญิงตั้งครรภ์
-      </div>
+    <nav className="nav-container" onMouseLeave={() => setZIndex(tabSelect)}>
+      {navTab.map((topic, ind) => {
+        return (
+          <div className="nav-sidebar">
+            <div
+              className={`nav-link ${tabSelect === ind ? 'nav-link--active' : null}`}
+              onMouseOver={() => {
+                setZIndex(ind);
+              }}
+              onClick={() => {
+                setTabSelect(ind);
+                setZIndex(ind);
+              }}
+              style={{ left: `${15 * ind}%`, zIndex: tabStatus[ind] }}
+            >
+              {topic}
+            </div>
+            {ind === 0 ? <SideBar /> : null}
+          </div>
+        );
+      })}
     </nav>
   );
 }

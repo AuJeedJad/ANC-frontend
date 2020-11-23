@@ -63,11 +63,6 @@ function Login() {
         </div>
       </div>
 
-      <div className="deco-page">
-        <div className="deco-page-left"></div>
-        <div className="deco-page-right"></div>
-      </div>
-
       <div className="page-footer">
         <div style={{ width: '60%' }}>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ornare est dolor. Nam eros eros, molestie eget

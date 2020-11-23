@@ -7,26 +7,6 @@
   width: 100vw;
 }
 
-.deco-page {
-  display: flex;
-  width: 100vw;
-  height: 100vh;
-  z-index: -2;
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  z-index: -10;
-}
-.deco-page-left {
-  background-color: var(--primaryLightest-color);
-  height: 100%;
-  width: 68%;
-}
-.deco-page-right {
-  background-color: var(--primaryDarkest-color);
-  height: 100%;
-  width: 32%;
-}
 .page-body {
   display: flex;
   flex-direction: column;
@@ -118,7 +98,6 @@ button[type='submit'] {
   border: 2px solid var(--primary-color);
   background-color: var(--primaryLightest-color);
   border-radius: 80% 20% 80% 20% / 30% 70% 30% 70%;
-  transform: rotate(0deg);
 }
 .btn-content {
   display: flex;
