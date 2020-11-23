@@ -1,7 +1,9 @@
 import React from 'react';
-import { Button, Col, DatePicker, Form, Input, Layout, Row, Select, Tabs, Typography } from 'antd';
 import './profile.css';
+import { Layout, Tabs } from 'antd';
 import PregnantMotherProfile from './components/PregnantMotherProfile';
+import FamilyProfile from './components/FamilyProfile';
+import ChildProfile from './components/ChildProfile';
 
 function MotherProfile() {
   const { Header, Footer, Sider, Content } = Layout;
@@ -9,26 +11,24 @@ function MotherProfile() {
 
   return (
     <>
-      <Layout style={{ width: '100vw', height: '100vh' }}>
-        <Header style={{ backgroundColor: 'khaki' }}>Header</Header>
-        <Layout>
+      <Layout style={{ minHeight: '100vh' }}>
+        <Header style={{ position: 'fixed', zIndex: '1', width: '100%', backgroundColor: 'khaki' }}>Header</Header>
+        <Layout style={{ marginTop: '64px' }}>
           <Sider style={{ backgroundColor: 'darkgrey' }}>Sider</Sider>
-          <Content style={{ width: '100%', height: '100%', padding: '16px' }}>
+          <Content style={{ padding: '16px' }}>
             <div className="card-container">
               <Tabs type="card">
                 <TabPane tab="หญิงตั้งครรภ์" key="1">
                   {/* MotherProfile */}
-                  <PregnantMotherProfile />
+                  <PregnantMotherProfile style={{ height: '100%' }} />
                 </TabPane>
                 <TabPane tab="สามี" key="2">
-                  <p>Content of Tab Pane 2</p>
-                  <p>Content of Tab Pane 2</p>
-                  <p>Content of Tab Pane 2</p>
+                  {/* FamilyProfile */}
+                  <FamilyProfile style={{ height: '100%' }} />
                 </TabPane>
                 <TabPane tab="ลูก" key="3">
-                  <p>Content of Tab Pane 3</p>
-                  <p>Content of Tab Pane 3</p>
-                  <p>Content of Tab Pane 3</p>
+                  {/* ChildProfile */}
+                  <ChildProfile style={{ height: '100%' }} />
                 </TabPane>
               </Tabs>
             </div>

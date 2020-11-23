@@ -33,13 +33,13 @@ function PregnantMotherProfile() {
                 <Form.Item style={{ marginBottom: '8px' }}>
                   <Form.Item
                     label="วัน/เดือน/ปีเกิด"
-                    style={{ display: 'inline-block', width: 'calc(17% - 8px)', margin: '0 auto' }}
+                    style={{ display: 'inline-block', width: 'calc(30% - 8px)', margin: '0 auto' }}
                   >
                     <DatePicker />
                   </Form.Item>
                   <Form.Item
                     label="เลขบัตรประชาชน"
-                    style={{ display: 'inline-block', width: 'calc(83% - 8px)', margin: '0 8px' }}
+                    style={{ display: 'inline-block', width: 'calc(70% - 8px)', margin: '0 8px' }}
                   >
                     <Input placeholder="X XXXX XXXXX XX X" />
                   </Form.Item>
@@ -47,13 +47,13 @@ function PregnantMotherProfile() {
                 <Form.Item style={{ marginBottom: '8px' }}>
                   <Form.Item
                     label="เบอร์โทรศัพท์"
-                    style={{ display: 'inline-block', width: 'calc(20% - 8px)', margin: '0 auto' }}
+                    style={{ display: 'inline-block', width: 'calc(30% - 8px)', margin: '0 auto' }}
                   >
                     <Input placeholder="08X-XXX-XXXX" />
                   </Form.Item>
                   <Form.Item
                     label="อีเมล"
-                    style={{ display: 'inline-block', width: 'calc(80% - 8px)', margin: '0 8px' }}
+                    style={{ display: 'inline-block', width: 'calc(70% - 8px)', margin: '0 8px' }}
                   >
                     <Input placeholder="abc@mail.com" />
                   </Form.Item>
@@ -124,7 +124,7 @@ function PregnantMotherProfile() {
                   </Form.Item>
                   <Form.Item
                     label="จังหวัด"
-                    style={{ display: 'inline-block', width: 'calc(20% - 8px)', margin: '0 8px 0 0' }}
+                    style={{ display: 'inline-block', width: 'calc(30% - 8px)', margin: '0 8px 0 0' }}
                   >
                     <Select placeholder="Select province">
                       <Option value="Zhejiang">กรุงเทพมหานคร</Option>
