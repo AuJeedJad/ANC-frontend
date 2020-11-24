@@ -20,13 +20,13 @@ function MedicalHistory() {
   for (let i = 0; i < cesarean; i++) {
     arrCesarean.push(
       <Form.Item style={{ marginBottom: 4 }}>
-        <Form.Item label="รายละเอียด" style={{ display: 'inline-flex', marginRight: 4 }}>
+        <Form.Item label="รายละเอียด" name="description" style={{ display: 'inline-flex', marginRight: 4 }}>
           <Input />
         </Form.Item>
-        <Form.Item label="เมื่อ พ.ศ." style={{ display: 'inline-flex', marginRight: 4 }}>
+        <Form.Item label="เมื่อ พ.ศ." name="year" style={{ display: 'inline-flex', marginRight: 4 }}>
           <Input />
         </Form.Item>
-        <Form.Item label="โรงพยาบาล" style={{ display: 'inline-flex', marginRight: 4 }}>
+        <Form.Item label="โรงพยาบาล" name="hospital" style={{ display: 'inline-flex', marginRight: 4 }}>
           <Input />
         </Form.Item>
       </Form.Item>
@@ -36,10 +36,10 @@ function MedicalHistory() {
   for (let i = 0; i < drugAllergy; i++) {
     arrDrugAllergy.push(
       <Form.Item style={{ marginBottom: 4 }}>
-        <Form.Item label="ชื่อยา" style={{ display: 'inline-flex', marginRight: 4 }}>
+        <Form.Item label="ชื่อยา" name="drugName" style={{ display: 'inline-flex', marginRight: 4 }}>
           <Input />
         </Form.Item>
-        <Form.Item label="อาการแพ้ยา" style={{ display: 'inline-flex', marginRight: 4 }}>
+        <Form.Item label="อาการแพ้ยา" name="symptom" style={{ display: 'inline-flex', marginRight: 4 }}>
           <Input />
         </Form.Item>
       </Form.Item>
@@ -48,40 +48,40 @@ function MedicalHistory() {
 
   return (
     <>
-      <Form>
+      <Form.Item>
         <Title level={3} style={{ textDecoration: 'underline' }}>
           ประวัติเจ็บป่วยหญิงตั้งครรภ์
         </Title>
-        <Form.Item>
+        <Form.Item name="motherMedicalHistory">
           <Checkbox.Group>
             <Row>
               <Col span={8}>
-                <Checkbox value="A" style={{ lineHeight: '32px' }}>
+                <Checkbox value="isDiabetes" style={{ lineHeight: '32px' }}>
                   เบาหวาน
                 </Checkbox>
               </Col>
               <Col span={8}>
-                <Checkbox value="B" style={{ lineHeight: '32px' }}>
+                <Checkbox value="isHypertension" style={{ lineHeight: '32px' }}>
                   ความดันโลหิตสูง
                 </Checkbox>
               </Col>
               <Col span={8}>
-                <Checkbox value="C" style={{ lineHeight: '32px' }}>
+                <Checkbox value="isHeartDisease" style={{ lineHeight: '32px' }}>
                   โรคหัวใจ
                 </Checkbox>
               </Col>
               <Col span={8}>
-                <Checkbox value="D" style={{ lineHeight: '32px' }}>
+                <Checkbox value="isThyroid" style={{ lineHeight: '32px' }}>
                   ไทรอยด์
                 </Checkbox>
               </Col>
               <Col span={8}>
-                <Checkbox value="E" style={{ lineHeight: '32px' }}>
+                <Checkbox value="isAnemia" style={{ lineHeight: '32px' }}>
                   โรคโลหิตจาง
                 </Checkbox>
               </Col>
               <Col span={8}>
-                <Checkbox value="other" style={{ lineHeight: '32px' }}>
+                <Checkbox value="isOther" style={{ lineHeight: '32px' }}>
                   อื่นๆ
                 </Checkbox>
               </Col>
@@ -91,41 +91,41 @@ function MedicalHistory() {
         <Title level={3} style={{ textDecoration: 'underline' }}>
           ประวัติการเจ็บป่วยของบุคคลในครอบครัว
         </Title>
-        <Form.Item>
+        <Form.Item name="familyMedicalHistory">
           <Checkbox.Group>
             <Row>
               <Col span={6}>
-                <Checkbox value="A" style={{ lineHeight: '32px' }}>
+                <Checkbox value="isSeizure" style={{ lineHeight: '32px' }}>
                   โรคชัก
                 </Checkbox>
               </Col>
               <Col span={6}>
-                <Checkbox value="B" style={{ lineHeight: '32px' }}>
+                <Checkbox value="isDiabetes" style={{ lineHeight: '32px' }}>
                   เบาหวาน
                 </Checkbox>
               </Col>
               <Col span={6}>
-                <Checkbox value="C" style={{ lineHeight: '32px' }}>
+                <Checkbox value="isHypertension" style={{ lineHeight: '32px' }}>
                   ความดันโลหิตสูง
                 </Checkbox>
               </Col>
               <Col span={6}>
-                <Checkbox value="D" style={{ lineHeight: '32px' }}>
+                <Checkbox value="isBirthDefect" style={{ lineHeight: '32px' }}>
                   พิการแต่กำเนิด
                 </Checkbox>
               </Col>
               <Col span={6}>
-                <Checkbox value="E" style={{ lineHeight: '32px' }}>
+                <Checkbox value="isTwin" style={{ lineHeight: '32px' }}>
                   ครรภ์แฝด
                 </Checkbox>
               </Col>
               <Col span={6}>
-                <Checkbox value="other" style={{ lineHeight: '32px' }}>
+                <Checkbox value="isMentalRetardation" style={{ lineHeight: '32px' }}>
                   ปัญญาอ่อน
                 </Checkbox>
               </Col>
               <Col span={6}>
-                <Checkbox value="other" style={{ lineHeight: '32px' }}>
+                <Checkbox value="isOther" style={{ lineHeight: '32px' }}>
                   อื่นๆ
                 </Checkbox>
               </Col>
@@ -144,7 +144,7 @@ function MedicalHistory() {
             ประวัติการตั้งครรภ์
           </Button>
         </Form.Item>
-        {arrCesarean}
+        <Form.Item>{arrCesarean}</Form.Item>
         <Form.Item>
           <Button
             icon={<PlusCircleOutlined />}
@@ -157,8 +157,8 @@ function MedicalHistory() {
             ประวัติแพ้ยา
           </Button>
         </Form.Item>
-        {arrDrugAllergy}
-      </Form>
+        <Form.Item>{arrDrugAllergy}</Form.Item>
+      </Form.Item>
     </>
   );
 }
