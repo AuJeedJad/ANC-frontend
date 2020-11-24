@@ -19,7 +19,7 @@
 }
 .header-login {
   position: fixed;
-  top: 5%;
+  top: 1%;
   color: var(--primaryDarkest-color);
   font-size: 40px;
 }

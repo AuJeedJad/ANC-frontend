@@ -3,7 +3,7 @@ import './login.css';
 import InputField from '../../components/InputField/index';
 import logo from '../../image/logo/logo01.png';
 
-function Login() {
+function Login(props) {
   const [role, setRole] = useState('mother');
   const [value, setValue] = useState({ IdCard: '', PasswordM: '', Username: '', PasswordS: '' });
   const [clearValue, setClearValue] = useState(false);
@@ -86,7 +86,10 @@ function Login() {
           )}
         </div>
       </div>
-
+      <div className="deco-page">
+        <div className="deco-page-left"></div>
+        <div className="deco-page-right"></div>
+      </div>
       <div className="page-footer">
         <div style={{ width: '60%' }}>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ornare est dolor. Nam eros eros, molestie eget

@@ -2,9 +2,31 @@ import React, { useState, useContext } from 'react';
 import './navBar.css';
 import SideBar from '../SideBar/index';
 
-const navTab = [`เพิ่มเติม`, `ดูแลตามอายุครรภ์`, `ผลการตรวจทางห้องปฏิบัติการ`, `ตรวจครรภ์`, `หน้าหลักหญิงตั้งครรภ์`];
-
-function NavBar() {
+function NavBar({ role }) {
+  const navTab =
+    role === 'mother'
+      ? [
+          { name: `เพิ่มเติม`, path: '' },
+          { name: `แก้ที่NavBar`, path: '' },
+          { name: `แก้ที่NavBar`, path: '' },
+          { name: `แก้ที่NavBar`, path: '' },
+          { name: `แก้ที่NavBar`, path: '' },
+        ]
+      : role === 'stuff'
+      ? [
+          { name: `เพิ่มเติม`, path: '' },
+          { name: `ดูแลตามอายุครรภ์`, path: '' },
+          { name: `ผลการตรวจทางห้องปฏิบัติการ`, path: '' },
+          { name: `ตรวจครรภ์`, path: '' },
+          { name: `หน้าหลักหญิงตั้งครรภ์`, path: '' },
+        ]
+      : [
+          { name: `เพิ่มเติม`, path: '' },
+          { name: `แก้ที่NavBar`, path: '' },
+          { name: `แก้ที่NavBar`, path: '' },
+          { name: `แก้ที่NavBar`, path: '' },
+          { name: `แก้ที่NavBar`, path: '' },
+        ];
   const [tabStatus, setTabStatus] = useState({});
   const [tabSelect, setTabSelect] = useState(navTab.length - 1);
   const setZIndex = (tabNO) => {
@@ -40,9 +62,9 @@ function NavBar() {
               }}
               style={{ left: `${15 * ind}%`, zIndex: tabStatus[ind] }}
             >
-              {topic}
+              {topic.name}
             </div>
-            {ind === 0 ? <SideBar /> : null}
+            {ind === 0 ? <SideBar role={role} /> : null}
           </div>
         );
       })}
