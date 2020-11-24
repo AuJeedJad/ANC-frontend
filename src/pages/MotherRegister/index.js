@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './MotherRegister.css';
+import './motherRegister.css';
 import InputField from '../../components/InputField/index';
 
 function MotherRegister() {

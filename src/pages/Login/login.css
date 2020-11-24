@@ -19,7 +19,7 @@
 }
 .header-login {
   position: fixed;
-  top: 8%;
+  top: 5%;
   color: var(--primaryDarkest-color);
   font-size: 40px;
 }
@@ -103,10 +103,12 @@ button[type='submit'] {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 150px;
-  height: 50px;
-  max-width: 60%;
-  max-height: 70%;
+  width: 60%;
+  height: 30%;
+  min-width: 50px;
+  min-height: 30px;
+  max-width: 240px;
+  max-height: 120px;
   border-radius: 100% 82% 0% 100% / 100% 100% 0% 100%;
   background-color: white;
   border: var(--primaryLightest-color) 2px solid;

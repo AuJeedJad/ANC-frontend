@@ -1,14 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './login.css';
 import InputField from '../../components/InputField/index';
 import logo from '../../image/logo/logo01.png';
 
 function Login() {
   const [role, setRole] = useState('mother');
-  const [value, setValue] = useState({});
+  const [value, setValue] = useState({ IdCard: '', PasswordM: '', Username: '', PasswordS: '' });
+  const [clearValue, setClearValue] = useState(false);
+  const [validate, setValidate] = useState({ IdCard: false, PasswordM: false, Username: false, PasswordS: false });
 
-  const valueGet = (fieldValue, field) => {
+  useEffect(() => {
+    setValue({ IdCard: '', PasswordM: '', Username: '', PasswordS: '' });
+    setClearValue(true);
+    setValidate({ IdCard: false, PasswordM: false, Username: false, PasswordS: false });
+  }, [role]);
+
+  const valueGet = (fieldValue, field, isAlert) => {
     setValue({ ...value, [field]: fieldValue });
+    setClearValue(false);
+    isAlert ? setValidate({ ...validate, [field]: false }) : setValidate({ ...validate, [field]: true });
   };
 
   return (
@@ -33,31 +43,45 @@ function Login() {
                 fieldName="IdCard"
                 fieldLabel="รหัสประจำตัวประชาชน"
                 type="text"
-                valueGet={(value, field) => valueGet(value, field)}
+                valueGet={(value, field, isAlert) => valueGet(value, field, isAlert)}
+                valueFormat="number"
+                valueLengthMax={13}
+                valueLengthMin={13}
+                clear={clearValue}
               />
               <InputField
-                fieldName="Password"
+                fieldName="PasswordM"
                 fieldLabel="กรอกรหัสผ่าน"
                 type="password"
-                valueGet={(value, field) => valueGet(value, field)}
+                valueGet={(value, field, isAlert) => valueGet(value, field, isAlert)}
+                valueLengthMin={6}
+                clear={clearValue}
               />
-              <button type="submit">เข้าสู่ระบบ</button>
+              <button disabled={!validate.IdCard || !validate.PasswordM} type="submit">
+                เข้าสู่ระบบ
+              </button>
             </form>
           ) : (
             <form style={{ position: 'relative', top: '13%' }}>
               <InputField
                 fieldName="Username"
-                fieldLabel="username"
+                fieldLabel="ชื่อผู้ใช้"
                 type="text"
-                valueGet={(value, field) => valueGet(value, field)}
+                valueGet={(value, field, isAlert) => valueGet(value, field, isAlert)}
+                valueLengthMin={1}
+                clear={clearValue}
               />
               <InputField
-                fieldName="Password"
-                fieldLabel="password"
+                fieldName="PasswordS"
+                fieldLabel="กรอกรหัสผ่าน"
                 type="password"
-                valueGet={(value, field) => valueGet(value, field)}
+                valueGet={(value, field, isAlert) => valueGet(value, field, isAlert)}
+                valueLengthMin={6}
+                clear={clearValue}
               />
-              <button type="submit">LOGIN</button>
+              <button disabled={!validate.Username || !validate.PasswordS} type="submit">
+                เข้าสู่ระบบ
+              </button>
             </form>
           )}
         </div>
@@ -69,7 +93,9 @@ function Login() {
           nisl nec, ultricies facilisis turpis. In hac habitasse platea dictumst. Morbi libero dui, euismod vitae odio
           sed, maximus pellentesque felis. Pellentesque blandit felis sed nibh maximus sagittis. Maecenas convallis
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', width: '30%', height: '100%' }}>
+        <div
+          style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', width: '25%', height: '100%' }}
+        >
           <button className="btn-content">อ่านบทความ</button>
         </div>
       </div>
