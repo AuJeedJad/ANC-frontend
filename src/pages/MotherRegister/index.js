@@ -5,11 +5,20 @@ import InputField from '../../components/InputField/index';
 function MotherRegister() {
   const [existIdCard, setExistIdCard] = useState(false);
   // ค่าตั้งต้น  false เจอ true ไม่เจอ false
-  const [value, setValue] = useState({});
+  const [value, setValue] = useState({ IdCard: '', FirstName: '', LastName: '', PhoneNumber: '' });
+  const [validate, setValidate] = useState({ IdCard: false, FirstName: false, LastName: false, PhoneNumber: false });
 
-  const valueGet = (fieldValue, field) => {
+  const valueGet = (fieldValue, field, isAlert) => {
     setValue({ ...value, [field]: fieldValue });
+    isAlert ? setValidate({ ...validate, [field]: false }) : setValidate({ ...validate, [field]: true });
   };
+
+  useEffect(() => {
+    if (validate.IdCard) {
+      alert('find');
+    }
+  }, [value.IdCard]);
+
   return (
     <div className="page">
       <div className="page-body">
@@ -18,12 +27,10 @@ function MotherRegister() {
             fieldName="IdCard"
             fieldLabel="รหัสประจำตัวประชาชน"
             type="text"
-            valueGet={(value, field) => {
-              valueGet(value, field);
-              if (value.length === 13) {
-                alert('กรองว่ามี idCard ในฐานข้อมูลไหม ถ้ามี setExistIdCard(true)');
-              }
-            }}
+            valueGet={(value, field, isAlert) => valueGet(value, field, isAlert)}
+            valueFormat="number"
+            valueLengthMax={13}
+            valueLengthMin={13}
           />
         </div>
         <form className="card">
@@ -44,19 +51,23 @@ function MotherRegister() {
                 fieldName="FirstName"
                 fieldLabel="ชื่อ"
                 type="text"
-                valueGet={(value, field) => valueGet(value, field)}
+                valueGet={(value, field, isAlert) => valueGet(value, field, isAlert)}
+                valueLengthMin={3}
               />
               <InputField
                 fieldName="LastName"
                 fieldLabel="นามสกุล"
-                type="text"
-                valueGet={(value, field) => valueGet(value, field)}
+                valueGet={(value, field, isAlert) => valueGet(value, field, isAlert)}
+                valueLengthMin={3}
               />
               <InputField
                 fieldName="PhoneNumber"
                 fieldLabel="เบอร์โทร"
                 type="tel"
-                valueGet={(value, field) => valueGet(value, field)}
+                valueGet={(value, field, isAlert) => valueGet(value, field, isAlert)}
+                valueFormat="number"
+                valueLengthMax={10}
+                valueLengthMin={10}
               />
             </div>
           )}
@@ -79,12 +90,19 @@ function MotherRegister() {
         ) : existIdCard ? (
           <div>
             <button className="btn-submit">ยกเลิกการลงทะเบียน</button>
-            <button className="btn-submit">เพิ่มครรภ์ใหม่</button>
+            <button disabled={!validate.IdCard} className="btn-submit">
+              เพิ่มครรภ์ใหม่
+            </button>
           </div>
         ) : (
           <div>
             <button className="btn-submit">ยกเลิกการลงทะเบียน</button>
-            <button className="btn-submit">ลงทะเบียนหญิงตั้งครรภ์ และ เพิ่มครรภ์ใหม่</button>
+            <button
+              disabled={!validate.IdCard || !validate.FirstName || !validate.LastName || !validate.PhoneNumber}
+              className="btn-submit"
+            >
+              ลงทะเบียนหญิงตั้งครรภ์ และ เพิ่มครรภ์ใหม่
+            </button>
           </div>
         )}
       </div>

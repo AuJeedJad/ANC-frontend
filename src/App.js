@@ -8,7 +8,7 @@ function App() {
   return (
     <div className="App" style={{ width: '100vw' }}>
       <Layout>
-        <Login />
+        <MotherRegister />
       </Layout>
     </div>
   );
