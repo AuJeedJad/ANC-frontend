@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './motherRegister.css';
-import InputField from '../../components/InputField/index';
+import InputField from '../../components/InputField';
 
 function MotherRegister() {
   const [existIdCard, setExistIdCard] = useState(false);

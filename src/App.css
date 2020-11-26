@@ -16,6 +16,11 @@
   --secondaryDarkest-color: #52938e;
   --thirdaryDarkest-color: #c2e17e;
 }
+
+#root {
+  min-height: 100vh;
+}
+
 * {
   box-sizing: border-box;
   margin: 0px;
