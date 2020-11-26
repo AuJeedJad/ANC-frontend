@@ -1,0 +1,137 @@
+.page-login {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+}
+
+.deco-page {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  z-index: -2;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index: -10;
+}
+.deco-page-left {
+  background-color: var(--primaryLightest-color);
+  height: 100%;
+  width: 68%;
+}
+.deco-page-right {
+  background-color: var(--primaryDarkest-color);
+  height: 100%;
+  width: 32%;
+}
+.page-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--primaryLightest-color);
+  height: 68%;
+  width: 100vw;
+  border-radius: 100% 0% 32% 68% / 0% 56% 44% 100%;
+}
+.header-login {
+  position: fixed;
+  top: 1%;
+  color: var(--primaryDarkest-color);
+  font-size: 40px;
+}
+
+.logo-login {
+  height: 100px;
+  object-fit: cover;
+  position: absolute;
+  left: -10%;
+}
+
+.box-role--select {
+  height: 100px;
+  width: 200px;
+  position: absolute;
+  top: 25%;
+  right: 10%;
+  z-index: 1;
+}
+.role--select {
+  width: 80px;
+  height: 50px;
+  border: 2px solid var(--thirdaryDarkest-color);
+  color: var(--secondaryDarkest-color);
+  background-color: var(--thirdaryLightest-color);
+  border-radius: 100% 0% 100% 100% / 100% 100% 100% 100%;
+  margin: 5%;
+  transform: rotate(-15deg);
+}
+
+.btn-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60%;
+  height: 30%;
+  min-width: 50px;
+  min-height: 30px;
+  max-width: 240px;
+  max-height: 120px;
+  border-radius: 100% 82% 0% 100% / 100% 100% 0% 100%;
+  background-color: white;
+  border: var(--primaryLightest-color) 2px solid;
+  color: var(--primaryDarkest-color);
+}
+
+@media only screen and (max-width: 560px) {
+  .header-login {
+    font-size: 36px;
+  }
+  .page-footer div {
+    font-size: 10px;
+  }
+  .card-select {
+    top: 15%;
+  }
+  .logo-login {
+    height: 70%;
+  }
+  .box-role--select {
+    width: 60px;
+    right: 2%;
+  }
+  .role--select {
+    width: 100%;
+    height: 40%;
+    font-size: 10px;
+  }
+}
+@media only screen and (max-width: 300px) {
+  .header-login {
+    font-size: 28px;
+  }
+}
+@media only screen and (min-height: 1024px) {
+  .header-login {
+    font-size: 72px;
+  }
+  .card-select {
+    top: 18%;
+  }
+  .logo-login {
+    height: 70%;
+  }
+  .box-role--select {
+    top: 10%;
+    width: 55%;
+    height: 60%;
+  }
+  .role--select {
+    width: 40%;
+    height: 60%;
+    transform: rotate(-10deg);
+  }
+}

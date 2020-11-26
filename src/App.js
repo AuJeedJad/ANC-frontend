@@ -1,23 +1,21 @@
 import './App.css';
-import { Route } from 'react-router-dom';
-import Login from './pages/login/index';
+import { useState } from 'react';
+import PrivateRoutes from './containers/PrivateRoutes';
+import LocalStorage from './services/localStorage';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import Layout from './components/Layout/index';
+import Login from './pages/Login/index';
 import MotherRegister from './pages/MotherRegister/index';
-import MotherProfile from './pages/MotherProfile/index';
-import MotherInformation from './pages/MotherInformations/index';
-import PageLayout from './components/Layout';
 
 import RiskEvaluation from './pages/RiskEvaluation/index';
 
 function App() {
-  return (
-    <PageLayout>
-      <Route exact path="/login" component={Login} />
-      <Route exact path="/register" component={MotherRegister} />
-      <Route exact path="/profile" component={MotherProfile} />
-      <Route exact path="/" component={MotherInformation} />
+  const [role, setRole] = useState(LocalStorage.getRole());
 
-      <Route exact path="/risk" component={RiskEvaluation} />
-    </PageLayout>
+  return (
+    <div className="App" style={{ width: '100vw' }}>
+      <PrivateRoutes role={role} setRole={setRole} />
+    </div>
   );
 }
 
