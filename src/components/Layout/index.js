@@ -4,7 +4,7 @@ import { Layout } from 'antd';
 function PageLayout({ children }) {
   const { Header, Footer, Sider, Content } = Layout;
 
-  const headerStyle = { position: 'fixed', zIndex: '1', width: '100%', backgroundColor: 'khaki' };
+  const headerStyle = { position: 'fixed', zIndex: '3', width: '100%', backgroundColor: 'khaki' };
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
