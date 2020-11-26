@@ -38,14 +38,14 @@ const allPages = {
     page: MotherInformation,
   },
   motherIndex: {
-    url: '/test',
+    url: '/',
     page: MotherIndex,
   },
 };
 
 const permissionList = {
-  guest: [allPages.login, allPages.contentPage, allPages.motherIndex],
-  mother: [allPages.contentPage, allPages.motherProfile, allPages.motherInformation],
+  guest: [allPages.login, allPages.contentPage],
+  mother: [allPages.contentPage, allPages.motherProfile, allPages.motherInformation, allPages.motherIndex],
   staff: [allPages.motherRegister, allPages.contentPage, allPages.anc, allPages.mainStaff],
 };
 
