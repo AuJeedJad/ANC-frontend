@@ -13,7 +13,7 @@ const allPages = {
     page: ContentPage,
   },
   motherRegister: {
-    url: '/',
+    url: '/staff/motherRegister',
     page: MotherRegister,
   },
 };

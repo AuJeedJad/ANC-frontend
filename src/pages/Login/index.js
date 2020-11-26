@@ -1,13 +1,58 @@
 import React, { useState, useEffect } from 'react';
 import './login.css';
+import axios from '../../config/axios';
+import LocalStorageService from '../../services/localStorage';
 import InputField from '../../components/InputField/index';
 import logo from '../../image/logo/logo01.png';
+import { useHistory } from 'react-router-dom';
+import { notification } from 'antd';
 
 function Login(props) {
   const [role, setRole] = useState('mother');
   const [value, setValue] = useState({ IdCard: '', PasswordM: '', Username: '', PasswordS: '' });
   const [clearValue, setClearValue] = useState(false);
   const [validate, setValidate] = useState({ IdCard: false, PasswordM: false, Username: false, PasswordS: false });
+
+  const history = useHistory();
+
+  const onMotherSubmit = (e) => {
+    e.preventDefault();
+    axios
+      .post('/login/mother', { idCard: value.IdCard, password: value.PasswordM })
+      .then((res) => {
+        notification.success({
+          description: 'Mother login Success',
+        });
+        LocalStorageService.setToken(res.data.token);
+        history.push('/');
+        props.setRole('mother');
+      })
+      .catch((err) => {
+        console.log(err);
+        notification.error({
+          description: 'Login Not Success',
+        });
+      });
+  };
+  const onStaffSubmit = (e) => {
+    e.preventDefault();
+    axios
+      .post('/login/staff', { username: value.Username, password: value.PasswordS })
+      .then((res) => {
+        notification.success({
+          description: 'Staff login Success',
+        });
+        LocalStorageService.setToken(res.data.token);
+        history.push('/');
+        props.setRole('staff');
+      })
+      .catch((err) => {
+        console.log(err);
+        notification.error({
+          description: 'Login Not Success',
+        });
+      });
+  };
 
   useEffect(() => {
     setValue({ IdCard: '', PasswordM: '', Username: '', PasswordS: '' });
@@ -38,7 +83,7 @@ function Login(props) {
             </div>
           </div>
           {role === 'mother' ? (
-            <form style={{ position: 'relative', top: '13%' }}>
+            <form style={{ position: 'relative', top: '13%' }} onSubmit={onMotherSubmit}>
               <InputField
                 fieldName="IdCard"
                 fieldLabel="รหัสประจำตัวประชาชน"
@@ -62,7 +107,7 @@ function Login(props) {
               </button>
             </form>
           ) : (
-            <form style={{ position: 'relative', top: '13%' }}>
+            <form style={{ position: 'relative', top: '13%' }} onSubmit={onStaffSubmit}>
               <InputField
                 fieldName="Username"
                 fieldLabel="ชื่อผู้ใช้"
