@@ -1,0 +1,52 @@
+.nav-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  height: 10vh;
+  width: 100vw;
+  background-image: linear-gradient(
+    to top,
+    #80b9b4,
+    #87c6b6,
+    #93d2b6,
+    #a4ddb3,
+    #bae8af,
+    #cde6a5,
+    #e1e49d,
+    #f4e09a,
+    #ffd199,
+    #ffc49e,
+    #ffb8a8,
+    #fcafb3
+  );
+}
+
+.nav-link,
+.nav-link--active {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* clip-path: polygon(30% 0, 70% 0, 100% 100%, 0% 100%); */
+  border-radius: 100% 100% 100% 100% / 100% 100% 0% 0%;
+  /* height: 7vh; */
+  clip-path: polygon(25% 0%, 75% 0%, 100% 75%, 100% 100%, 0 100%, 0 75%);
+  height: 9vh;
+  width: 40%;
+  background-image: linear-gradient(to left bottom, #fdcfd1, #fabcbf, #f6aaad, #f1979b, #eb8489);
+  position: absolute;
+  color: white;
+  top: 3vh;
+}
+
+.nav-link:hover {
+  z-index: 12;
+  /* clip-path: polygon(25% 0%, 75% 0%, 100% 75%, 100% 100%, 0 100%, 0 75%);
+    height: 9vh; */
+}
+.nav-link--active {
+  background-image: linear-gradient(to top, #fdcfd1, #ffffff);
+  z-index: 11;
+  color: var(--primaryDarkest-color);
+  clip-path: polygon(25% 0%, 75% 0%, 100% 75%, 100% 100%, 0 100%, 0 75%);
+  height: 9vh;
+}

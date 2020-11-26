@@ -1,21 +1,20 @@
 import React from 'react';
-import { Layout } from 'antd';
+import './layout.css';
+import NavBar from '../NavBar/index';
 
-function PageLayout({ children }) {
-  const { Header, Footer, Sider, Content } = Layout;
-
-  const headerStyle = { position: 'fixed', zIndex: '3', width: '100%', backgroundColor: 'khaki' };
+function Layout({ children, role }) {
+  // children เป็น special property ที่บอกว่าเป็น children ที่component นี้คร่อมอยู่เมื่อเรียกใช้ ต้องkeywordนี้เท่านั้น
 
   return (
-    <Layout style={{ minHeight: '100vh' }}>
-      <Header style={headerStyle}>Header</Header>
-      <Layout style={{ marginTop: '64px' }}>
-        <Sider style={{ backgroundColor: 'darkgrey' }}>Sider</Sider>
-        <Content style={{ padding: '16px' }}>{children}</Content>
-      </Layout>
-      <Footer style={{ backgroundColor: 'salmon' }}>Footer</Footer>
-    </Layout>
+    <>
+      <NavBar role={role} />
+      {children}
+      <div className="deco-page">
+        <div className="deco-page-left"></div>
+        <div className="deco-page-right"></div>
+      </div>
+    </>
   );
 }
 
-export default PageLayout;
+export default Layout;
