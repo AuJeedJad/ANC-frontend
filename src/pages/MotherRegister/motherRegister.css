@@ -1,0 +1,27 @@
+.card-id {
+  display: flex;
+  align-items: center;
+  width: 500px;
+  min-width: 250px;
+  max-width: 50%;
+  height: 60px;
+  padding: 2% 5%;
+  background-color: white;
+  position: relative;
+  right: -3%;
+  border-radius: 10%/ 90%;
+  margin: 15px;
+}
+.card-id::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 10%;
+  width: 0;
+  height: 0;
+  border: 15px solid transparent;
+  border-top-color: white;
+  border-bottom: 0;
+  margin-left: -15px;
+  margin-bottom: -10px;
+}
