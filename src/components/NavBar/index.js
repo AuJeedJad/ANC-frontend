@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import './navBar.css';
 import SideBar from '../SideBar/index';
 import { Link } from 'react-router-dom';
@@ -8,45 +8,42 @@ function NavBar(props) {
     props.role === 'mother'
       ? [
           { name: `เพิ่มเติม`, path: '' },
-          { name: `แก้ที่NavBar`, path: '' },
-          { name: `แก้ที่NavBar`, path: '' },
-          { name: `แก้ที่NavBar`, path: '' },
+          { name: `สินค้าสำหรับเด็กอ่อน`, path: '/shopping/baby' },
+          { name: `สินค้าสำหรับหญิงตั้งครรภ์`, path: '/shopping/mom' },
+          { name: `อ่านบทความ`, path: '/content' },
           { name: `หน้าหลัก`, path: '/' },
         ]
       : props.role === 'staff'
       ? [
           { name: `เพิ่มเติม`, path: '' },
-          { name: `ดูแลตามอายุครรภ์`, path: '' },
-          { name: `ผลการตรวจทางห้องปฏิบัติการ`, path: '' },
+          { name: 'ทันตกรรม', path: '/staff/dental' },
+          { name: `ดูแลตามอายุครรภ์`, path: '/staff/' },
+          { name: `ผลการตรวจทางห้องปฏิบัติการ`, path: '/staff/lab' },
           { name: `ตรวจครรภ์`, path: '/staff/anc' },
-          { name: `หน้าหลักหญิงตั้งครรภ์`, path: '/' },
+          { name: `หน้าหลักหญิงตั้งครรภ์`, path: '/staff/motherReport' },
         ]
       : [
-          { name: `เพิ่มเติม`, path: '' },
-          { name: `แก้ที่NavBar`, path: '' },
-          { name: `แก้ที่NavBar`, path: '' },
-          { name: `แก้ที่NavBar`, path: '' },
-          { name: `แก้ที่NavBar`, path: '' },
+          { name: `ติดต่อเรา`, path: '/contactUs' },
+          { name: `หาสินค้าสำหรับเด็กอ่อน`, path: '/shopping/baby' },
+          { name: `หาสินค้าสำหรับหญิงตั้งครรภ์`, path: '/shopping/mom' },
+          { name: `เข้าสู่ระบบ`, path: '/' },
+          { name: `หน้าหลักบทคาม`, path: '/content' },
         ];
+
+  const navTabCount = navTab.length;
+  const navTabWidth = 68 / navTabCount + 32 / (navTabCount - 2);
+  const navTabMove = (100 - navTabWidth) / (navTabCount - 1);
   const [tabStatus, setTabStatus] = useState({});
-  const [tabSelect, setTabSelect] = useState(navTab.length - 1);
+  const [tabSelect, setTabSelect] = useState(navTabCount - 1);
+
   const setZIndex = (tabNO) => {
     let newTabStatus = {};
-    for (let i = 0; i <= navTab.length - 1; i++) {
-      // if (i === tabSelect) {
-      //   newTabStatus = { ...newTabStatus, [i]: 11 };
-      //   continue;
-      // }
-      // if (i === tabNO) {
-      //   if (tabSelect - tabNO === 1 || tabSelect - tabNO === -1) {
-      //     newTabStatus = { ...newTabStatus, [i]: 12 };
-      //     continue;
-      //   }
-      // }
+    for (let i = 0; i <= navTabCount - 1; i++) {
       newTabStatus = i >= tabNO ? { ...newTabStatus, [i]: tabNO - i + 10 } : { ...newTabStatus, [i]: i - tabNO + 10 };
     }
     setTabStatus(newTabStatus);
   };
+
   return (
     <nav className="nav-container" onMouseLeave={() => setZIndex(tabSelect)}>
       {navTab.map((topic, ind) => {
@@ -61,11 +58,17 @@ function NavBar(props) {
                 setTabSelect(ind);
                 setZIndex(ind);
               }}
-              style={{ left: `${15 * ind}%`, zIndex: tabStatus[ind] }}
+              style={{
+                left: `${navTabMove * ind}%`,
+                zIndex: tabStatus[ind],
+                width: `${navTabWidth}%`,
+              }}
             >
               {topic.name}
             </div>
-            {ind === 0 ? <SideBar role={props.role} setRole={props.setRole} /> : null}
+            {topic.name === `เพิ่มเติม` ? (
+              <SideBar role={props.role} setRole={props.setRole} width={navTabWidth} />
+            ) : null}
           </Link>
         );
       })}

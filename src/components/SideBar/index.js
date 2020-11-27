@@ -8,30 +8,22 @@ function Sidebar(props) {
   const sideTabUpper =
     props.role === 'mother'
       ? [
-          { name: 'แก้ที่sidebar1', path: '/' },
-          { name: 'แก้ที่sidebar2', path: '/' },
-          { name: 'แก้ที่sidebar3', path: '/' },
-          { name: 'แก้ไขประวัติ', path: '/' },
+          { name: 'แก้ไขประวัติ', path: '/mother/profile' },
+          { name: `ข้อมูลครรภ์ปัจจุบัน`, path: '/mother/information' },
         ]
       : props.role === 'staff'
       ? [
-          { name: 'ประเมินความเสี่ยง', path: '/' },
-          { name: 'ทันตกรรม', path: '/' },
-          { name: 'หลังคลอด', path: '/' },
+          { name: 'ประเมินความเสี่ยง', path: '/staff/risk' },
+          { name: 'หลังคลอด', path: '/staff/postnatal' },
           { name: 'ลงทะเบียนหญิงตั้งครรภ์', path: '/staff/motherRegister' },
-          { name: 'หญิงตั้งครรภ์ลืมรหัสผ่าน', path: '/' },
+          { name: 'หญิงตั้งครรภ์ลืมรหัสผ่าน', path: '/staff/motherPasswordReset' },
         ]
-      : [
-          { name: 'แก้ที่sidebar1', path: '/' },
-          { name: 'แก้ที่sidebar2', path: '/' },
-          { name: 'แก้ที่sidebar3', path: '/' },
-          { name: 'แก้ที่sidebar4', path: '/' },
-        ];
+      : [{ name: 'ติดต่อเรา', path: '/contactUs' }];
 
   const sideTabLower =
     props.role === 'mother'
       ? [
-          { name: 'กลับหน้าหลักหญิงตั้งครรภ์', action: 'none' },
+          { name: 'กลับหน้าหลัก', action: 'none' },
           { name: 'ออกจากระบบ', action: 'clearToken' },
         ]
       : props.role === 'staff'

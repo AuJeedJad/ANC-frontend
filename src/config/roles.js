@@ -6,16 +6,13 @@ import MainStaff from '../pages/MainStaff';
 import MotherProfile from '../pages/MotherProfile';
 import MotherInformation from '../pages/MotherInformation';
 import MotherIndex from '../pages/MotherIndex';
+import Dental from '../pages/dental';
 
 const allPages = {
-  login: {
+  // path ของ staff เท่านั้น
+  mainStaff: {
     url: '/',
-    page: Login,
-    name: 'login',
-  },
-  contentPage: {
-    url: '/content',
-    page: ContentPage,
+    page: MainStaff,
   },
   motherRegister: {
     url: '/staff/motherRegister',
@@ -25,28 +22,40 @@ const allPages = {
     url: '/staff/anc',
     page: Anc,
   },
-  mainStaff: {
-    url: '/',
-    page: MainStaff,
+  dental: {
+    url: '/staff/dental',
+    page: Dental,
   },
-  motherProfile: {
-    url: '/mother/profile',
-    page: MotherProfile,
+  // path ของ mother เท่านั้น
+  motherIndex: {
+    url: '/',
+    page: MotherIndex,
   },
   motherInformation: {
     url: '/mother/information',
     page: MotherInformation,
   },
-  motherIndex: {
+  motherProfile: {
+    url: '/mother/profile',
+    page: MotherProfile,
+  },
+  // ของ guest เท่านั้น
+  login: {
     url: '/',
-    page: MotherIndex,
+    page: Login,
+    name: 'login',
+  },
+  // path ที่เข้าถึงได้ทุกคน
+  contentPage: {
+    url: '/content',
+    page: ContentPage,
   },
 };
 
 const permissionList = {
   guest: [allPages.login, allPages.contentPage],
   mother: [allPages.contentPage, allPages.motherProfile, allPages.motherInformation, allPages.motherIndex],
-  staff: [allPages.motherRegister, allPages.contentPage, allPages.anc, allPages.mainStaff],
+  staff: [allPages.motherRegister, allPages.contentPage, allPages.anc, allPages.mainStaff, allPages.dental],
 };
 
 export default permissionList;

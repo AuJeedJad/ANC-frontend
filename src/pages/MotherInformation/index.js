@@ -12,7 +12,7 @@ function MotherInfomations() {
   };
 
   return (
-    <>
+    <div className="page-antd">
       <Form onFinish={onFinish}>
         <Row style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
           <Row style={{ textAlign: 'center' }}>
@@ -51,7 +51,7 @@ function MotherInfomations() {
           </Row>
         </Form.Item>
       </Form>
-    </>
+    </div>
   );
 }
 
