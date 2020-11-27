@@ -132,6 +132,7 @@ function MedicalHistory() {
             </Row>
           </Checkbox.Group>
         </Form.Item>
+
         <Form.Item>
           <Button
             icon={<PlusCircleOutlined />}
@@ -145,6 +146,7 @@ function MedicalHistory() {
           </Button>
         </Form.Item>
         <Form.Item>{arrCesarean}</Form.Item>
+
         <Form.Item>
           <Button
             icon={<PlusCircleOutlined />}
