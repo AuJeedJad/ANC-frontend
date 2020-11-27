@@ -12,48 +12,46 @@ function MotherInfomations() {
   };
 
   return (
-    <div className="page">
-      <div className="page-antd">
-        <Form onFinish={onFinish}>
-          <Row style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-            <Row style={{ textAlign: 'center' }}>
-              <Col span={24}>
-                <Title level={3} style={{ textDecoration: 'underline' }}>
-                  ประวัติสุขภาพของหญิงตั้งครรภ์และครอบครัว
-                </Title>
-              </Col>
-            </Row>
-            <Row justify="center" style={{ width: '100%' }}>
-              <Col span={20}>
-                <MensCheck />
-              </Col>
-            </Row>
-            <Row style={{ marginBottom: 16 }}>
-              <Col span={24}>
-                <PregnantHistory />
-              </Col>
-            </Row>
-            <Row style={{ textAlign: 'center' }}>
-              <Col span={24}>
-                <MedicalHistory />
-              </Col>
-            </Row>
+    <>
+      <Form onFinish={onFinish}>
+        <Row style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+          <Row style={{ textAlign: 'center' }}>
+            <Col span={24}>
+              <Title level={3} style={{ textDecoration: 'underline' }}>
+                ประวัติสุขภาพของหญิงตั้งครรภ์และครอบครัว
+              </Title>
+            </Col>
           </Row>
-          <Form.Item>
-            <Row justify="end">
-              <Col>
-                <Button type="primary" style={{ width: '150px', marginRight: '8px' }} htmlType="submit">
-                  บันทึก
-                </Button>
-                <Button type="primary" style={{ width: '150px' }} danger>
-                  ยกเลิก
-                </Button>
-              </Col>
-            </Row>
-          </Form.Item>
-        </Form>
-      </div>
-    </div>
+          <Row justify="center" style={{ width: '100%' }}>
+            <Col span={20}>
+              <MensCheck />
+            </Col>
+          </Row>
+          <Row style={{ marginBottom: 16 }}>
+            <Col span={24}>
+              <PregnantHistory />
+            </Col>
+          </Row>
+          <Row style={{ textAlign: 'center' }}>
+            <Col span={24}>
+              <MedicalHistory />
+            </Col>
+          </Row>
+        </Row>
+        <Form.Item>
+          <Row justify="end">
+            <Col>
+              <Button type="primary" style={{ width: '150px', marginRight: '8px' }} htmlType="submit">
+                บันทึก
+              </Button>
+              <Button type="primary" style={{ width: '150px' }} danger>
+                ยกเลิก
+              </Button>
+            </Col>
+          </Row>
+        </Form.Item>
+      </Form>
+    </>
   );
 }
 
