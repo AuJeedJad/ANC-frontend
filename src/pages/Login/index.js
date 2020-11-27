@@ -24,8 +24,8 @@ function Login(props) {
           description: 'Mother login Success',
         });
         LocalStorageService.setToken(res.data.token);
-        history.push('/');
         props.setRole('mother');
+        history.push('/');
       })
       .catch((err) => {
         console.log(err);
@@ -43,8 +43,8 @@ function Login(props) {
           description: 'Staff login Success',
         });
         LocalStorageService.setToken(res.data.token);
-        history.push('/');
         props.setRole('staff');
+        history.push('/');
       })
       .catch((err) => {
         console.log(err);

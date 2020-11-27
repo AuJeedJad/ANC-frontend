@@ -4,6 +4,9 @@
   align-items: flex-end;
   height: 10vh;
   width: 100vw;
+  position: fixed;
+  top: 0px;
+  z-index: 3;
   background-image: linear-gradient(
     to top,
     #80b9b4,

@@ -25,3 +25,24 @@
   margin-left: -15px;
   margin-bottom: -10px;
 }
+
+.deco-page {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  z-index: -2;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index: -10;
+}
+.deco-page-left {
+  background-color: var(--primaryLightest-color);
+  height: 100%;
+  width: 68%;
+}
+.deco-page-right {
+  background-color: var(--primaryDarkest-color);
+  height: 100%;
+  width: 32%;
+}

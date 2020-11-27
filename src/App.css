@@ -73,6 +73,17 @@
   height: 90vh;
   width: 100vw;
 }
+
+.page-antd {
+  display: flex;
+  flex-flow: row wrap;
+  background-color: white;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
 .page-header {
   display: flex;
   justify-content: center;

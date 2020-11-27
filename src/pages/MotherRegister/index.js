@@ -105,6 +105,10 @@ function MotherRegister() {
             </button>
           </div>
         )}
+        <div className="deco-page">
+          <div className="deco-page-left"></div>
+          <div className="deco-page-right"></div>
+        </div>
       </div>
     </div>
   );
