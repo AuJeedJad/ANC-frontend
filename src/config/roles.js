@@ -6,6 +6,7 @@ import MainStaff from '../pages/MainStaff';
 import MotherProfile from '../pages/MotherProfile';
 import MotherInformation from '../pages/MotherInformation';
 import MotherIndex from '../pages/MotherIndex';
+import RiskEvaluation from '../pages/RiskEvaluation';
 import Dental from '../pages/dental';
 
 const allPages = {
@@ -25,6 +26,10 @@ const allPages = {
   dental: {
     url: '/staff/dental',
     page: Dental,
+  },
+  risk: {
+    url: '/staff/risk',
+    page: RiskEvaluation,
   },
   // path ของ mother เท่านั้น
   motherIndex: {
@@ -53,9 +58,16 @@ const allPages = {
 };
 
 const permissionList = {
-  guest: [allPages.login, allPages.contentPage],
+  guest: [allPages.login, allPages.contentPage, allPages.motherIndex],
   mother: [allPages.contentPage, allPages.motherProfile, allPages.motherInformation, allPages.motherIndex],
-  staff: [allPages.motherRegister, allPages.contentPage, allPages.anc, allPages.mainStaff, allPages.dental],
+  staff: [
+    allPages.motherRegister,
+    allPages.contentPage,
+    allPages.anc,
+    allPages.mainStaff,
+    allPages.risk,
+    allPages.dental,
+  ],
 };
 
 export default permissionList;

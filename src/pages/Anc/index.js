@@ -1,10 +1,14 @@
 import React from 'react';
 // import './IndexAnc.css';
-import { Col, Layout, Row, Typography, Form, Input, Table, Space, Tag } from 'antd';
-import { SearchOutlined } from '@ant-design/icons';
+import { Col, Layout, Row, Typography, Form, Input, Table, Space, Tag, Button, Empty, Checkbox } from 'antd';
+import { SearchOutlined, PlusCircleOutlined } from '@ant-design/icons';
 
 const { Header, Footer, Sider, Content } = Layout;
 const { Title } = Typography;
+
+function onChange(checkedValues) {
+  console.log('checked = ', checkedValues);
+}
 
 const columns = [
   {
@@ -110,7 +114,6 @@ function Anc() {
             flexDirection: 'column',
             justifyContent: 'center',
             alignItems: 'center',
-            // backgroundColor: 'red',
             marginTop: '30px',
           }}
         >
@@ -119,34 +122,32 @@ function Anc() {
           </Title>
 
           <Row>
-            <Form.Item label="รายละเอียด" name="description" style={{ display: 'inline-flex', marginRight: 12 }}>
+            <Form.Item label="BPD" name="description" style={{ display: 'inline-flex', marginRight: 12 }}>
               <Input />
             </Form.Item>
-            <Form.Item label="รายละเอียด" name="description" style={{ display: 'inline-flex', marginRight: 12 }}>
+            <Form.Item label="FL" name="description" style={{ display: 'inline-flex', marginRight: 12 }}>
               <Input />
             </Form.Item>
-          </Row>
-          <Row>
-            <Form.Item label="รายละเอียด" name="description" style={{ display: 'inline-flex', marginRight: 12 }}>
-              <Input />
-            </Form.Item>
-            <Form.Item label="รายละเอียด" name="description" style={{ display: 'inline-flex', marginRight: 12 }}>
+            <Form.Item label="HC" name="description" style={{ display: 'inline-flex', marginRight: 12 }}>
               <Input />
             </Form.Item>
           </Row>
           <Row>
-            <Form.Item label="รายละเอียด" name="description" style={{ display: 'inline-flex', marginRight: 12 }}>
+            <Form.Item label="AC" name="description" style={{ display: 'inline-flex', marginRight: 12 }}>
               <Input />
             </Form.Item>
-            <Form.Item label="รายละเอียด" name="description" style={{ display: 'inline-flex', marginRight: 12 }}>
+            <Form.Item label="AFI" name="description" style={{ display: 'inline-flex', marginRight: 12 }}>
+              <Input />
+            </Form.Item>
+            <Form.Item label="Placenta" name="description" style={{ display: 'inline-flex', marginRight: 12 }}>
               <Input />
             </Form.Item>
           </Row>
           <Row>
-            <Form.Item label="รายละเอียด" name="description" style={{ display: 'inline-flex', marginRight: 12 }}>
+            <Form.Item label="EFW" name="description" style={{ display: 'inline-flex', marginRight: 12 }}>
               <Input />
             </Form.Item>
-            <Form.Item label="รายละเอียด" name="description" style={{ display: 'inline-flex', marginRight: 12 }}>
+            <Form.Item label="อายุครรภ์" name="description" style={{ display: 'inline-flex', marginRight: 12 }}>
               <Input />
             </Form.Item>
           </Row>
@@ -157,29 +158,105 @@ function Anc() {
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
-            // backgroundColor: 'green',
+            alignItems: 'center',
             marginTop: '30px',
           }}
         >
           <Title level={3} style={{ textDecoration: 'underline', textAlign: 'center' }}>
             Risk
           </Title>
-          <Form.Item label="รายละเอียด" name="description" style={{ display: 'inline-flex', marginRight: 12 }}>
+          <Form.Item
+            label="รายละเอียด"
+            name="description"
+            style={{ display: 'inline-flex', marginRight: 12, width: '80%', alignItems: 'center' }}
+          >
             <Input />
           </Form.Item>
-          <Form.Item label="รายละเอียด" name="description" style={{ display: 'inline-flex', marginRight: 12 }}>
+          <Form.Item
+            label="รายละเอียด"
+            name="description"
+            style={{ display: 'inline-flex', marginRight: 12, width: '80%', alignItems: 'center' }}
+          >
             <Input />
           </Form.Item>
-          <Form.Item label="รายละเอียด" name="description" style={{ display: 'inline-flex', marginRight: 12 }}>
+          <Form.Item
+            label="รายละเอียด"
+            name="description"
+            style={{ display: 'inline-flex', marginRight: 12, width: '80%', alignItems: 'center' }}
+          >
             <Input />
           </Form.Item>
-          <Form.Item label="รายละเอียด" name="description" style={{ display: 'inline-flex', marginRight: 12 }}>
+          <Form.Item
+            label="รายละเอียด"
+            name="description"
+            style={{ display: 'inline-flex', marginRight: 12, width: '80%', alignItems: 'center' }}
+          >
             <Input />
           </Form.Item>
         </Col>
-        <Col span={24}>
-          <Table columns={columns} dataSource={data} pagination={false} />
+        <Col span={24} style={{ display: 'flex', justifyContent: 'center' }}>
+          <Table columns={columns} dataSource={data} pagination={false} style={{ width: '75%', marginTop: '20px' }} />
         </Col>
+        <Col
+          span={18}
+          style={{
+            display: 'flex',
+            justifyContent: 'flex-end',
+            marginTop: '15px',
+            marginBottom: '20px',
+          }}
+        >
+          <Button type="primary" style={{ borderRadius: '50px' }}>
+            เพิ่มบันทึกผลการตรวจวันนี้ <PlusCircleOutlined />
+          </Button>
+        </Col>
+        <Row style={{ width: '100%' }}>
+          <Col span={8}>
+            <Empty />
+          </Col>
+          <Col span={8}>
+            <Empty />
+          </Col>
+          <Col span={8}>
+            <Title level={3} style={{ textDecoration: 'underline', textAlign: 'center' }}>
+              คัดกรอง
+            </Title>
+            <Form>
+              <Form.Item
+                label="รายละเอียด"
+                name="description"
+                style={{ display: 'inline-flex', marginRight: 12, width: '80%', alignItems: 'center' }}
+              >
+                <Input />
+              </Form.Item>
+              <Form.Item
+                label="รายละเอียด"
+                name="description"
+                style={{ display: 'inline-flex', marginRight: 12, width: '80%', alignItems: 'center' }}
+              >
+                <Input />
+              </Form.Item>
+              <Form.Item label="รายละเอียด" style={{ display: 'inline-flex' }}>
+                <Checkbox.Group onChange={onChange}>
+                  <Row justify="center" style={{ width: '100%' }}>
+                    <Col>
+                      <Checkbox value="A">ปกติ</Checkbox>
+                    </Col>
+                    <Col>
+                      <Checkbox value="B">สั้น</Checkbox>
+                    </Col>
+                    <Col>
+                      <Checkbox value="C">บุ๋ม</Checkbox>
+                    </Col>
+                    <Col>
+                      <Checkbox value="C">บอด</Checkbox>
+                    </Col>
+                  </Row>
+                </Checkbox.Group>
+              </Form.Item>
+            </Form>
+          </Col>
+        </Row>
       </Row>
     </>
   );
