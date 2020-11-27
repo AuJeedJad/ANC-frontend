@@ -11,27 +11,41 @@ function handleMenuClick(e) {
 
 function IndexStaff() {
   const [anc, setAnc] = useState([]);
+  const [idCard, setIdcard] = useState('');
   console.log(anc);
+
+  const onChangeidCard = (e) => {
+    setIdcard(e.target.value);
+  };
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8000/anc?appointmentDate=${new Date()}&&checkHospitalId=1`)
+      .get(`http://localhost:8000/anc?appointmentDate=${new Date()}&checkHospitalId=1&idCard=${idCard}`)
       .then((res) => {
         setAnc(res.data.ANC);
         console.log(res);
       })
       .catch((err) => {});
-  }, []);
+  }, [idCard]);
 
-  const { Header, Footer, Sider, Content } = Layout;
   const { Title } = Typography;
 
   const fixedColumns = [
     {
-      title: 'ชื่อ - นามสกุล / รหัสหญิงตั้งครรภ์',
+      title: 'ชื่อ - นามสกุล',
       dataIndex: 'name',
       fixed: true,
       width: 300,
+      sorter: (a, b) => a.name.length - b.name.length,
+      sortDirections: ['descend', 'ascend'],
+    },
+    {
+      title: 'รหัสบัตรประชาชน',
+      dataIndex: 'id',
+      fixed: true,
+      width: 300,
+      sorter: (a, b) => a.id - b.id,
+      sortDirections: ['descend', 'ascend'],
     },
   ];
 
@@ -40,14 +54,13 @@ function IndexStaff() {
     fixedData.push({
       key: i,
       name: `${anc[i].CurrentPregnancy.MotherProfile.firstName}  ${anc[i].CurrentPregnancy.MotherProfile.lastName}`,
+      id: `${anc[i].CurrentPregnancy.MotherProfile.idCard}`,
     });
   }
 
   const menu = (
     <Menu onClick={handleMenuClick}>
       <Menu.Item key="1">ตัวอักษร</Menu.Item>
-      <Menu.Item key="2">รหัสหญิงตั้งครรภ์</Menu.Item>
-      <Menu.Item key="3">เวลานัด</Menu.Item>
     </Menu>
   );
 
@@ -65,7 +78,14 @@ function IndexStaff() {
           <Row>
             <Col span={16} style={{ display: 'flex', justifyContent: 'center', marginTop: '25px' }}>
               <Form layout="vertical" style={{ padding: '5px', width: '70%', marginLeft: '140px' }}>
-                <Input placeholder="เลขบัตรประชาชน" style={{ height: '35px' }} />
+                <Form.Item
+                  label="กรอกเลขบัตรประชาชน"
+                  name="idCard"
+                  rules={[{ required: true, message: 'Please input your username!' }]}
+                  onChange={onChangeidCard}
+                >
+                  <Input value={idCard || ''} placeholder="เลขบัตรประชาชน" style={{ height: '35px' }} />
+                </Form.Item>
               </Form>
             </Col>
             <Col span={8} style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '25px' }}>
@@ -112,6 +132,7 @@ function IndexStaff() {
                 pagination={false}
                 //   scroll={{ x: 2000 }}
                 bordered
+
                 //   summary={() => (
                 //     <Table.Summary.Row>
                 //       <Table.Summary.Cell index={0}>Summary</Table.Summary.Cell>
