@@ -5,6 +5,7 @@ import Anc from '../pages/Anc';
 import MainStaff from '../pages/MainStaff';
 import MotherProfile from '../pages/MotherProfile';
 import MotherInformation from '../pages/MotherInformation';
+import MotherIndex from '../pages/MotherIndex';
 
 const allPages = {
   login: {
@@ -33,14 +34,18 @@ const allPages = {
     page: MotherProfile,
   },
   motherInformation: {
-    url: '/',
+    url: '/mother/information',
     page: MotherInformation,
+  },
+  motherIndex: {
+    url: '/',
+    page: MotherIndex,
   },
 };
 
 const permissionList = {
   guest: [allPages.login, allPages.contentPage],
-  mother: [allPages.contentPage, allPages.motherProfile, allPages.MotherInformation],
+  mother: [allPages.contentPage, allPages.motherProfile, allPages.motherInformation, allPages.motherIndex],
   staff: [allPages.motherRegister, allPages.contentPage, allPages.anc, allPages.mainStaff],
 };
 

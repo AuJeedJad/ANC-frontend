@@ -17,7 +17,7 @@ function PrivateRoutes(props) {
           {page.name === 'login' ? (
             <page.page setRole={props.setRole} />
           ) : (
-            <Layout role={role}>
+            <Layout role={role} setRole={props.setRole}>
               <page.page setRole={props.setRole} />
             </Layout>
           )}
@@ -25,7 +25,7 @@ function PrivateRoutes(props) {
       ))}
       <Route path="*">
         <Layout role={role}>
-          <NotFound></NotFound>
+          <NotFound />
         </Layout>
       </Route>
     </Switch>

@@ -1,24 +1,25 @@
 import React, { useState, useContext } from 'react';
 import './navBar.css';
 import SideBar from '../SideBar/index';
+import { Link } from 'react-router-dom';
 
-function NavBar({ role }) {
+function NavBar(props) {
   const navTab =
-    role === 'mother'
+    props.role === 'mother'
       ? [
           { name: `เพิ่มเติม`, path: '' },
           { name: `แก้ที่NavBar`, path: '' },
           { name: `แก้ที่NavBar`, path: '' },
           { name: `แก้ที่NavBar`, path: '' },
-          { name: `แก้ที่NavBar`, path: '' },
+          { name: `หน้าหลัก`, path: '/' },
         ]
-      : role === 'stuff'
+      : props.role === 'staff'
       ? [
           { name: `เพิ่มเติม`, path: '' },
           { name: `ดูแลตามอายุครรภ์`, path: '' },
           { name: `ผลการตรวจทางห้องปฏิบัติการ`, path: '' },
-          { name: `ตรวจครรภ์`, path: '' },
-          { name: `หน้าหลักหญิงตั้งครรภ์`, path: '' },
+          { name: `ตรวจครรภ์`, path: '/staff/anc' },
+          { name: `หน้าหลักหญิงตั้งครรภ์`, path: '/' },
         ]
       : [
           { name: `เพิ่มเติม`, path: '' },
@@ -50,7 +51,7 @@ function NavBar({ role }) {
     <nav className="nav-container" onMouseLeave={() => setZIndex(tabSelect)}>
       {navTab.map((topic, ind) => {
         return (
-          <div className="nav-sidebar">
+          <Link className="nav-sidebar" to={topic.path}>
             <div
               className={`nav-link ${tabSelect === ind ? 'nav-link--active' : null}`}
               onMouseOver={() => {
@@ -64,8 +65,8 @@ function NavBar({ role }) {
             >
               {topic.name}
             </div>
-            {ind === 0 ? <SideBar role={role} /> : null}
-          </div>
+            {ind === 0 ? <SideBar role={props.role} setRole={props.setRole} /> : null}
+          </Link>
         );
       })}
     </nav>
