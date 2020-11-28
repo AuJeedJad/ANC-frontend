@@ -12,8 +12,8 @@ function PregnantMotherProfile() {
 
   return (
     <>
-      <Row>
-        <Col span={12}>
+      <Row justify="center">
+        <Col span={14}>
           <Row>
             <Col span={24}>
               <Title level={3} style={{ textDecoration: 'underline' }}>
@@ -48,7 +48,7 @@ function PregnantMotherProfile() {
                     name="idCard"
                     style={{ display: 'inline-block', width: 'calc(70% - 8px)', margin: '0 8px' }}
                   >
-                    <Input placeholder="กรุณาใส่เลขบัตรประชาชน 13 หลัก" />
+                    <Input placeholder="2121000011111" disabled />
                   </Form.Item>
                 </Form.Item>
                 <Form.Item style={{ marginBottom: '8px' }}>
@@ -152,7 +152,7 @@ function PregnantMotherProfile() {
             </Col>
           </Row>
         </Col>
-        <Col span={12}>
+        <Col span={6}>
           <Row gutter={[16, 16]} style={{ textAlign: 'center' }}>
             <Col span={24}>
               <Image width={200} src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png" />
