@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './IndexStaff.css';
 import axios from 'axios';
-import { Col, Layout, Row, Button, Input, Form, Table, Typography, Menu, Dropdown, message } from 'antd';
+import { Col, Row, Button, Input, Form, Table, Typography, Menu, Dropdown, message } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 
 function handleMenuClick(e) {

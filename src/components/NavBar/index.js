@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import './navBar.css';
 import SideBar from '../SideBar/index';
 import { Link } from 'react-router-dom';
+import CurrentPregContext from '../../context/CurrentPregContext';
 
 function NavBar(props) {
+  const currentPregContext = useContext(CurrentPregContext);
   const navTab =
     props.role === 'mother'
       ? [
@@ -14,14 +16,21 @@ function NavBar(props) {
           { name: `หน้าหลัก`, path: '/' },
         ]
       : props.role === 'staff'
-      ? [
-          { name: `เพิ่มเติม`, path: '' },
-          { name: `ทันตกรรม`, path: '/staff/dental' },
-          { name: `ดูแลตามอายุครรภ์`, path: '/staff/gaCare' },
-          { name: `ผลการตรวจทางห้องปฏิบัติการ`, path: '/staff/lab' },
-          { name: `ตรวจครรภ์`, path: '/staff/anc' },
-          { name: `หน้าหลักหญิงตั้งครรภ์`, path: '/staff/motherReport' },
-        ]
+      ? !currentPregContext.mother.currentPregId
+        ? [
+            { name: 'เพิ่มเติม', path: '' },
+            { name: 'ลงทะเบียนหญิงตั้งครรภ์', path: '/staff/motherRegister' },
+            { name: 'การตรวจวันนี้', path: '/staff/review' },
+            { name: 'หน้าหลักโรงพยาบาล', path: '/' },
+          ]
+        : [
+            { name: `เพิ่มเติม`, path: '' },
+            { name: `ทันตกรรม`, path: '/staff/dental' },
+            { name: `ดูแลตามอายุครรภ์`, path: '/staff/gaCare' },
+            { name: `ผลการตรวจทางห้องปฏิบัติการ`, path: '/staff/lab' },
+            { name: `ตรวจครรภ์`, path: '/staff/anc' },
+            { name: `หน้าหลักหญิงตั้งครรภ์`, path: '/staff/motherReport' },
+          ]
       : [
           { name: `ติดต่อเรา`, path: '/contactUs' },
           { name: `หาสินค้าสำหรับเด็กอ่อน`, path: '/shopping/baby' },
@@ -35,6 +44,15 @@ function NavBar(props) {
   const navTabMove = (100 - navTabWidth) / (navTabCount - 1);
   const [tabStatus, setTabStatus] = useState({});
   const [tabSelect, setTabSelect] = useState(navTabCount - 1);
+  const [lastTabSelect, setLastTabSelect] = useState(4);
+
+  useEffect(() => {
+    if (tabSelect !== 0) {
+      props.setShow(false);
+    } else {
+      if (props.show === false) setTabSelect(lastTabSelect);
+    }
+  }, [tabSelect, props.show]);
 
   const setZIndex = (tabNO) => {
     let newTabStatus = {};
@@ -48,7 +66,17 @@ function NavBar(props) {
     <nav className="nav-container" onMouseLeave={() => setZIndex(tabSelect)}>
       {navTab.map((topic, ind) => {
         return (
-          <Link className="nav-sidebar" to={topic.path}>
+          <Link
+            className="nav-sidebar"
+            to={topic.path}
+            onClick={
+              topic.name === `เพิ่มเติม`
+                ? (e) => {
+                    e.preventDefault();
+                  }
+                : null
+            }
+          >
             <div
               className={`nav-link ${tabSelect === ind ? 'nav-link--active' : null}`}
               onMouseOver={() => {
@@ -57,6 +85,11 @@ function NavBar(props) {
               onClick={() => {
                 setTabSelect(ind);
                 setZIndex(ind);
+                if (ind === 0) {
+                  props.setShow(!props.show);
+                } else {
+                  setLastTabSelect(ind);
+                }
               }}
               style={{
                 left: `${navTabMove * ind}%`,
@@ -67,7 +100,14 @@ function NavBar(props) {
               {topic.name}
             </div>
             {topic.name === `เพิ่มเติม` ? (
-              <SideBar role={props.role} setRole={props.setRole} width={navTabWidth} />
+              <SideBar
+                role={props.role}
+                setRole={props.setRole}
+                width={navTabWidth}
+                page={props.page}
+                show={props.show}
+                setShow={props.setShow}
+              />
             ) : null}
           </Link>
         );

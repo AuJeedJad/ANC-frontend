@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import './motherRegister.css';
+import axios from '../../config/axios';
+import { useHistory } from 'react-router-dom';
+import { notification } from 'antd';
 import InputField from '../../components/InputField';
+import './motherRegister.css';
 
-function MotherRegister() {
-  const [existIdCard, setExistIdCard] = useState(false);
+function MotherRegister(props) {
+  const [existIdCard, setExistIdCard] = useState(null);
   // ค่าตั้งต้น  false เจอ true ไม่เจอ false
   const [value, setValue] = useState({ IdCard: '', FirstName: '', LastName: '', PhoneNumber: '' });
   const [validate, setValidate] = useState({ IdCard: false, FirstName: false, LastName: false, PhoneNumber: false });
@@ -13,11 +16,76 @@ function MotherRegister() {
     isAlert ? setValidate({ ...validate, [field]: false }) : setValidate({ ...validate, [field]: true });
   };
 
+  const history = useHistory();
+
   useEffect(() => {
     if (validate.IdCard) {
-      alert('find');
+      axios
+        .get(`/staff/motherAccount/motherFind?idCard=${value.IdCard}`)
+        .then((res) => {
+          notification.success({
+            description: 'พบบัญชีหญิงตั้งครรภ์เดิม',
+          });
+          setExistIdCard(true);
+        })
+        .catch((err) => {
+          if (err.response.data.message === 'Non subscribe ID card number') {
+            notification.success({
+              description: 'ไม่เคยลงทะเบียนหญิงตั้งครรภ์มาก่อน',
+            });
+            setExistIdCard(false);
+          } else {
+            notification.error({
+              description: `${err}`,
+            });
+          }
+        });
+    } else {
+      setExistIdCard(null);
     }
   }, [value.IdCard]);
+
+  const newBaby = (e) => {
+    e.preventDefault();
+    axios
+      .post('/staff/motherAccount/createCurrentPregnancy', {
+        idCard: value.IdCard,
+      })
+      .then((res) => {
+        notification.success({
+          description: 'สร้างครรภ์ใหม่ให้หญิงตั้งครรภ์แล้ว',
+        });
+        history.push('/');
+      })
+      .catch((err) => {
+        console.log(err);
+        notification.error({
+          description: err.data.message,
+        });
+      });
+  };
+
+  const newMother = (e) => {
+    e.preventDefault();
+    axios
+      .post('/staff/motherAccount/motherRegister', {
+        idCard: value.IdCard,
+        firstName: value.FirstName,
+        lastName: value.LastName,
+        phoneNumber: value.PhoneNumber,
+      })
+      .then((res) => {
+        notification.success({
+          description: 'สร้างบัญชีหญิงตั้งครรภ์แล้ว รหัสผ่าน=เลขประจำตัวประชาชน',
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        notification.error({
+          description: err.data.message,
+        });
+      });
+  };
 
   return (
     <div className="page">
@@ -67,7 +135,7 @@ function MotherRegister() {
                 valueGet={(value, field, isAlert) => valueGet(value, field, isAlert)}
                 valueFormat="number"
                 valueLengthMax={10}
-                valueLengthMin={10}
+                valueLengthMin={9}
               />
             </div>
           )}
@@ -90,7 +158,7 @@ function MotherRegister() {
         ) : existIdCard ? (
           <div>
             <button className="btn-submit">ยกเลิกการลงทะเบียน</button>
-            <button disabled={!validate.IdCard} className="btn-submit">
+            <button disabled={!validate.IdCard} className="btn-submit" onClick={newBaby}>
               เพิ่มครรภ์ใหม่
             </button>
           </div>
@@ -100,15 +168,16 @@ function MotherRegister() {
             <button
               disabled={!validate.IdCard || !validate.FirstName || !validate.LastName || !validate.PhoneNumber}
               className="btn-submit"
+              onClick={newMother}
             >
               ลงทะเบียนหญิงตั้งครรภ์ และ เพิ่มครรภ์ใหม่
             </button>
           </div>
         )}
-        <div className="deco-page">
-          <div className="deco-page-left"></div>
-          <div className="deco-page-right"></div>
-        </div>
+      </div>
+      <div className="deco-page">
+        <div className="deco-page-left"></div>
+        <div className="deco-page-right"></div>
       </div>
     </div>
   );

@@ -2,12 +2,13 @@
   display: none;
 }
 
+.nav-sidebar--onclick,
 .nav-sidebar:hover .side-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  width: 30vw;
+  min-width: 30vw;
   height: 90vh;
   position: absolute;
   left: 0;
