@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from '../../config/axios';
 import LocalStorageService from '../../services/localStorage';
 import { useHistory } from 'react-router-dom';
@@ -6,8 +6,10 @@ import { notification } from 'antd';
 import InputField from '../../components/InputField/index';
 import './login.css';
 import logo from '../../image/logo/logo01.png';
+import CurrentPregContext from '../../context/CurrentPregContext';
 
 function Login(props) {
+  const currentPregContext = useContext(CurrentPregContext);
   const [role, setRole] = useState('mother');
   const [value, setValue] = useState({ IdCard: '', PasswordM: '', Username: '', PasswordS: '' });
   const [clearValue, setClearValue] = useState(false);
@@ -24,6 +26,7 @@ function Login(props) {
           description: 'Mother login Success',
         });
         LocalStorageService.setToken(res.data.token);
+        currentPregContext.setMother(res.data.motherContext);
         props.setRole('mother');
         history.push('/');
       })

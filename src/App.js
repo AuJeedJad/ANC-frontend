@@ -21,7 +21,7 @@ function App() {
   return (
     <div className="App" style={{ width: '100vw' }}>
       <CurrentPregContext.Provider value={{ mother, setMother }}>
-        <UserContext.Provider value={{ hospitalId: LocalStorageService.getHospitalId() }}>
+        <UserContext.Provider value={LocalStorageService.getId()}>
           <PrivateRoutes role={role} setRole={setRole} />
         </UserContext.Provider>
       </CurrentPregContext.Provider>
