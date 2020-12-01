@@ -10,8 +10,8 @@ function FamilyProfile() {
 
   return (
     <>
-      <Row justify="center" style={{ marginBottom: '16px' }}>
-        <Col span={24}>
+      <Row justify="center">
+        <Col span={14}>
           <Row>
             <Col span={24}>
               <Title level={3} style={{ textDecoration: 'underline' }}>

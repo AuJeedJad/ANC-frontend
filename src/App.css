@@ -72,7 +72,9 @@
   justify-content: center;
   align-items: center;
   height: 90vh;
-  width: 100vw;
+  width: 100%;
+  margin: 0px;
+  padding: 0px;
 }
 .page-antd {
   display: flex;
@@ -80,10 +82,14 @@
   align-items: center;
   position: absolute;
   top: 13vh;
-  width: 100vw;
+  width: 100%;
+  margin: 0px;
+  padding: 0px;
 }
 .page-antd > * {
   width: 80%;
+  margin: 0px;
+  padding: 0px;
 }
 
 .page-header {
@@ -101,7 +107,12 @@
   background-color: var(--primaryLightest-color);
   height: 68%;
   width: 100vw;
+  margin: 0px;
+  padding: 0px;
   border-radius: 100% 0% 32% 68% / 0% 56% 44% 100%;
+  position: fixed;
+  left: 0px;
+  top: 5vh;
 }
 .page-footer {
   display: flex;
@@ -111,6 +122,11 @@
   height: 32%;
   width: 100vw;
   border-radius: 68% 32% 100% 0% / 38% 100% 0% 62%;
+  margin: 0px;
+  padding: 0px;
+  position: fixed;
+  left: 0px;
+  bottom: -5vh;
 }
 .card {
   display: flex;
@@ -146,7 +162,7 @@
   top: 8%;
 }
 
-button[type='submit'] {
+.btn-submitForm {
   width: 80px;
   height: 25px;
   color: var(--primaryDarkest-color);
@@ -171,11 +187,11 @@ button[type='submit'] {
 }
 
 .message {
-  font-size: 20px;
+  font-size: 16px;
   color: var(--primary-color);
 }
 .message--alert {
-  font-size: 25px;
+  font-size: 20px;
   color: var(--secondary-color);
 }
 
@@ -205,6 +221,14 @@ button[type='submit'] {
 }
 @media only screen and (min-height: 1024px) {
   .page-header {
-    font-size: 72px;
+    font-size: 60px;
+  }
+}
+@media only screen and (max-height: 500px) {
+  .page-header {
+    font-size: 24px;
+  }
+  .page-footer div {
+    font-size: 10px;
   }
 }

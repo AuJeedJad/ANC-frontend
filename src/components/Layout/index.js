@@ -1,16 +1,16 @@
-import React from 'react';
+import { useState } from 'react';
 import './layout.css';
 import NavBar from '../NavBar/index';
 
-function Layout({ children, role, setRole }) {
-  // children เป็น special property ที่บอกว่าเป็น children ที่component นี้คร่อมอยู่เมื่อเรียกใช้ ต้องkeywordนี้เท่านั้น
+function Layout({ children, role, setRole, page }) {
+  const [show, setShow] = useState(false);
 
   return (
-    <>
-      <NavBar role={role} setRole={setRole} />
+    <div classname="webLatout">
+      <NavBar role={role} setRole={setRole} page={page} show={show} setShow={setShow} />
       <div className="deco-header"></div>
       {children}
-    </>
+    </div>
   );
 }
 

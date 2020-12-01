@@ -10,7 +10,7 @@ function RiskEvaluation() {
   };
 
   return (
-    <>
+    <div className="page-antd">
       <Form onFinish={onFinish}>
         <Row style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
           <Row style={{ textAlign: 'center' }}>
@@ -41,7 +41,7 @@ function RiskEvaluation() {
           </Row>
         </Form.Item>
       </Form>
-    </>
+    </div>
   );
 }
 

@@ -177,7 +177,7 @@ function Dental() {
   };
 
   return (
-    <>
+    <div className="page-antd">
       <Form onFinish={onFinish}>
         <Row style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
           <Row style={{ textAlign: 'center' }}>
@@ -217,7 +217,7 @@ function Dental() {
           </Row>
         </Form.Item>
       </Form>
-    </>
+    </div>
   );
 }
 
