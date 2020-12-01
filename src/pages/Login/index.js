@@ -103,7 +103,7 @@ function Login(props) {
                 valueLengthMin={6}
                 clear={clearValue}
               />
-              <button disabled={!validate.IdCard || !validate.PasswordM} type="submit">
+              <button className="btn-submitForm" disabled={!validate.IdCard || !validate.PasswordM} type="submit">
                 เข้าสู่ระบบ
               </button>
             </form>
@@ -125,7 +125,7 @@ function Login(props) {
                 valueLengthMin={6}
                 clear={clearValue}
               />
-              <button disabled={!validate.Username || !validate.PasswordS} type="submit">
+              <button className="btn-submitForm" disabled={!validate.Username || !validate.PasswordS} type="submit">
                 เข้าสู่ระบบ
               </button>
             </form>

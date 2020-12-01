@@ -40,7 +40,8 @@
   font-size: 20px;
   top: 3vh;
   margin: 0px;
-  padding: 0px;
+  padding: 3px;
+  line-height: 1;
 }
 
 .nav-link:hover {

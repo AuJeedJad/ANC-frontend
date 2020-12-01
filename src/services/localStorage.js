@@ -26,7 +26,7 @@ const getHospitalId = () => {
     const staffId = jwt_decode(localStorage.getItem('ACCESS_TOKEN')).id;
     return { hospitalId, staffId };
   }
-  return 'guest';
+  return { hospitalId: '', staffId: '' };
 };
 
 export default {
