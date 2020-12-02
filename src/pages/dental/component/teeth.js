@@ -8,33 +8,41 @@ const layout = {
   wrapperCol: { xl: 12 },
 };
 
-function Teeth() {
+function Teeth(props) {
   const { Title } = Typography;
-  const [service, setService] = useState(0);
-  const arrService = [];
+
+  const [serviceForm, setServiceForm] = useState([]);
+  const [numForm, setNumForm] = useState(0);
 
   const handleService = () => {
-    setService(service + 1);
+    setServiceForm([...serviceForm, serviceForm1]);
+    setNumForm(numForm + 1);
   };
 
-  for (let i = 0; i < service; i++) {
-    arrService.push(
-      <Form.Item style={{ marginBottom: 4 }}>
-        <Form.Item label="ครั้งที่" name="amount" style={{ display: 'inline-flex', marginRight: 4 }}>
-          <Input />
-        </Form.Item>
-        <Form.Item label="วันที่" name="date" style={{ display: 'inline-flex', marginRight: 4 }}>
-          <Input type="date" placeholder="ปี-เดือน" />
-        </Form.Item>
-        <Form.Item label="ผู้ให้บริการ" name="dentist" style={{ display: 'inline-flex', marginRight: 4 }}>
-          <Input />
-        </Form.Item>
-        <Form.Item label="ให้บริการ" name="details" style={{ display: 'inline-flex', marginRight: 4 }}>
-          <Input />
-        </Form.Item>
+  const serviceForm1 = (
+    <Form.Item style={{ marginBottom: 4 }}>
+      <Form.Item label="ครั้งที่" style={{ display: 'inline-flex', marginRight: 4 }}>
+        <Input name={`amount-${numForm}`} onChange={props.onChangeDentalAppointment} />
       </Form.Item>
-    );
-  }
+
+      <Form.Item label="วันที่" style={{ display: 'inline-flex', marginRight: 4 }}>
+        <Input
+          type="date"
+          placeholder="ปี-เดือน"
+          name={`dates-${numForm}`}
+          onChange={props.onChangeDentalAppointment}
+        />
+      </Form.Item>
+
+      <Form.Item label="ผู้ให้บริการ" style={{ display: 'inline-flex', marginRight: 4 }}>
+        <Input name={`dentist-${numForm}`} onChange={props.onChangeDentalAppointment} />
+      </Form.Item>
+
+      <Form.Item label="ให้บริการ" style={{ display: 'inline-flex', marginRight: 4 }}>
+        <Input name={`details-${numForm}`} onChange={props.onChangeDentalAppointment} />
+      </Form.Item>
+    </Form.Item>
+  );
 
   return (
     <>
@@ -44,15 +52,19 @@ function Teeth() {
         </Title>
 
         <Form.Item name="toothDecay" label="ฟันผุ" {...layout}>
-          <Radio.Group style={{ display: 'flex', justifyContent: 'flex-start' }}>
+          <Radio.Group
+            name="toothDecay"
+            style={{ display: 'flex', justifyContent: 'flex-start' }}
+            onChange={props.onChange}
+          >
             <Row justify="start">
               <Col span={8}>
-                <Radio value="have" style={{ lineHeight: '32px', width: '70px' }}>
+                <Radio value="1" style={{ lineHeight: '32px', width: '70px' }}>
                   มี
                 </Radio>
               </Col>
               <Col span={8}>
-                <Radio value="No" style={{ lineHeight: '32px', width: '70px' }}>
+                <Radio value="0" style={{ lineHeight: '32px', width: '70px' }}>
                   ไม่มี
                 </Radio>
               </Col>
@@ -61,15 +73,19 @@ function Teeth() {
         </Form.Item>
 
         <Form.Item name="gingivitis" label="เหงือกอักเสบ" {...layout}>
-          <Radio.Group style={{ display: 'flex', justifyContent: 'flex-start' }}>
+          <Radio.Group
+            name="gingivitis"
+            style={{ display: 'flex', justifyContent: 'flex-start' }}
+            onChange={props.onChange}
+          >
             <Row justify="start">
               <Col span={8}>
-                <Radio value="have" style={{ lineHeight: '32px', width: '70px' }}>
+                <Radio value="1" style={{ lineHeight: '32px', width: '70px' }}>
                   มี
                 </Radio>
               </Col>
               <Col span={8}>
-                <Radio value="No" style={{ lineHeight: '32px', width: '70px' }}>
+                <Radio value="0" style={{ lineHeight: '32px', width: '70px' }}>
                   ไม่มี
                 </Radio>
               </Col>
@@ -78,15 +94,19 @@ function Teeth() {
         </Form.Item>
 
         <Form.Item name="calculus" label="หินน้ำลาย" {...layout}>
-          <Radio.Group style={{ display: 'flex', justifyContent: 'flex-start' }}>
+          <Radio.Group
+            name="calculus"
+            style={{ display: 'flex', justifyContent: 'flex-start' }}
+            onChange={props.onChange}
+          >
             <Row justify="start">
               <Col span={8}>
-                <Radio value="have" style={{ lineHeight: '32px', width: '70px' }}>
+                <Radio value="1" style={{ lineHeight: '32px', width: '70px' }}>
                   มี
                 </Radio>
               </Col>
               <Col span={8}>
-                <Radio value="No" style={{ lineHeight: '32px', width: '70px' }}>
+                <Radio value="0" style={{ lineHeight: '32px', width: '70px' }}>
                   ไม่มี
                 </Radio>
               </Col>
@@ -94,16 +114,17 @@ function Teeth() {
           </Radio.Group>
         </Form.Item>
 
-        <Form.Item label="อื่นๆ" name="other" style={{ display: 'inline-flex', marginRight: 4 }}>
-          <Input />
+        <Form.Item label="อื่นๆ" style={{ display: 'inline-flex', marginRight: 4 }}>
+          <Input name="other" onChange={props.onChange} />
         </Form.Item>
 
         <Form.Item>
-          <Form.Item label="ผู้ตรวจ" name="examBy" style={{ display: 'inline-flex', marginRight: 4 }}>
-            <Input />
+          <Form.Item label="ผู้ตรวจ" style={{ display: 'inline-flex', marginRight: 4 }}>
+            <Input name="examBy" onChange={props.onChange} />
           </Form.Item>
+
           <Form.Item label="วันที่" name="date" style={{ display: 'inline-flex', marginRight: 4 }}>
-            <Input type="date" placeholder="ปี-เดือน" />
+            <Input type="date" placeholder="ปี-เดือน" name="date" onChange={props.onChange} />
           </Form.Item>
         </Form.Item>
 
@@ -114,28 +135,48 @@ function Teeth() {
           <Checkbox.Group>
             <Row>
               <Col span={8}>
-                <Checkbox value="isMouthCare" style={{ lineHeight: '32px' }}>
+                <Checkbox
+                  name="isMouthCare"
+                  onChange={props.onChangeDentalCare}
+                  value="isMouthCare"
+                  style={{ lineHeight: '32px' }}
+                >
                   เเนะนำการกินเเละการดูเเลช่องปาก
                 </Checkbox>
               </Col>
               <Col span={8}>
-                <Checkbox value="isBrushPractice" style={{ lineHeight: '32px' }}>
+                <Checkbox
+                  name="isBrushPractice"
+                  onChange={props.onChangeDentalCare}
+                  value="isBrushPractice"
+                  style={{ lineHeight: '32px' }}
+                >
                   ฝึกแปรงฟัน
                 </Checkbox>
               </Col>
               <Col span={8}>
-                <Checkbox value="isDryedBrush" style={{ lineHeight: '32px' }}>
+                <Checkbox
+                  name="isDryedBrush"
+                  onChange={props.onChangeDentalCare}
+                  value="isDryedBrush"
+                  style={{ lineHeight: '32px' }}
+                >
                   ฝึกแปรงฟันโดยย้อมคราบจุลินทรีย์
                 </Checkbox>
               </Col>
               <Col span={8}>
-                <Checkbox value="isFloss" style={{ lineHeight: '32px' }}>
+                <Checkbox
+                  name="isFloss"
+                  onChange={props.onChangeDentalCare}
+                  value="isFloss"
+                  style={{ lineHeight: '32px' }}
+                >
                   ฝึกใช้ไหมขัดฟัน
                 </Checkbox>
               </Col>
 
-              <Form.Item label="อื่นๆ" name="other" style={{ display: 'inline-flex', marginRight: 4 }}>
-                <Input />
+              <Form.Item label="อื่นๆ" style={{ display: 'inline-flex', marginRight: 4 }}>
+                <Input name="otherAdvise" onChange={props.onChangeDentalCare} />
               </Form.Item>
             </Row>
           </Checkbox.Group>
@@ -143,6 +184,7 @@ function Teeth() {
 
         <Form.Item>
           <Button
+            disabled={serviceForm.length > 1}
             icon={<PlusCircleOutlined />}
             onClick={handleService}
             type="primary"
@@ -153,7 +195,7 @@ function Teeth() {
             การให้บริการเเละการนัด
           </Button>
         </Form.Item>
-        <Form.Item>{arrService}</Form.Item>
+        <Form.Item>{serviceForm}</Form.Item>
       </Form.Item>
     </>
   );

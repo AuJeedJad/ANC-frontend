@@ -27,7 +27,7 @@ function NavBar(props) {
             { name: `เพิ่มเติม`, path: '' },
             { name: `ทันตกรรม`, path: '/staff/dental' },
             { name: `ดูแลตามอายุครรภ์`, path: '/staff/gaCare' },
-            { name: `ผลการตรวจทางห้องปฏิบัติการ`, path: '/staff/lab' },
+            { name: `ผล LAB`, path: '/staff/lab' },
             { name: `ตรวจครรภ์`, path: '/staff/anc' },
             { name: `หน้าหลักหญิงตั้งครรภ์`, path: '/staff/motherReport' },
           ]

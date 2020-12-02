@@ -20,13 +20,13 @@ const getRole = () => {
   return 'guest';
 };
 
-const getHospitalId = () => {
+const getId = () => {
   if (getToken()) {
     const hospitalId = jwt_decode(localStorage.getItem('ACCESS_TOKEN')).hospitalId;
-    const staffId = jwt_decode(localStorage.getItem('ACCESS_TOKEN')).id;
-    return { hospitalId, staffId };
+    const id = jwt_decode(localStorage.getItem('ACCESS_TOKEN')).id;
+    return { hospitalId, id };
   }
-  return 'guest';
+  return { hospitalId: '', id: '' };
 };
 
 export default {
@@ -34,5 +34,5 @@ export default {
   setToken,
   clearToken,
   getRole,
-  getHospitalId,
+  getId,
 };
