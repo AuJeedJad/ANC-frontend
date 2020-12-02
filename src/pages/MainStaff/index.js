@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { notification } from 'antd';
 import './IndexStaff.css';
 import axios from 'axios';
 import { Col, Row, Button, Input, Form, Table, Typography, Menu, Dropdown, message } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
+import CurrentPregContext from '../../context/CurrentPregContext';
 
 function handleMenuClick(e) {
   message.info('Click on menu item.');
@@ -12,7 +15,32 @@ function handleMenuClick(e) {
 function IndexStaff() {
   const [anc, setAnc] = useState([]);
   const [idCard, setIdcard] = useState('');
-  console.log(anc);
+  const { mother, setMother } = useContext(CurrentPregContext);
+
+  const history = useHistory();
+
+  function onClickInstantCheck() {
+    axios
+      .get(`staff/motherAccount/motherFind?idCard=${idCard}`)
+      .then((res) => {
+        setMother({
+          currentPregId: res.data.curPregId,
+          idCard: idCard,
+          firstName: res.data.firstName,
+          lastName: res.data.lastName,
+          GA: res.data.GA,
+          isTerminate: res.data.isTerminate,
+          isActive: !!res.data.isActive,
+        });
+        history.push('/staff/motherReport');
+      })
+      .catch((err) => {
+        console.log(err);
+        notification.error({
+          description: `${err}`,
+        });
+      });
+  }
 
   const onChangeidCard = (e) => {
     setIdcard(e.target.value);
@@ -27,6 +55,8 @@ function IndexStaff() {
       })
       .catch((err) => {});
   }, [idCard]);
+
+  console.log(idCard);
 
   const { Title } = Typography;
 
@@ -58,6 +88,12 @@ function IndexStaff() {
     });
   }
 
+  // const fixedDat = anc.map((item, index) => ({
+  //   key: index,
+  //   name: `${item.CurrentPregnancy.MotherProfile.firstName} ${item.CurrentPregnancy.MotherProfile.lastName}`,
+  //   id: item.CurrentPregnancy.MotherProfile.idCard,
+  // }));
+
   const menu = (
     <Menu onClick={handleMenuClick}>
       <Menu.Item key="1">ตัวอักษร</Menu.Item>
@@ -66,18 +102,39 @@ function IndexStaff() {
 
   return (
     <>
-      <Row>
-        <Col span={24}>
-          <Row>
+      <Row style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <Col span={21}>
+          <Row style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <Col span={24} style={{ display: 'flex', justifyContent: 'center' }}>
-              <Button type="primary" style={{ marginTop: '45px', width: '70%', height: '50px', borderRadius: '50px' }}>
+              <Button
+                type="primary"
+                style={{
+                  marginTop: '45px',
+                  width: '100%',
+                  height: '50px',
+                  borderRadius: '50px',
+                  backgroundColor: 'var(--thirdary-color)',
+                  color: 'var(--secondaryDarkest-color)',
+                  border: '3px solid var(--secondaryDarkest-color)',
+                  fontWeight: '900',
+                  fontSize: '14px',
+                }}
+              >
                 ลงทะเบียนครรภ์ใหม่ (วินิฉัยการตั้งครรภ์ครั้งแรก / เพิ่มครรภ์ปัจจุบันเข้าฐานข้อมูล)
               </Button>
             </Col>
           </Row>
+          <div style={{ height: '3vh' }}></div>
           <Row>
-            <Col span={16} style={{ display: 'flex', justifyContent: 'center', marginTop: '25px' }}>
-              <Form layout="vertical" style={{ padding: '5px', width: '70%', marginLeft: '140px' }}>
+            <Col
+              span={16}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                // backgroundColor: 'red',
+              }}
+            >
+              <Form layout="vertical" style={{ padding: '5px', width: '100%' }}>
                 <Form.Item
                   label="กรอกเลขบัตรประชาชน"
                   name="idCard"
@@ -88,25 +145,25 @@ function IndexStaff() {
                 </Form.Item>
               </Form>
             </Col>
-            <Col span={8} style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '25px' }}>
+            <Col span={8} style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
               <Button
                 style={{
                   padding: '5px',
-                  width: '25%',
+                  width: '40%',
                   height: '40px',
                   borderRadius: '50px',
-                  marginRight: '5px',
+                  marginRight: '5%',
                 }}
               >
                 เพิ่มคิว
               </Button>
               <Button
+                onClick={onClickInstantCheck}
                 style={{
                   padding: '5px',
-                  width: '25%',
+                  width: '40%',
                   height: '40px',
                   borderRadius: '50px',
-                  marginRight: '200px',
                 }}
               >
                 ตรวจทันที
@@ -115,7 +172,7 @@ function IndexStaff() {
           </Row>
           <Row>
             <Col
-              span={16}
+              span={20}
               style={{
                 marginTop: '15px',
                 marginBottom: '60px',
@@ -141,7 +198,7 @@ function IndexStaff() {
                 //   )}
               />
             </Col>
-            <Col span={8} style={{ marginTop: '80px', paddingLeft: '25px', width: '50px' }}>
+            <Col span={4} style={{ marginTop: '80px', paddingLeft: '25px', width: '50px' }}>
               <div id="components-dropdown-demo-dropdown-button">
                 <Dropdown overlay={menu}>
                   <Button style={{ borderRadius: '50px', width: '160px', height: '40px' }}>
