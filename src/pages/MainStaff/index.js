@@ -50,7 +50,7 @@ function IndexStaff() {
     axios
       .get(`http://localhost:8000/anc?appointmentDate=${new Date()}&checkHospitalId=1&idCard=${idCard}`)
       .then((res) => {
-        setAnc(res.data.ANC);
+        setAnc(res.data.ancs);
         console.log(res);
       })
       .catch((err) => {});
