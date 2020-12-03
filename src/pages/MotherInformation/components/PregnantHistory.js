@@ -6,7 +6,6 @@ import React, { useState, useEffect } from 'react';
 function PregnantHistory() {
   const [data, setData] = useState({});
 
-  console.log(data);
   useEffect(() => {
     axios.get('/motherInformation/pregnantHistory?motherId=1').then((res) => {
       setData({ dataSource: res.data, count: res.data.length });

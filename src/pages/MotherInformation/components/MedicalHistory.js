@@ -1,13 +1,31 @@
+import axios from 'axios';
 import { Button, Checkbox, Col, Form, Input, Row, Typography } from 'antd';
 import { PlusCircleOutlined } from '@ant-design/icons';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 function MedicalHistory() {
   const { Title } = Typography;
   const [cesarean, setCesarean] = useState(0);
   const [drugAllergy, setDrugAllergy] = useState(0);
+  const [cesareanSections, setCesareanSections] = useState([]);
+
   const arrCesarean = [];
   const arrDrugAllergy = [];
+
+  useEffect(() => {
+    axios.get('/motherInformation/medicalHistory?motherId=1').then((res) => {
+      setCesareanSections([
+        <Form.Item style={{ marginBottom: 4 }}>
+          <Form.Item label="เมื่อ พ.ศ." name="cesareanYear" style={{ display: 'inline-flex', marginRight: 4 }}>
+            <Input />
+          </Form.Item>
+          <Form.Item label="โรงพยาบาล" name="cesareanHospital" style={{ display: 'inline-flex', marginRight: 4 }}>
+            <Input />
+          </Form.Item>
+        </Form.Item>,
+      ]);
+    });
+  }, []);
 
   const handleCesarean = () => {
     setCesarean(cesarean + 1);
@@ -18,19 +36,16 @@ function MedicalHistory() {
   };
 
   for (let i = 0; i < cesarean; i++) {
-    arrCesarean.push(
+    arrCesarean.push([
       <Form.Item style={{ marginBottom: 4 }}>
-        <Form.Item label="รายละเอียด" name="description" style={{ display: 'inline-flex', marginRight: 4 }}>
+        <Form.Item label="เมื่อ พ.ศ." name="cesareanYear" style={{ display: 'inline-flex', marginRight: 4 }}>
           <Input />
         </Form.Item>
-        <Form.Item label="เมื่อ พ.ศ." name="year" style={{ display: 'inline-flex', marginRight: 4 }}>
+        <Form.Item label="โรงพยาบาล" name="cesareanHospital" style={{ display: 'inline-flex', marginRight: 4 }}>
           <Input />
         </Form.Item>
-        <Form.Item label="โรงพยาบาล" name="hospital" style={{ display: 'inline-flex', marginRight: 4 }}>
-          <Input />
-        </Form.Item>
-      </Form.Item>
-    );
+      </Form.Item>,
+    ]);
   }
 
   for (let i = 0; i < drugAllergy; i++) {
@@ -46,6 +61,10 @@ function MedicalHistory() {
     );
   }
 
+  const onChangeCheckedBox = (e) => {
+    console.log(e);
+  };
+
   return (
     <>
       <Form.Item>
@@ -53,7 +72,7 @@ function MedicalHistory() {
           ประวัติเจ็บป่วยหญิงตั้งครรภ์
         </Title>
         <Form.Item name="motherMedicalHistory">
-          <Checkbox.Group>
+          <Checkbox.Group onChange={(e) => onChangeCheckedBox(e)}>
             <Row>
               <Col span={8}>
                 <Checkbox value="isDiabetes" style={{ lineHeight: '32px' }}>
