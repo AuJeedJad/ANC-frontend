@@ -176,9 +176,9 @@ function MotherIndex() {
 
   return (
     <>
-      <Row>
+      <Row style={{ marginTop: 16 }}>
         <Col span={24}>
-          <Button type="primary" style={{ width: '100%' }}>
+          <Button href="/mother/profile" type="primary" size="large" style={{ width: '100%' }}>
             Mother Profile
           </Button>
           <Calendar
@@ -188,7 +188,7 @@ function MotherIndex() {
             onSelect={() => setVisible(!visible)}
             dateCellRender={dateCellRender}
           ></Calendar>
-          <Button type="primary" style={{ width: '100%' }}>
+          <Button href="/mother/information" type="primary" size="large" style={{ width: '100%' }}>
             Mother Medical History
           </Button>
           <CollectionCreateForm

@@ -1,15 +1,15 @@
 import React from 'react';
-import './profile.css';
 import { Tabs } from 'antd';
+import './profile.css';
 import PregnantMotherProfile from './components/PregnantMotherProfile';
 import FamilyProfile from './components/FamilyProfile';
 import ChildProfile from './components/ChildProfile';
 
-function MotherProfile() {
-  const { TabPane } = Tabs;
+const { TabPane } = Tabs;
 
+function MotherProfile() {
   return (
-    <div className="card-container">
+    <div className="card-container" style={{ marginTop: 8 }}>
       <Tabs type="card">
         <TabPane tab="หญิงตั้งครรภ์" key="1">
           {/* MotherProfile */}

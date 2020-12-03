@@ -1,13 +1,58 @@
-import React from 'react';
-import { Button, Col, Form, Image, Input, Row, Select, Typography, Upload } from 'antd';
+import axios from 'axios';
+import React, { useContext, useEffect, useState } from 'react';
+import { Button, Col, Form, Image, Input, notification, Popconfirm, Row, Select, Typography, Upload } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
+import UserContext from '../../../context/UserContext';
+
+const { Title } = Typography;
+const { Option } = Select;
 
 function PregnantMotherProfile() {
-  const { Title } = Typography;
-  const { Option } = Select;
+  const user = useContext(UserContext);
+  const [form] = Form.useForm();
+  const [mother, setMother] = useState({});
+
+  useEffect(() => {
+    axios.get(`/motherProfile?id=${user.id}`).then((res) => {
+      form.setFieldsValue({
+        firstName: res.data.firstName,
+        lastName: res.data.lastName,
+        birthDate: res.data.birthDate,
+        idCard: res.data.idCard,
+        phoneNumber: res.data.phoneNumber,
+        email: res.data.email,
+        address: res.data.MotherAddress.address,
+        road: res.data.MotherAddress.address,
+        subDistrict: res.data.MotherAddress.subDistrict,
+        district: res.data.MotherAddress.district,
+        province: res.data.MotherAddress.province,
+        zipCode: res.data.MotherAddress.zipCode,
+      });
+      setMother(res.data);
+    });
+  }, []);
 
   const onFinish = (values) => {
     console.log('Success:', values);
+    axios
+      .put('/motherProfile', {
+        firstName: values.firstName,
+        lastName: values.lastName,
+        birthDate: values.birthDate,
+        phoneNumber: values.phoneNumber,
+        email: values.email,
+        address: values.address,
+        road: values.address,
+        subDistrict: values.subDistrict,
+        district: values.district,
+        province: values.province,
+        zipCode: values.zipCode,
+      })
+      .then((res) => {
+        notification.success({
+          description: `แก้ไขข้อมูลสำเร็จ`,
+        });
+      });
   };
 
   return (
@@ -23,22 +68,23 @@ function PregnantMotherProfile() {
           </Row>
           <Row>
             <Col span={24}>
-              <Title level={5}>HN : XXXXXX</Title>
+              <Title level={4}>HN : 12345</Title>
             </Col>
           </Row>
           <Row>
             <Col span={24}>
-              <Form layout="vertical" onFinish={onFinish}>
-                <Form.Item label="ชื่อ" name="name" style={{ marginBottom: '8px' }}>
+              <Form form={form} layout="vertical" onFinish={onFinish}>
+                <Form.Item label="ชื่อ" name="firstName" rules={[{ required: true }]} style={{ marginBottom: '8px' }}>
                   <Input placeholder="ชื่อ" />
                 </Form.Item>
-                <Form.Item label="นามสกุล" name="lastname" style={{ marginBottom: '8px' }}>
+                <Form.Item label="นามสกุล" name="lastName" rules={[{ required: true }]} style={{ marginBottom: '8px' }}>
                   <Input placeholder="นามสกุล" />
                 </Form.Item>
                 <Form.Item style={{ marginBottom: '8px' }}>
                   <Form.Item
                     label="วัน/เดือน/ปีเกิด"
                     name="birthDate"
+                    rules={[{ required: true }]}
                     style={{ display: 'inline-block', width: 'calc(30% - 8px)', margin: '0 auto' }}
                   >
                     <Input type="date" />
@@ -48,13 +94,14 @@ function PregnantMotherProfile() {
                     name="idCard"
                     style={{ display: 'inline-block', width: 'calc(70% - 8px)', margin: '0 8px' }}
                   >
-                    <Input placeholder="2121000011111" disabled />
+                    <Input placeholder="เลขบัตรประชาชน 13 หลัก" disabled />
                   </Form.Item>
                 </Form.Item>
                 <Form.Item style={{ marginBottom: '8px' }}>
                   <Form.Item
                     label="เบอร์โทรศัพท์"
                     name="phoneNumber"
+                    rules={[{ required: true }]}
                     style={{ display: 'inline-block', width: 'calc(30% - 8px)', margin: '0 auto' }}
                   >
                     <Input placeholder="0XX-XXX-XXXX" />
@@ -87,7 +134,7 @@ function PregnantMotherProfile() {
                             margin: '0 8px 0 0',
                           }}
                         >
-                          <Input placeholder="Please input" />
+                          <Input placeholder="กรุณากรอกข้อมูล" />
                         </Form.Item>
                         <Form.Item
                           label="ถนน"
@@ -98,31 +145,31 @@ function PregnantMotherProfile() {
                             margin: '0 8px 0 0',
                           }}
                         >
-                          <Input placeholder="Please input" />
+                          <Input placeholder="กรุณากรอกข้อมูล" />
                         </Form.Item>
                         <Form.Item
                           label="แขวง/ตำบล"
                           name="subDistrict"
                           style={{ display: 'inline-block', width: 'calc(40% - 8px)', margin: '0 8px 0 0' }}
                         >
-                          <Input placeholder="Please input" />
+                          <Input placeholder="กรุณากรอกข้อมูล" />
                         </Form.Item>
                         <Form.Item
                           label="เขต/อำเภอ"
                           name="district"
                           style={{ display: 'inline-block', width: 'calc(40% - 8px)', margin: '0 8px 0 0' }}
                         >
-                          <Input placeholder="Please input" />
+                          <Input placeholder="กรุณากรอกข้อมูล" />
                         </Form.Item>
                         <Form.Item
                           label="จังหวัด"
                           name="province"
                           style={{ display: 'inline-block', width: 'calc(30% - 8px)', margin: '0 8px 0 0' }}
                         >
-                          <Select placeholder="Select province">
-                            <Option value="Zhejiang">กรุงเทพมหานคร</Option>
-                            <Option value="Jiangsu">เชียงใหม่</Option>
-                            <Option value="Jiangsu">เชียงราย</Option>
+                          <Select placeholder="เลือกจังหวัด">
+                            <Option value="Bangkok">กรุงเทพมหานคร</Option>
+                            <Option value="ChaingMai">เชียงใหม่</Option>
+                            <Option value="ChiangRai">เชียงราย</Option>
                           </Select>
                         </Form.Item>
                         <Form.Item
@@ -130,7 +177,7 @@ function PregnantMotherProfile() {
                           name="zipCode"
                           style={{ display: 'inline-block', width: 'calc(20% - 8px)', margin: '0' }}
                         >
-                          <Input placeholder="Input street" />
+                          <Input placeholder="รหัสไปรษณีย์" />
                         </Form.Item>
                       </Form.Item>
                       <Form.Item style={{ marginTop: 16, marginBottom: 0 }}>
