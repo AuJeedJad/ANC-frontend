@@ -1,10 +1,19 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Button, Col, Form, Input, Row, Typography } from 'antd';
+import UserContext from '../../../context/UserContext';
+import CurrentPregContext from '../../../context/CurrentPregContext';
 
 const { Title } = Typography;
 
 function FamilyProfile() {
+  const user = useContext(UserContext);
+  const { mother, setMother } = useContext(CurrentPregContext);
   const [form] = Form.useForm();
+
+  useEffect(() => {
+    console.log(user);
+    console.log(mother);
+  }, []);
 
   const onFinish = (values) => {
     console.log('Success:', values);

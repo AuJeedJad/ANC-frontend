@@ -5,9 +5,9 @@ import PregnantMotherProfile from './components/PregnantMotherProfile';
 import FamilyProfile from './components/FamilyProfile';
 import ChildProfile from './components/ChildProfile';
 
-const { TabPane } = Tabs;
-
 function MotherProfile() {
+  const { TabPane } = Tabs;
+
   return (
     <div className="card-container" style={{ marginTop: 8 }}>
       <Tabs type="card">

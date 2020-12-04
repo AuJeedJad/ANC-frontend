@@ -1,16 +1,38 @@
 import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react';
-import { Button, Col, Form, Image, Input, notification, Popconfirm, Row, Select, Typography, Upload } from 'antd';
+import { Button, Col, Form, Image, Input, notification, Row, Select, Typography, Upload } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import UserContext from '../../../context/UserContext';
 
-const { Title } = Typography;
-const { Option } = Select;
-
 function PregnantMotherProfile() {
+  const { Title } = Typography;
+  const { Option } = Select;
+
+  const provinceData = [
+    'กรุงเทพมหานคร',
+    'สมุทรปราการ',
+    'นนทบุรี',
+    'ปทุมธานี',
+    'พระนครศรีอยุธยา',
+    'อ่างทอง',
+    'ลพบุรี',
+    'สิงห์บุรี',
+    'ชัยนาท',
+    'สระบุรี',
+    'ชลบุรี',
+    'ระยอง',
+    'จันทบุรี',
+    'ตราด',
+    'ฉะเชิงเทรา',
+    'ปราจีนบุรี',
+    'นครนายก',
+    'สระแก้ว',
+  ];
+
   const user = useContext(UserContext);
   const [form] = Form.useForm();
   const [mother, setMother] = useState({});
+  const [provinces, setProvinces] = useState(provinceData[0]);
 
   useEffect(() => {
     axios.get(`/motherProfile?id=${user.id}`).then((res) => {
@@ -25,7 +47,7 @@ function PregnantMotherProfile() {
         road: res.data.MotherAddress.road,
         subDistrict: res.data.MotherAddress.subDistrict,
         district: res.data.MotherAddress.district,
-        province: res.data.MotherAddress.province,
+        province: res.data.MotherAddress.province === '' ? provinces : res.data.MotherAddress.province,
         zipCode: res.data.MotherAddress.zipCode,
       });
       setMother(res.data);
@@ -47,13 +69,17 @@ function PregnantMotherProfile() {
         district: values.district,
         province: values.province,
         zipCode: values.zipCode,
-        motherId: user.id,
+        motherId: mother.id,
       })
       .then((res) => {
         notification.success({
           description: 'แก้ไขข้อมูลสำเร็จ',
         });
       });
+  };
+
+  const handleProvinceChange = (value) => {
+    setProvinces(provinceData[value]);
   };
 
   return (
@@ -167,10 +193,10 @@ function PregnantMotherProfile() {
                           name="province"
                           style={{ display: 'inline-block', width: 'calc(30% - 8px)', margin: '0 8px 0 0' }}
                         >
-                          <Select placeholder="เลือกจังหวัด">
-                            <Option value="Bangkok">กรุงเทพมหานคร</Option>
-                            <Option value="ChaingMai">เชียงใหม่</Option>
-                            <Option value="ChiangRai">เชียงราย</Option>
+                          <Select placeholder="เลือกจังหวัด" onChange={handleProvinceChange}>
+                            {provinceData.map((province) => (
+                              <Option key={province}>{province}</Option>
+                            ))}
                           </Select>
                         </Form.Item>
                         <Form.Item
