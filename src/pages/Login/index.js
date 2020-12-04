@@ -25,7 +25,9 @@ function Login(props) {
         notification.success({
           description: 'Mother login Success',
         });
+        localStorage.clear();
         LocalStorageService.setToken(res.data.token);
+        localStorage.setItem('currentPreg', JSON.stringify(res.data.motherContext));
         currentPregContext.setMother(res.data.motherContext);
         props.setRole('mother');
         history.push('/');
@@ -45,6 +47,7 @@ function Login(props) {
         notification.success({
           description: 'Staff login Success',
         });
+        localStorage.clear();
         LocalStorageService.setToken(res.data.token);
         props.setRole('staff');
         history.push('/');

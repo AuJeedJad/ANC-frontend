@@ -232,3 +232,24 @@
     font-size: 10px;
   }
 }
+
+::-webkit-scrollbar {
+  width: 20px;
+  height: 20px;
+}
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 2px grey;
+  border-radius: 5px;
+  background-color: var(--primaryLightest-color);
+}
+::-webkit-scrollbar-track-piece:start {
+  border-radius: 5px;
+  box-shadow: inset 0 0 2px grey;
+  background-color: var(--primary-color);
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: white;
+  box-shadow: inset 0 0 2px grey;
+  border-radius: 5px;
+}

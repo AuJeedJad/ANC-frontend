@@ -9,6 +9,8 @@ import MotherIndex from '../pages/MotherIndex';
 import RiskEvaluation from '../pages/RiskEvaluation';
 import Dental from '../pages/dental';
 import Lab from '../pages/Lab';
+import Terminate from '../pages/Terminate';
+import FastTerminate from '../pages/FastTerminate';
 
 const allPages = {
   // path ของ staff เท่านั้น
@@ -35,6 +37,13 @@ const allPages = {
   lab: {
     url: '/staff/lab',
     page: Lab,
+  terminate: {
+    url: '/staff/terminate',
+    page: Terminate,
+  },
+  fastTerminate: {
+    url: '/staff/fastTerminate',
+    page: FastTerminate,
   },
   // path ของ mother เท่านั้น
   motherIndex: {
@@ -72,7 +81,12 @@ const permissionList = {
     allPages.mainStaff,
     allPages.risk,
     allPages.dental,
+<<<<<<< HEAD
     allPages.lab,
+=======
+    allPages.terminate,
+    allPages.fastTerminate,
+>>>>>>> dev
   ],
 };
 
