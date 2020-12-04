@@ -8,6 +8,7 @@ import MotherInformation from '../pages/MotherInformation';
 import MotherIndex from '../pages/MotherIndex';
 import RiskEvaluation from '../pages/RiskEvaluation';
 import Dental from '../pages/dental';
+import Lab from '../pages/Lab';
 
 const allPages = {
   // path ของ staff เท่านั้น
@@ -30,6 +31,10 @@ const allPages = {
   risk: {
     url: '/staff/risk',
     page: RiskEvaluation,
+  },
+  lab: {
+    url: '/staff/lab',
+    page: Lab,
   },
   // path ของ mother เท่านั้น
   motherIndex: {
@@ -67,6 +72,7 @@ const permissionList = {
     allPages.mainStaff,
     allPages.risk,
     allPages.dental,
+    allPages.lab,
   ],
 };
 
