@@ -8,6 +8,8 @@ import MotherInformation from '../pages/MotherInformation';
 import MotherIndex from '../pages/MotherIndex';
 import RiskEvaluation from '../pages/RiskEvaluation';
 import Dental from '../pages/dental';
+import Terminate from '../pages/Terminate';
+import FastTerminate from '../pages/FastTerminate';
 
 const allPages = {
   // path ของ staff เท่านั้น
@@ -30,6 +32,14 @@ const allPages = {
   risk: {
     url: '/staff/risk',
     page: RiskEvaluation,
+  },
+  terminate: {
+    url: '/staff/terminate',
+    page: Terminate,
+  },
+  fastTerminate: {
+    url: '/staff/fastTerminate',
+    page: FastTerminate,
   },
   // path ของ mother เท่านั้น
   motherIndex: {
@@ -67,6 +77,8 @@ const permissionList = {
     allPages.mainStaff,
     allPages.risk,
     allPages.dental,
+    allPages.terminate,
+    allPages.fastTerminate,
   ],
 };
 
