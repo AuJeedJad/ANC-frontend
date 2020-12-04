@@ -37,6 +37,7 @@ const allPages = {
   lab: {
     url: '/staff/lab',
     page: Lab,
+  },
   terminate: {
     url: '/staff/terminate',
     page: Terminate,
@@ -81,12 +82,9 @@ const permissionList = {
     allPages.mainStaff,
     allPages.risk,
     allPages.dental,
-<<<<<<< HEAD
     allPages.lab,
-=======
     allPages.terminate,
     allPages.fastTerminate,
->>>>>>> dev
   ],
 };
 
