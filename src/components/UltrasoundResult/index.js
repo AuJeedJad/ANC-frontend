@@ -5,7 +5,7 @@ import ImageModal from '../ImageModal/index';
 function UltrasoundResult(props) {
   return (
     <>
-      <ImageModal currentPage="/staff/anc" />
+      <ImageModal onCloseClick={() => props.setUltrasoundResult(null)} />
     </>
   );
 }

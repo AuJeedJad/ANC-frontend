@@ -1,7 +1,7 @@
 import React from 'react';
 import './imageModal.css';
 
-function ImageModal() {
+function ImageModal(props) {
   const header = 'aaaaaaa';
   const images = [
     'https://www.pngfind.com/pngs/m/441-4411817_2-clipart-library-wooden-block-number-2-hd.png',
@@ -13,7 +13,9 @@ function ImageModal() {
     <>
       <div className="modal-container">
         <div className="modal">
-          <div className="modal-close"> </div>
+          <div className="modal-close" onClick={props.onCloseClick}>
+            {' '}
+          </div>
           {/* <img
             className="usImage"
             src="https://www.pngfind.com/pngs/m/441-4411817_2-clipart-library-wooden-block-number-2-hd.png"
