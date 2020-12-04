@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import axios from 'axios';
+import { notification } from 'antd';
 // import './IndexAnc.css';
-import { Col, Layout, Row, Typography, Form, Input, Table, Space, Tag, Button, Empty, Checkbox } from 'antd';
-import { SearchOutlined, PlusCircleOutlined } from '@ant-design/icons';
+import { Col, Layout, Row, Typography, Form, Input, Table, Button, Empty, Checkbox } from 'antd';
+import { PlusCircleOutlined } from '@ant-design/icons';
+import CurrentPregContext from '../../context/CurrentPregContext';
 
-const { Header, Footer, Sider, Content } = Layout;
 const { Title } = Typography;
 
 function onChange(checkedValues) {
@@ -13,79 +15,50 @@ function onChange(checkedValues) {
 const columns = [
   {
     title: 'วันที่ตรวจ',
-    dataIndex: 'name',
-    key: 'name',
-    render: (text) => <a>{text}</a>,
+    dataIndex: 'examDate',
+    key: 'examDate',
   },
   {
     title: 'น้ำหนัก ก.ก',
-    dataIndex: 'age',
-    key: 'age',
+    dataIndex: 'weight',
+    key: 'weight',
   },
   {
     title: 'การตรวจปัสสาวะ',
-    dataIndex: 'address',
-    key: 'address',
+    dataIndex: 'urineTest',
+    key: 'urineTest',
   },
   {
     title: 'ความดันโลหิต ม.ม.ปรอท',
-    key: 'tags',
-    dataIndex: 'tags',
-    render: (tags) => (
-      <>
-        {tags.map((tag) => {
-          let color = tag.length > 5 ? 'geekblue' : 'green';
-          if (tag === 'loser') {
-            color = 'volcano';
-          }
-          return (
-            <Tag color={color} key={tag}>
-              {tag.toUpperCase()}
-            </Tag>
-          );
-        })}
-      </>
-    ),
+    dataIndex: 'bloodPressure',
+    key: 'bloodPressure',
   },
   {
     title: 'ขนาดของมดลูก (cm)',
-    key: 'action',
-    render: (text, record) => (
-      <Space size="middle">
-        <a>Invite {record.name}</a>
-        <a>Delete</a>
-      </Space>
-    ),
+    dataIndex: 'uterusSize',
+    key: 'uterusSize',
   },
   {
     title: 'ท่าเด็กส่วนนำ/การลง',
-    dataIndex: 'name',
-    key: 'name',
-    render: (text) => <a>{text}</a>,
+    dataIndex: 'childPosture',
+    key: 'childPosture',
   },
   {
     title: 'เสียงหัวใจเด็ก',
-    dataIndex: 'name',
-    key: 'name',
-    render: (text) => <a>{text}</a>,
-  },
-  {
-    title: '',
-    render: () => (
-      <a>
-        <SearchOutlined />
-      </a>
-    ),
+    dataIndex: 'heartSound',
+    key: 'heartSound',
   },
 ];
 
 const data = [
   {
     key: '1',
-    name: 'John Brown',
-    age: 32,
-    address: 'New York No. 1 Lake Park',
-    tags: ['nice', 'developer'],
+    examDate: 'John Brown',
+    urineTest: 32,
+    bloodPressure: 'New York No. 1 Lake Park',
+    uterusSize: ['nice', 'developer'],
+    childPosture: ['nice', 'developer'],
+    heartSound: ['nice', 'developer'],
   },
   {
     key: '2',
@@ -104,11 +77,70 @@ const data = [
 ];
 
 function Anc() {
+  const [ancs, setAncs] = useState([]);
+  const [note, setNote] = useState('');
+  const { mother } = useContext(CurrentPregContext);
+  const [form] = Form.useForm();
+
+  function onChangeNote(e) {
+    setNote(e.target.value);
+  }
+
+  function onClickNote() {
+    axios
+      .patch(`/currentPregnancy/note/${mother.currentPregId}`, { note: note })
+      .then((res) => {
+        notification.success({
+          description: `แก้ไข note สำเร็จ`,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        notification.error({
+          description: `${err}`,
+        });
+      });
+  }
+
+  const data = ancs.map((item, index) => ({
+    key: index,
+    examDate: item.examDate,
+    weight: item.weight,
+    urineTest: item.urineTest,
+    bloodPressure: item.bloodPressure,
+    uterusSize: item.uterusSize,
+    childPosture: item.childPosture,
+    heartSound: item.heartSound,
+  }));
+
+  useEffect(() => {
+    axios
+      .get(`/anc?curPregId=${mother.currentPregId}`)
+      .then((res) => {
+        setAncs(res.data.ancs);
+        form.setFieldsValue({
+          form,
+        });
+      })
+      .catch((err) => {});
+
+    axios
+      .get(`/currentPregnancy/${mother.currentPregId}`)
+      .then((res) => {
+        setNote(res.data.currentPregnancy.note);
+        form.setFieldsValue({
+          form,
+        });
+      })
+      .catch((err) => {});
+  }, []);
+
   return (
     <>
       <Row justify="center">
         <Col
-          span={12}
+          xs={21}
+          md={12}
           style={{
             display: 'flex',
             flexDirection: 'column',
@@ -121,51 +153,87 @@ function Anc() {
             ผลการตรวจอัลตร้าซาวน์วันที่
           </Title>
 
+          {/* <Form form={form}>
+            <Row>
+              <Form.Item label="BPD" name="BPD" style={{ display: 'inline-flex', marginRight: 12 }}>
+                <Input />
+              </Form.Item>
+              <Form.Item label="FL" name="FL" style={{ display: 'inline-flex', marginRight: 12 }}>
+                <Input />
+              </Form.Item>
+              <Form.Item label="HC" name="HC" style={{ display: 'inline-flex', marginRight: 12 }}>
+                <Input />
+              </Form.Item>
+            </Row>
+            <Row>
+              <Form.Item label="AC" name="AC" style={{ display: 'inline-flex', marginRight: 12 }}>
+                <Input />
+              </Form.Item>
+              <Form.Item label="AFI" name="description" style={{ display: 'inline-flex', marginRight: 12 }}>
+                <Input />
+              </Form.Item>
+              <Form.Item label="Placenta" name="description" style={{ display: 'inline-flex', marginRight: 12 }}>
+                <Input />
+              </Form.Item>
+            </Row>
+            <Row>
+              <Form.Item label="EFW" name="description" style={{ display: 'inline-flex', marginRight: 12 }}>
+                <Input />
+              </Form.Item>
+              <Form.Item label="อายุครรภ์" name="description" style={{ display: 'inline-flex', marginRight: 12 }}>
+                <Input />
+              </Form.Item>
+            </Row>
+          </Form> */}
           <Row>
-            <Form.Item label="BPD" name="description" style={{ display: 'inline-flex', marginRight: 12 }}>
-              <Input />
-            </Form.Item>
-            <Form.Item label="FL" name="description" style={{ display: 'inline-flex', marginRight: 12 }}>
-              <Input />
-            </Form.Item>
-            <Form.Item label="HC" name="description" style={{ display: 'inline-flex', marginRight: 12 }}>
-              <Input />
-            </Form.Item>
+            <Title level={5} style={{ display: 'inline-flex', marginRight: '20px' }}>
+              BPD. ...................
+            </Title>
+            <Title level={5} style={{ display: 'inline-flex', margin: '0' }}>
+              FL. ....................
+            </Title>
           </Row>
           <Row>
-            <Form.Item label="AC" name="description" style={{ display: 'inline-flex', marginRight: 12 }}>
-              <Input />
-            </Form.Item>
-            <Form.Item label="AFI" name="description" style={{ display: 'inline-flex', marginRight: 12 }}>
-              <Input />
-            </Form.Item>
-            <Form.Item label="Placenta" name="description" style={{ display: 'inline-flex', marginRight: 12 }}>
-              <Input />
-            </Form.Item>
+            <Title level={5} style={{ display: 'inline-flex', marginRight: '20px' }}>
+              HC. ....................
+            </Title>
+            <Title level={5} style={{ display: 'inline-flex', margin: '0' }}>
+              AC. ....................
+            </Title>
           </Row>
           <Row>
-            <Form.Item label="EFW" name="description" style={{ display: 'inline-flex', marginRight: 12 }}>
-              <Input />
-            </Form.Item>
-            <Form.Item label="อายุครรภ์" name="description" style={{ display: 'inline-flex', marginRight: 12 }}>
-              <Input />
-            </Form.Item>
+            <Title level={5} style={{ display: 'inline-flex', marginRight: '20px' }}>
+              AFI. ....................
+            </Title>
+            <Title level={5} style={{ display: 'inline-flex', margin: '0' }}>
+              Placenta. ....................
+            </Title>
+          </Row>
+          <Row>
+            <Title level={5} style={{ display: 'inline-flex', marginRight: '20px' }}>
+              EFW. ....................
+            </Title>
+            <Title level={5} style={{ display: 'inline-flex', margin: '0' }}>
+              อายุครรภ์. ....................
+            </Title>
           </Row>
         </Col>
         <Col
-          span={12}
+          xs={21}
+          md={12}
           style={{
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
             alignItems: 'center',
             marginTop: '30px',
+            marginBottom: '20px',
           }}
         >
           <Title level={3} style={{ textDecoration: 'underline', textAlign: 'center' }}>
-            Risk
+            Note
           </Title>
-          <Form.Item
+          {/* <Form.Item
             label="รายละเอียด"
             name="description"
             style={{ display: 'inline-flex', marginRight: 12, width: '80%', alignItems: 'center' }}
@@ -192,13 +260,17 @@ function Anc() {
             style={{ display: 'inline-flex', marginRight: 12, width: '80%', alignItems: 'center' }}
           >
             <Input />
-          </Form.Item>
+          </Form.Item> */}
+          <textarea rows="5" cols="50" value={note} onChange={onChangeNote}></textarea>
+          <Button type="primary" onClick={onClickNote} style={{ borderRadius: '50px', marginTop: '10px' }}>
+            แก้ไข Note
+          </Button>
         </Col>
-        <Col span={24} style={{ display: 'flex', justifyContent: 'center' }}>
-          <Table columns={columns} dataSource={data} pagination={false} style={{ width: '75%', marginTop: '20px' }} />
+        <Col span={21} style={{ display: 'flex', justifyContent: 'center' }}>
+          <Table columns={columns} dataSource={data} pagination={false} style={{ width: '100%', marginTop: '20px' }} />
         </Col>
         <Col
-          span={18}
+          span={21}
           style={{
             display: 'flex',
             justifyContent: 'flex-end',
@@ -210,28 +282,36 @@ function Anc() {
             เพิ่มบันทึกผลการตรวจวันนี้ <PlusCircleOutlined />
           </Button>
         </Col>
-        <Row style={{ width: '100%' }}>
-          <Col span={8}>
+        <Row
+          style={{
+            width: '100%',
+            display: 'flex',
+            flexFlow: 'row wrap',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <Col xs={21} md={7}>
             <Empty />
           </Col>
-          <Col span={8}>
+          <Col xs={21} md={7}>
             <Empty />
           </Col>
-          <Col span={8}>
+          <Col xs={21} md={7}>
             <Title level={3} style={{ textDecoration: 'underline', textAlign: 'center' }}>
               คัดกรอง
             </Title>
             <Form>
               <Form.Item
-                label="รายละเอียด"
-                name="description"
+                label="เบาหวาน"
+                name="isDiabetes"
                 style={{ display: 'inline-flex', marginRight: 12, width: '80%', alignItems: 'center' }}
               >
                 <Input />
               </Form.Item>
               <Form.Item
-                label="รายละเอียด"
-                name="description"
+                label="ตรวจพิเศษอื่นๆ"
+                name="other"
                 style={{ display: 'inline-flex', marginRight: 12, width: '80%', alignItems: 'center' }}
               >
                 <Input />
