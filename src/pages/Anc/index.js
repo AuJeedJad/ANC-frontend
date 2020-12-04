@@ -5,6 +5,7 @@ import { notification } from 'antd';
 import { Col, Layout, Row, Typography, Form, Input, Table, Button, Empty, Checkbox } from 'antd';
 import { PlusCircleOutlined } from '@ant-design/icons';
 import CurrentPregContext from '../../context/CurrentPregContext';
+import UltrasoundResult from '../../components/UltrasoundResult';
 
 const { Title } = Typography;
 
@@ -81,6 +82,7 @@ function Anc() {
   const [note, setNote] = useState('');
   const { mother } = useContext(CurrentPregContext);
   const [form] = Form.useForm();
+  const [ultrasoundResultId, setUltrasoundResultId] = useState(null);
 
   function onChangeNote(e) {
     setNote(e.target.value);
@@ -137,6 +139,9 @@ function Anc() {
 
   return (
     <>
+      {ultrasoundResultId ? (
+        <UltrasoundResult ultrasoundResultId={ultrasoundResultId} setUltrasoundResult={setUltrasoundResultId} />
+      ) : null}
       <Row justify="center">
         <Col
           xs={21}

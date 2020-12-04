@@ -73,15 +73,28 @@ function Sidebar(props) {
               onClick={() => {
                 if (topic.action === 'clearToken') {
                   LocalStorage.clearToken();
+                  currentPregContext.setMother({
+                    currentPregId: '',
+                    id: '',
+                    idCard: '',
+                    firstName: '',
+                    lastName: '',
+                    GA: '',
+                    createdAt: '',
+                    isTerminate: false,
+                    isActive: false,
+                  });
                   props.setRole('guest');
                 }
                 if (topic.action === 'clearMother') {
                   currentPregContext.setMother({
                     currentPregId: '',
+                    id: '',
                     idCard: '',
                     firstName: '',
                     lastName: '',
-                    GA: 0,
+                    GA: '',
+                    createdAt: '',
                     isTerminate: false,
                     isActive: false,
                   });
