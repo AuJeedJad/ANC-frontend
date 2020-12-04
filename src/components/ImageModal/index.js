@@ -3,11 +3,6 @@ import './imageModal.css';
 
 function ImageModal(props) {
   const header = 'aaaaaaa';
-  const images = [
-    'https://www.pngfind.com/pngs/m/441-4411817_2-clipart-library-wooden-block-number-2-hd.png',
-    'https://www.pngfind.com/pngs/m/432-4323885_number-2-png-free-download-number-2-in.png',
-    'https://www.pngfind.com/pngs/m/547-5471534_2-png-black-and-white-checkered-number-transparent.png',
-  ];
 
   return (
     <>
@@ -23,68 +18,21 @@ function ImageModal(props) {
           /> */}
           <div className="image-header">{header}</div>
           <div className="image-box">
-            {images.map((url, ind) => {
+            {props.imageList.map((url, ind) => {
               return <img className="image" src={url} alt={`image${ind}`} />;
             })}
           </div>
           <div className="image-content">
-            <div className="input-block">
-              <label> abcde: </label>
-              <input type="text" placeholder="12345" />
-            </div>
-            <div className="input-block">
-              <label> abcde: </label>
-              <input type="text" placeholder="12345" />
-            </div>
-            <div className="input-block">
-              <label> abcde: </label>
-              <input type="text" placeholder="12345" />
-            </div>
-            <div className="input-block">
-              <label> abcde: </label>
-              <input type="text" placeholder="12345" />
-            </div>
-            <div className="input-block">
-              <label> abcde: </label>
-              <input type="text" placeholder="12345" />
-            </div>
-            <div className="input-block">
-              <label> abcde: </label>
-              <input type="text" placeholder="12345" />
-            </div>
-            <div className="input-block">
-              <label> abcde: </label>
-              <input type="text" placeholder="12345" />
-            </div>
-            <div className="input-block">
-              <label> abcde: </label>
-              <input type="text" placeholder="12345" />
-            </div>
-            <div className="input-block">
-              <label> abcde: </label>
-              <input type="text" placeholder="12345" />
-            </div>
-            <div className="input-block">
-              <label> abcde: </label>
-              <input type="text" placeholder="12345" />
-            </div>
-            <div className="input-block">
-              <label> abcde: </label>
-              <input type="text" placeholder="12345" />
-            </div>
-            <div className="input-block">
-              <label> abcde: </label>
-              <input type="text" placeholder="12345" />
-            </div>
-            <div className="input-block">
-              <label> abcde: </label>
-              <input type="text" placeholder="12345" />
-            </div>
-            <div className="input-block">
-              <label> abcde: </label>
-              <input type="text" placeholder="12345" />
-            </div>
-            <button>submit</button>
+            {props.fieldList.map((item, idx) => {
+              return (
+                <div className="input-block">
+                  <label> {item.name} </label>
+                  <input type="text" placeholder={item.value} id={item.name} />
+                </div>
+              );
+            })}
+
+            <button onClick={props.onSubmitClick}>{props.btnName}</button>
           </div>
         </div>
       </div>

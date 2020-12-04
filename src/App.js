@@ -7,17 +7,22 @@ import UserContext from './context/UserContext';
 import LocalStorageService from './services/localStorage';
 
 function App() {
-  const [mother, setMother] = useState({
-    currentPregId: '',
-    id: '',
-    idCard: '',
-    firstName: '',
-    lastName: '',
-    GA: '',
-    createdAt: '',
-    isTerminate: false,
-    isActive: false,
-  });
+  const curPreg = JSON.parse(localStorage.getItem('currentPreg'))
+    ? JSON.parse(localStorage.getItem('currentPreg'))
+    : {
+        currentPregId: '',
+        id: '',
+        idCard: '',
+        firstName: '',
+        lastName: '',
+        GA: '',
+        createdAt: '',
+        isTerminate: false,
+        isActive: false,
+      };
+  console.log(curPreg);
+  const [mother, setMother] = useState(curPreg);
+
   const [role, setRole] = useState(LocalStorage.getRole());
 
   return (
