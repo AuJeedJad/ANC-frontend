@@ -21,12 +21,12 @@ function PregnantMotherProfile() {
         idCard: res.data.idCard,
         phoneNumber: res.data.phoneNumber,
         email: res.data.email,
-        address: res.data.MotherAddress.address,
-        road: res.data.MotherAddress.address,
-        subDistrict: res.data.MotherAddress.subDistrict,
-        district: res.data.MotherAddress.district,
-        province: res.data.MotherAddress.province,
-        zipCode: res.data.MotherAddress.zipCode,
+        address: res.data.address,
+        road: res.data.address,
+        subDistrict: res.data.subDistrict,
+        district: res.data.district,
+        province: res.data.province,
+        zipCode: res.data.zipCode,
       });
       setMother(res.data);
     });
@@ -50,7 +50,7 @@ function PregnantMotherProfile() {
       })
       .then((res) => {
         notification.success({
-          description: `แก้ไขข้อมูลสำเร็จ`,
+          description: 'แก้ไขข้อมูลสำเร็จ',
         });
       });
   };
