@@ -14,7 +14,7 @@ function MotherRegister(props) {
     id: '',
     firstName: '',
     lastName: '',
-    createAt: '',
+    createdAt: '',
     isActive: '',
     curPregId: '',
     GA: '',
@@ -130,9 +130,10 @@ function MotherRegister(props) {
       GA: existIdMom.GA,
       isTerminate: existIdMom.isTerminate,
       isActive: existIdMom.isActive,
+      createdAt: existIdMom.createdAt,
     });
 
-    history.push('/staff/terminate');
+    history.push('/staff/fastTerminate');
   };
   return (
     <div className="page">

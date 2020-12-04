@@ -9,10 +9,12 @@ import LocalStorageService from './services/localStorage';
 function App() {
   const [mother, setMother] = useState({
     currentPregId: '',
+    id: '',
     idCard: '',
     firstName: '',
     lastName: '',
-    GA: 0,
+    GA: '',
+    createdAt: '',
     isTerminate: false,
     isActive: false,
   });
