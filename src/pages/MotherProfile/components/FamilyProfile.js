@@ -1,8 +1,10 @@
 import React from 'react';
 import { Button, Col, Form, Input, Row, Typography } from 'antd';
 
+const { Title } = Typography;
+
 function FamilyProfile() {
-  const { Title } = Typography;
+  const [form] = Form.useForm();
 
   const onFinish = (values) => {
     console.log('Success:', values);
@@ -21,7 +23,7 @@ function FamilyProfile() {
           </Row>
           <Row>
             <Col span={24}>
-              <Form layout="vertical" onFinish={onFinish}>
+              <Form form={form} layout="vertical" onFinish={onFinish}>
                 <Form.Item label="ชื่อ" name="name" style={{ marginBottom: '8px' }}>
                   <Input placeholder="ชื่อ" />
                 </Form.Item>

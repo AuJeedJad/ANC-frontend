@@ -21,12 +21,12 @@ function PregnantMotherProfile() {
         idCard: res.data.idCard,
         phoneNumber: res.data.phoneNumber,
         email: res.data.email,
-        address: res.data.address,
-        road: res.data.address,
-        subDistrict: res.data.subDistrict,
-        district: res.data.district,
-        province: res.data.province,
-        zipCode: res.data.zipCode,
+        address: res.data.MotherAddress.address,
+        road: res.data.MotherAddress.road,
+        subDistrict: res.data.MotherAddress.subDistrict,
+        district: res.data.MotherAddress.district,
+        province: res.data.MotherAddress.province,
+        zipCode: res.data.MotherAddress.zipCode,
       });
       setMother(res.data);
     });
@@ -35,18 +35,19 @@ function PregnantMotherProfile() {
   const onFinish = (values) => {
     console.log('Success:', values);
     axios
-      .put('/motherProfile', {
+      .post('/motherProfile', {
         firstName: values.firstName,
         lastName: values.lastName,
         birthDate: values.birthDate,
         phoneNumber: values.phoneNumber,
         email: values.email,
         address: values.address,
-        road: values.address,
+        road: values.road,
         subDistrict: values.subDistrict,
         district: values.district,
         province: values.province,
         zipCode: values.zipCode,
+        motherId: user.id,
       })
       .then((res) => {
         notification.success({
