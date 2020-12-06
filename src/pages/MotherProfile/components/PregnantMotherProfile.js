@@ -36,20 +36,31 @@ function PregnantMotherProfile() {
 
   useEffect(() => {
     axios.get(`/motherProfile?id=${user.id}`).then((res) => {
-      form.setFieldsValue({
-        firstName: res.data.firstName,
-        lastName: res.data.lastName,
-        birthDate: res.data.birthDate,
-        idCard: res.data.idCard,
-        phoneNumber: res.data.phoneNumber,
-        email: res.data.email,
-        address: res.data.MotherAddress.address,
-        road: res.data.MotherAddress.road,
-        subDistrict: res.data.MotherAddress.subDistrict,
-        district: res.data.MotherAddress.district,
-        province: res.data.MotherAddress.province === '' ? provinces : res.data.MotherAddress.province,
-        zipCode: res.data.MotherAddress.zipCode,
-      });
+      if (res.data.MotherAddress === null) {
+        form.setFieldsValue({
+          firstName: res.data.firstName,
+          lastName: res.data.lastName,
+          birthDate: res.data.birthDate,
+          idCard: res.data.idCard,
+          phoneNumber: res.data.phoneNumber,
+          email: res.data.email,
+        });
+      } else {
+        form.setFieldsValue({
+          firstName: res.data.firstName,
+          lastName: res.data.lastName,
+          birthDate: res.data.birthDate,
+          idCard: res.data.idCard,
+          phoneNumber: res.data.phoneNumber,
+          email: res.data.email,
+          address: res.data.MotherAddress.address,
+          road: res.data.MotherAddress.road,
+          subDistrict: res.data.MotherAddress.subDistrict,
+          district: res.data.MotherAddress.district,
+          province: res.data.MotherAddress.province === '' ? provinces : res.data.MotherAddress.province,
+          zipCode: res.data.MotherAddress.zipCode,
+        });
+      }
       setMother(res.data);
     });
   }, []);

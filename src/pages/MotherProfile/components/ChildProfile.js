@@ -1,17 +1,49 @@
-import React from 'react';
-import { Button, Col, Form, Input, Row, Typography } from 'antd';
+import axios from 'axios';
+import React, { useContext, useEffect, useState } from 'react';
+import { Button, Col, Form, Input, notification, Row, Typography } from 'antd';
+import CurrentPregContext from '../../../context/CurrentPregContext';
 
 function ChildProfile() {
   const { Title } = Typography;
+  const { mother, setMother } = useContext(CurrentPregContext);
+  const [child, setChild] = useState({});
+  const [form] = Form.useForm();
+
+  useEffect(() => {
+    console.log(child);
+    axios.get(`/childProfile?curPregId=${mother.curPregId}`).then((res) => {
+      const { firstName, lastName, birthDate, idCard } = res.data;
+      form.setFieldsValue({
+        firstName,
+        lastName,
+        birthDate,
+        idCard,
+      });
+      setChild(res.data);
+    });
+  }, []);
 
   const onFinish = (values) => {
-    console.log('Success:', values);
+    console.log('Success:', values, { curPregId: mother.curPregId });
+    axios
+      .post('/childProfile', {
+        firstName: values.firstName,
+        lastName: values.lastName,
+        birthDate: values.birthDate,
+        idCard: values.idCard,
+        curPregId: mother.curPregId,
+      })
+      .then((res) => {
+        notification.success({
+          description: 'แก้ไขข้อมูลสำเร็จ',
+        });
+      });
   };
 
   return (
     <>
       <Row justify="center">
-        <Col span={14}>
+        <Col span={16}>
           <Row>
             <Col span={24}>
               <Title level={3} style={{ textDecoration: 'underline' }}>
@@ -21,11 +53,11 @@ function ChildProfile() {
           </Row>
           <Row>
             <Col span={24}>
-              <Form layout="vertical" onFinish={onFinish}>
-                <Form.Item label="ชื่อ" name="name" style={{ marginBottom: '8px' }}>
+              <Form form={form} layout="vertical" onFinish={onFinish}>
+                <Form.Item label="ชื่อ" name="firstName" style={{ marginBottom: '8px' }}>
                   <Input placeholder="ชื่อ" />
                 </Form.Item>
-                <Form.Item label="นามสกุล" name="lastname" style={{ marginBottom: '8px' }}>
+                <Form.Item label="นามสกุล" name="lastName" style={{ marginBottom: '8px' }}>
                   <Input placeholder="นามสกุล" />
                 </Form.Item>
                 <Form.Item style={{ marginBottom: '8px' }}>

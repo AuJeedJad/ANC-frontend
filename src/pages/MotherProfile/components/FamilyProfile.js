@@ -1,12 +1,12 @@
 import axios from 'axios';
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Button, Col, Form, Input, notification, Row, Typography } from 'antd';
 import CurrentPregContext from '../../../context/CurrentPregContext';
 
-const { Title } = Typography;
-
 function FamilyProfile() {
+  const { Title } = Typography;
   const { mother, setMother } = useContext(CurrentPregContext);
+  const [father, setFather] = useState({});
   const [form] = Form.useForm();
 
   useEffect(() => {
@@ -19,7 +19,7 @@ function FamilyProfile() {
         phoneNumber: res.data.phoneNumber,
         email: res.data.email,
       });
-      setMother(res.data);
+      setFather(res.data);
     });
   }, []);
 
