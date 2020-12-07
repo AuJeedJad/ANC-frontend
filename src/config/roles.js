@@ -11,6 +11,8 @@ import Dental from '../pages/dental';
 import MotherReport from '../pages/MotherReport';
 import Terminate from '../pages/Terminate';
 import FastTerminate from '../pages/FastTerminate';
+import GaCare from '../pages/GaCare';
+import ForgotPassword from '../pages/ForgotPassword';
 
 const allPages = {
   // path ของ staff เท่านั้น
@@ -45,6 +47,14 @@ const allPages = {
   fastTerminate: {
     url: '/staff/fastTerminate',
     page: FastTerminate,
+  },
+  gaCare: {
+    url: '/staff/gaCare',
+    page: GaCare,
+  },
+  forgotPassword: {
+    url: '/staff/forgotPassword',
+    page: ForgotPassword,
   },
   // path ของ mother เท่านั้น
   motherIndex: {
@@ -85,6 +95,8 @@ const permissionList = {
     allPages.MotherReport,
     allPages.terminate,
     allPages.fastTerminate,
+    allPages.gaCare,
+    allPages.forgotPassword,
   ],
 };
 
