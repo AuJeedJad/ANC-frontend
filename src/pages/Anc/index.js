@@ -45,6 +45,7 @@ function Anc() {
   const { mother } = useContext(CurrentPregContext);
   const [form] = Form.useForm();
   const [ancId, setAncId] = useState(null);
+  const [ultrasoundResult, setUltrasoundResult] = useState({});
 
   function onChangeNote(e) {
     setNote(e.target.value);
@@ -96,6 +97,13 @@ function Anc() {
         form.setFieldsValue({
           form,
         });
+      })
+      .catch((err) => {});
+
+    axios
+      .get(`/ultrasoundResult/?curPregId=${mother.currentPregId}`)
+      .then((res) => {
+        setUltrasoundResult(res.data.ultrasoundResult);
       })
       .catch((err) => {});
   }, []);
@@ -207,34 +215,34 @@ function Anc() {
           </Form> */}
           <Row>
             <Title level={5} style={{ display: 'inline-flex', marginRight: '20px' }}>
-              BPD. ...................
+              BPD. {ultrasoundResult.BPD}
             </Title>
             <Title level={5} style={{ display: 'inline-flex', margin: '0' }}>
-              FL. ....................
+              FL. {ultrasoundResult.FL}
             </Title>
           </Row>
           <Row>
             <Title level={5} style={{ display: 'inline-flex', marginRight: '20px' }}>
-              HC. ....................
+              HC. {ultrasoundResult.HC}
             </Title>
             <Title level={5} style={{ display: 'inline-flex', margin: '0' }}>
-              AC. ....................
+              AC. {ultrasoundResult.AC}
             </Title>
           </Row>
           <Row>
             <Title level={5} style={{ display: 'inline-flex', marginRight: '20px' }}>
-              AFI. ....................
+              AFI. {ultrasoundResult.AFI}
             </Title>
             <Title level={5} style={{ display: 'inline-flex', margin: '0' }}>
-              Placenta. ....................
+              Placenta. {ultrasoundResult.placenta}
             </Title>
           </Row>
           <Row>
             <Title level={5} style={{ display: 'inline-flex', marginRight: '20px' }}>
-              EFW. ....................
+              EFW. {ultrasoundResult.EFW}
             </Title>
             <Title level={5} style={{ display: 'inline-flex', margin: '0' }}>
-              อายุครรภ์. ....................
+              อายุครรภ์. {ultrasoundResult.gestationalAge} สัปดาห์
             </Title>
           </Row>
         </Col>
