@@ -3,7 +3,7 @@ import axios from 'axios';
 import { notification } from 'antd';
 // import './IndexAnc.css';
 import { Col, Row, Typography, Form, Input, Table, Button, Empty, Checkbox } from 'antd';
-import { PlusCircleOutlined } from '@ant-design/icons';
+import { PlusCircleOutlined, SearchOutlined } from '@ant-design/icons';
 import CurrentPregContext from '../../context/CurrentPregContext';
 import UltrasoundResult from '../../components/UltrasoundResult';
 
@@ -12,44 +12,6 @@ const { Title } = Typography;
 function onChange(checkedValues) {
   console.log('checked = ', checkedValues);
 }
-
-const columns = [
-  {
-    title: 'วันที่ตรวจ',
-    dataIndex: 'examDate',
-    key: 'examDate',
-  },
-  {
-    title: 'น้ำหนัก ก.ก',
-    dataIndex: 'weight',
-    key: 'weight',
-  },
-  {
-    title: 'การตรวจปัสสาวะ',
-    dataIndex: 'urineTest',
-    key: 'urineTest',
-  },
-  {
-    title: 'ความดันโลหิต ม.ม.ปรอท',
-    dataIndex: 'bloodPressure',
-    key: 'bloodPressure',
-  },
-  {
-    title: 'ขนาดของมดลูก (cm)',
-    dataIndex: 'uterusSize',
-    key: 'uterusSize',
-  },
-  {
-    title: 'ท่าเด็กส่วนนำ/การลง',
-    dataIndex: 'childPosture',
-    key: 'childPosture',
-  },
-  {
-    title: 'เสียงหัวใจเด็ก',
-    dataIndex: 'heartSound',
-    key: 'heartSound',
-  },
-];
 
 const data = [
   {
@@ -113,6 +75,7 @@ function Anc() {
     uterusSize: item.uterusSize,
     childPosture: item.childPosture,
     heartSound: item.heartSound,
+    ultrasoundResult: item.id,
   }));
 
   useEffect(() => {
@@ -136,6 +99,60 @@ function Anc() {
       })
       .catch((err) => {});
   }, []);
+
+  const columns = [
+    {
+      title: 'วันที่ตรวจ',
+      dataIndex: 'examDate',
+      key: 'examDate',
+    },
+    {
+      title: 'น้ำหนัก ก.ก',
+      dataIndex: 'weight',
+      key: 'weight',
+    },
+    {
+      title: 'การตรวจปัสสาวะ',
+      dataIndex: 'urineTest',
+      key: 'urineTest',
+    },
+    {
+      title: 'ความดันโลหิต ม.ม.ปรอท',
+      dataIndex: 'bloodPressure',
+      key: 'bloodPressure',
+    },
+    {
+      title: 'ขนาดของมดลูก (cm)',
+      dataIndex: 'uterusSize',
+      key: 'uterusSize',
+    },
+    {
+      title: 'ท่าเด็กส่วนนำ/การลง',
+      dataIndex: 'childPosture',
+      key: 'childPosture',
+    },
+    {
+      title: 'เสียงหัวใจเด็ก',
+      dataIndex: 'heartSound',
+      key: 'heartSound',
+    },
+    {
+      title: 'ดูรูปอุตร้าซาวต์',
+      dataIndex: 'ultrasoundResult',
+      key: 'ultrasoundResult',
+      render: (text, record) => (
+        <Button
+          type="primary"
+          style={{ borderRadius: '50px' }}
+          onClick={() => {
+            setAncId(record.ultrasoundResult);
+          }}
+        >
+          <SearchOutlined />
+        </Button>
+      ),
+    },
+  ];
 
   return (
     <>
