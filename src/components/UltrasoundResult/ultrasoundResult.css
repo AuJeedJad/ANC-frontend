@@ -1,0 +1,40 @@
+.usResult-select {
+  position: fixed;
+  top: 1vh;
+  left: 1vw;
+  z-index: 6;
+}
+.usResult-select button {
+  margin: 0px 10px;
+  width: 40px;
+  height: 40px;
+  font-size: 25px;
+  font-weight: 500;
+  color: var(--secondary-color);
+  background-color: var(--thirdary-color);
+  border-radius: 50%;
+  border-width: 0px;
+  box-shadow: 5px 3px 2px var(--thirdaryDarkest-color);
+}
+.usResult-selected,
+.usResult-select button:hover {
+  background: linear-gradient(0deg, rgba(194, 225, 126, 1) 14%, rgba(221, 244, 169, 1) 50%, rgba(194, 225, 126, 1) 87%);
+  color: var(--secondaryDarkest-color);
+}
+.hint-newResult {
+  display: none;
+}
+
+.btn-newResult:hover .hint-newResult {
+  display: inherit;
+  position: relative;
+  left: 0px;
+  top: 0px;
+  width: 150px;
+  font-size: 15px;
+  color: var(--thirdaryDarkest-color);
+  background-color: white;
+  border-radius: 10px;
+  border: 2px dashed var(--thirdary-color);
+  z-index: 2;
+}

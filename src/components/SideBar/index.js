@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import './sideBar.css';
 import { Link, useHistory } from 'react-router-dom';
 import LocalStorage from '../../services/localStorage';
