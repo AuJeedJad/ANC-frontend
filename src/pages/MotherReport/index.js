@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row, Col, Typography, Button, Form, Checkbox } from 'antd';
-
+import { useHistory } from 'react-router-dom';
 const { Title } = Typography;
 
 function onChange(checkedValues) {
@@ -8,6 +8,7 @@ function onChange(checkedValues) {
 }
 
 function MotherReport() {
+  const history = useHistory();
   return (
     <>
       <Row justify="center">
@@ -56,8 +57,7 @@ function MotherReport() {
               fontSize: '14px',
             }}
           >
-            {' '}
-            แก้ไขความผิดปกตืที่สนใจ{' '}
+            แก้ไขความผิดปกติที่ต้องให้ความสนใจ
           </Button>
         </Col>
         <Col
@@ -79,6 +79,10 @@ function MotherReport() {
         </Col>
         <Col span={7}>
           <Button
+            onClick={(e) => {
+              e.preventDefault();
+              history.push('/staff/lab');
+            }}
             style={{
               borderRadius: '50px',
               width: '90%',
@@ -90,11 +94,15 @@ function MotherReport() {
               fontSize: '14px',
             }}
           >
-            ผลตรวจห้องปฎิบัติการ
+            ผลตรวจทางห้องปฎิบัติการ
           </Button>
         </Col>
         <Col span={7}>
           <Button
+            onClick={(e) => {
+              e.preventDefault();
+              history.push('/staff/gaCare');
+            }}
             style={{
               borderRadius: '50px',
               width: '90%',
@@ -106,11 +114,15 @@ function MotherReport() {
               fontSize: '14px',
             }}
           >
-            บริการตามช่วงอายุ
+            บริการตามช่วงอายุครรภ์
           </Button>
         </Col>
         <Col span={7}>
           <Button
+            onClick={(e) => {
+              e.preventDefault();
+              history.push('/staff/dental');
+            }}
             style={{
               borderRadius: '50px',
               width: '90%',

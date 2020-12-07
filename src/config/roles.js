@@ -6,12 +6,17 @@ import MainStaff from '../pages/MainStaff';
 import MotherProfile from '../pages/MotherProfile';
 import MotherInformation from '../pages/MotherInformation';
 import MotherIndex from '../pages/MotherIndex';
+import MotherShopping from '../pages/Shopping';
 import RiskEvaluation from '../pages/RiskEvaluation';
 import Dental from '../pages/dental';
 import MotherReport from '../pages/MotherReport';
 import Lab from '../pages/Lab';
 import Terminate from '../pages/Terminate';
 import FastTerminate from '../pages/FastTerminate';
+import GaCare from '../pages/GaCare';
+import ForgotPassword from '../pages/ForgotPassword';
+import LogToday from '../pages/LogToday';
+import Faq from '../pages/FaqSheet';
 
 const allPages = {
   // path ของ staff เท่านั้น
@@ -51,6 +56,22 @@ const allPages = {
     url: '/staff/fastTerminate',
     page: FastTerminate,
   },
+  gaCare: {
+    url: '/staff/gaCare',
+    page: GaCare,
+  },
+  forgotPassword: {
+    url: '/staff/forgotPassword',
+    page: ForgotPassword,
+  },
+  logToday: {
+    url: '/staff/logToday',
+    page: LogToday,
+  },
+  faq: {
+    url: '/staff/faq',
+    page: Faq,
+  },
   // path ของ mother เท่านั้น
   motherIndex: {
     url: '/',
@@ -63,6 +84,10 @@ const allPages = {
   motherProfile: {
     url: '/mother/profile',
     page: MotherProfile,
+  },
+  motherShopping: {
+    url: '/shopping/mom',
+    page: MotherShopping,
   },
   // ของ guest เท่านั้น
   login: {
@@ -79,7 +104,13 @@ const allPages = {
 
 const permissionList = {
   guest: [allPages.login, allPages.contentPage, allPages.motherIndex],
-  mother: [allPages.contentPage, allPages.motherProfile, allPages.motherInformation, allPages.motherIndex],
+  mother: [
+    allPages.contentPage,
+    allPages.motherProfile,
+    allPages.motherInformation,
+    allPages.motherIndex,
+    allPages.motherShopping,
+  ],
   staff: [
     allPages.motherRegister,
     allPages.contentPage,
@@ -91,6 +122,10 @@ const permissionList = {
     allPages.lab,
     allPages.terminate,
     allPages.fastTerminate,
+    allPages.gaCare,
+    allPages.forgotPassword,
+    allPages.logToday,
+    allPages.faq,
   ],
 };
 

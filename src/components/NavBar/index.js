@@ -20,16 +20,16 @@ function NavBar(props) {
         ? [
             { name: 'เพิ่มเติม', path: '' },
             { name: 'ลงทะเบียนหญิงตั้งครรภ์', path: '/staff/motherRegister' },
-            { name: 'การตรวจวันนี้', path: '/staff/review' },
+            { name: 'การตรวจวันนี้', path: '/staff/logToday' },
             { name: 'หน้าหลักโรงพยาบาล', path: '/' },
           ]
         : [
             { name: `เพิ่มเติม`, path: '' },
             { name: `ทันตกรรม`, path: '/staff/dental' },
             { name: `ดูแลตามอายุครรภ์`, path: '/staff/gaCare' },
-            { name: `ผล LAB`, path: '/staff/lab' },
-            { name: `ตรวจครรภ์`, path: '/staff/anc' },
             { name: `หน้าหลักหญิงตั้งครรภ์`, path: '/staff/motherReport' },
+            { name: `ตรวจครรภ์`, path: '/staff/anc' },
+            { name: `ผล LAB`, path: '/staff/lab' },
           ]
       : [
           { name: `ติดต่อเรา`, path: '/contactUs' },
@@ -45,10 +45,6 @@ function NavBar(props) {
   const [tabStatus, setTabStatus] = useState({});
   const [tabSelect, setTabSelect] = useState(navTabCount - 1);
   const [lastTabSelect, setLastTabSelect] = useState(4);
-
-  useEffect(() => {
-    setTabSelect(navTabCount - 1);
-  }, [navTab]);
 
   useEffect(() => {
     if (tabSelect !== 0) {

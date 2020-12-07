@@ -16,8 +16,8 @@ function Sidebar(props) {
       : props.role === 'staff'
       ? currentPregContext.mother.isActive === false
         ? [
-            { name: `วิธีการใช้งาน`, path: '/staff/faq' },
-            { name: `อ่านบทความ`, path: '/content' },
+            { name: 'วิธีการใช้งาน', path: '/staff/faq' },
+            { name: 'อ่านบทความ', path: '/content' },
           ]
         : currentPregContext.mother.isTerminate === true
         ? [
@@ -28,7 +28,7 @@ function Sidebar(props) {
         : [
             { name: 'ประเมินความเสี่ยง', path: '/staff/risk' },
             { name: 'คลอด/แท้งแล้ว', path: '/staff/terminate' },
-            { name: 'หญิงตั้งครรภ์ลืมรหัสผ่าน', path: '/staff/motherPasswordReset' },
+            { name: 'หญิงตั้งครรภ์ลืมรหัสผ่าน', path: '/staff/forgotPassword' },
           ]
       : [];
 

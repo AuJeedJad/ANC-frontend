@@ -1,0 +1,17 @@
+.page-gaCare {
+  display: flex;
+  flex-flow: row wrap;
+  background-color: white;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+.logo-gaCare {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30%;
+  object-fit: cover;
+  margin: 10%;
+}
