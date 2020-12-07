@@ -2,9 +2,10 @@ import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { notification } from 'antd';
 // import './IndexAnc.css';
-import { Col, Layout, Row, Typography, Form, Input, Table, Button, Empty, Checkbox } from 'antd';
+import { Col, Row, Typography, Form, Input, Table, Button, Empty, Checkbox } from 'antd';
 import { PlusCircleOutlined } from '@ant-design/icons';
 import CurrentPregContext from '../../context/CurrentPregContext';
+import UltrasoundResult from '../../components/UltrasoundResult';
 
 const { Title } = Typography;
 
@@ -81,6 +82,7 @@ function Anc() {
   const [note, setNote] = useState('');
   const { mother } = useContext(CurrentPregContext);
   const [form] = Form.useForm();
+  const [ancId, setAncId] = useState(null);
 
   function onChangeNote(e) {
     setNote(e.target.value);
@@ -137,6 +139,7 @@ function Anc() {
 
   return (
     <>
+      {ancId ? <UltrasoundResult ancId={ancId} setAncId={setAncId} /> : null}
       <Row justify="center">
         <Col
           xs={21}
