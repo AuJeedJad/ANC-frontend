@@ -96,7 +96,9 @@ function Terminate() {
         <tr style={{ height: '20vh' }}>
           <td colspan={2}>
             <span style={{ display: 'inline-flex', justifyContent: 'flex-start', width: '50%' }}>
-              <button className="btn-terminate"> ดูข้อมูลครรภ์นี้ </button>
+              <button className="btn-terminate" onClick={() => history.push('/staff/motherReport')}>
+                ดูข้อมูลครรภ์นี้
+              </button>
             </span>
             <span style={{ display: 'inline-flex', justifyContent: 'flex-end', width: '50%' }}>
               <button className="btn-terminate" onClick={onTerminateSubmit}>

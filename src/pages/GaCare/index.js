@@ -6,7 +6,7 @@ function GaCare() {
     <div className="page">
       <div className="page-gaCare">
         <div className="page-header"> บริการตามอายุครรภ์</div>
-        <img src={Logo} alt="logo" className="logo-notfound" />
+        <img src={Logo} alt="logo" className="logo-gaCare" />
       </div>
     </div>
   );

@@ -107,6 +107,7 @@ function IndexStaff() {
           <Row style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <Col span={24} style={{ display: 'flex', justifyContent: 'center' }}>
               <Button
+                onClick={() => history.push('/staff/motherRegister')}
                 type="primary"
                 style={{
                   marginTop: '45px',

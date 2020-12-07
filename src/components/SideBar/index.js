@@ -28,7 +28,6 @@ function Sidebar(props) {
         : [
             { name: 'ประเมินความเสี่ยง', path: '/staff/risk' },
             { name: 'คลอด/แท้งแล้ว', path: '/staff/terminate' },
-            { name: 'สิ้นสุดการตั้งครรภ์เร่งด่วน', path: '/staff/fastTerminate' },
             { name: 'หญิงตั้งครรภ์ลืมรหัสผ่าน', path: '/staff/forgotPassword' },
           ]
       : [];
