@@ -1,6 +1,6 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React from 'react';
 import axios from '../../../config/axios';
-import { Row, Col, Input, Button, Radio, Form, DatePicker, InputNumber } from 'antd';
+import { Row, Col, Input, Button, Radio, Form, DatePicker, notification } from 'antd';
 import moment from 'moment';
 
 function AddLabResult() {
@@ -13,6 +13,26 @@ function AddLabResult() {
 
   const onFinish = (values) => {
     console.log(values);
+    axios
+      .post('/labResult', {
+        curPregId: 2,
+        role: values.role,
+        createdAt: values.createdAt,
+        bloodGroup: values.bloodGroup,
+        hctHb: values.hctHb,
+        ofMcvMch: values.ofMcvMch,
+        dcip: values.dcip,
+        hbTyping: values.hbTyping,
+        pcr: values.pcr,
+        hepatitisBVirus: values.hepatitisBVirus,
+        syphilis: values.syphilis,
+        hiv: values.hiv,
+      })
+      .then((res) => {
+        notification.success({
+          description: 'บันทึกข้อมูลสำเร็จ',
+        });
+      });
   };
 
   return (
@@ -39,14 +59,16 @@ function AddLabResult() {
           </Row>
           <Row>
             <Col xs={24}>
-              <Radio.Group name="role" defaultValue={null}>
-                <Radio value={'mother'} style={{ fontSize: '20px' }}>
-                  หญิงตั้งครรภ์
-                </Radio>
-                <Radio value={'father'} style={{ fontSize: '20px' }}>
-                  สามี
-                </Radio>
-              </Radio.Group>
+              <Form.Item name="role">
+                <Radio.Group name="role" defaultValue={null}>
+                  <Radio value="mother" style={{ fontSize: '20px' }}>
+                    หญิงตั้งครรภ์
+                  </Radio>
+                  <Radio value="father" style={{ fontSize: '20px' }}>
+                    สามี
+                  </Radio>
+                </Radio.Group>
+              </Form.Item>
             </Col>
           </Row>
           <Row style={{ width: '100%', justifyContent: 'center' }}>
