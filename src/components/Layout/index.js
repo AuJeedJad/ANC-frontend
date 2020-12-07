@@ -6,7 +6,7 @@ function Layout({ children, role, setRole, page }) {
   const [show, setShow] = useState(false);
 
   return (
-    <div classname="webLatout">
+    <div className="webLatout">
       <NavBar role={role} setRole={setRole} page={page} show={show} setShow={setShow} />
       <div className="deco-header"></div>
       {children}

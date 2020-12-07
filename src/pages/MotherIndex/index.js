@@ -1,5 +1,7 @@
-import { Badge, Button, Calendar, Col, Form, Input, Modal, Row, Select, Typography } from 'antd';
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { Badge, Calendar, Col, Form, Input, Modal, Row, Select, Typography } from 'antd';
+import '../../components/SideBar/sideBar.css';
 
 function MotherIndex() {
   const { Option } = Select;
@@ -176,11 +178,11 @@ function MotherIndex() {
 
   return (
     <>
-      <Row>
+      <Row style={{ marginTop: 16 }}>
         <Col span={24}>
-          <Button type="primary" style={{ width: '100%' }}>
-            Mother Profile
-          </Button>
+          <Link to="/mother/profile" className="btn-sidebar" style={{ width: '100%', fontSize: 20 }}>
+            ข้อมูลส่วนตัว
+          </Link>
           <Calendar
             mode="month"
             headerRender={headerRender}
@@ -188,9 +190,9 @@ function MotherIndex() {
             onSelect={() => setVisible(!visible)}
             dateCellRender={dateCellRender}
           ></Calendar>
-          <Button type="primary" style={{ width: '100%' }}>
-            Mother Medical History
-          </Button>
+          <Link to="/mother/information" className="btn-sidebar" style={{ width: '100%', fontSize: 20 }}>
+            ข้อมูลครรภ์ปัจจุบัน
+          </Link>
           <CollectionCreateForm
             visible={visible}
             onCreate={onCreate}
