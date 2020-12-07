@@ -8,11 +8,8 @@ import MotherInformation from '../pages/MotherInformation';
 import MotherIndex from '../pages/MotherIndex';
 import RiskEvaluation from '../pages/RiskEvaluation';
 import Dental from '../pages/dental';
-<<<<<<< HEAD
 import MotherReport from '../pages/MotherReport';
-=======
 import Lab from '../pages/Lab';
->>>>>>> feature-curPreg
 import Terminate from '../pages/Terminate';
 import FastTerminate from '../pages/FastTerminate';
 
