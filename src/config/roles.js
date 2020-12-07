@@ -6,6 +6,7 @@ import MainStaff from '../pages/MainStaff';
 import MotherProfile from '../pages/MotherProfile';
 import MotherInformation from '../pages/MotherInformation';
 import MotherIndex from '../pages/MotherIndex';
+import MotherShopping from '../pages/Shopping';
 import RiskEvaluation from '../pages/RiskEvaluation';
 import Dental from '../pages/dental';
 import MotherReport from '../pages/MotherReport';
@@ -84,6 +85,10 @@ const allPages = {
     url: '/mother/profile',
     page: MotherProfile,
   },
+  motherShopping: {
+    url: '/shopping/mom',
+    page: MotherShopping,
+  },
   // ของ guest เท่านั้น
   login: {
     url: '/',
@@ -99,7 +104,13 @@ const allPages = {
 
 const permissionList = {
   guest: [allPages.login, allPages.contentPage, allPages.motherIndex],
-  mother: [allPages.contentPage, allPages.motherProfile, allPages.motherInformation, allPages.motherIndex],
+  mother: [
+    allPages.contentPage,
+    allPages.motherProfile,
+    allPages.motherInformation,
+    allPages.motherIndex,
+    allPages.motherShopping,
+  ],
   staff: [
     allPages.motherRegister,
     allPages.contentPage,

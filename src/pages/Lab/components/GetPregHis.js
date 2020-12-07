@@ -21,7 +21,7 @@ function GetPregHis() {
         flexDirection: 'column',
         justifyContent: 'center',
         textAlign: 'center',
-        borderBottom: '1px solid lightgray',
+        borderTop: '1px solid lightgray',
       }}
     >
       <Row style={{ marginTop: '1em' }}>
@@ -103,10 +103,13 @@ function GetPregHis() {
         </Col>
       </Row>
       <Row>
-        <Col xs={20}></Col>
-        <Col xs={4} style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'flex-end' }}>
+        <Col xs={24} style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'flex-end', padding: '0 3em' }}>
           <Form.Item wrapperCol={{ ...layout.wrapperCol }}>
-            <Button type="primary" htmlType="submit">
+            <Button
+              type="primary"
+              htmlType="submit"
+              style={{ fontSize: '20px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+            >
               อัพเดท
             </Button>
           </Form.Item>

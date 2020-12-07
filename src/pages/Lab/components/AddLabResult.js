@@ -1,19 +1,20 @@
-import React from 'react';
-import { Row, Col, Table, Input, Button, Radio, Form, DatePicker, InputNumber, Select } from 'antd';
+import React, { useContext, useEffect, useState } from 'react';
+import axios from '../../../config/axios';
+import { Row, Col, Input, Button, Radio, Form, DatePicker, InputNumber } from 'antd';
 import moment from 'moment';
 
-const dateFormat = 'YYYY-MM-DD';
-
-const layout = {
-  labelCol: { xs: 11 },
-  wrapperCol: { xs: 'auto' },
-};
-
-const onFinish = (values) => {
-  console.log(values);
-};
-
 function AddLabResult() {
+  const dateFormat = 'YYYY-MM-DD';
+
+  const layout = {
+    labelCol: { xs: 24 },
+    wrapperCol: { xs: 24 },
+  };
+
+  const onFinish = (values) => {
+    console.log(values);
+  };
+
   return (
     <Form
       {...layout}
@@ -26,7 +27,7 @@ function AddLabResult() {
         alignItems: 'flex-start',
         textAlign: 'center',
         border: '1px solid lightgray',
-        width: '70%',
+        width: '60%',
       }}
     >
       <Row style={{ width: '100%' }}>
@@ -49,79 +50,127 @@ function AddLabResult() {
             </Col>
           </Row>
           <Row style={{ width: '100%', justifyContent: 'center' }}>
-            <Col xs={12} style={{ padding: '0 1em' }}>
-              <Form.Item name="idLabResultByRole" label={<label style={{ fontSize: '20px' }}>ครั้งที่</label>}>
-                <InputNumber />
-              </Form.Item>
-            </Col>
-            <Col xs={10} style={{ padding: '0 1em' }}>
-              <Form.Item
-                name="createdAt"
-                label={<label style={{ fontSize: '20px' }}>วันที่</label>}
-                labelCol={8}
-                wrapperCol={16}
-              >
-                <DatePicker defaultValue={moment(new Date(), dateFormat)} />
+            <Col xs={24} style={{ padding: '0 1em' }}>
+              <Form.Item name="createdAt">
+                <label for="nest-messages_createdAt" style={{ fontSize: '20px' }}>
+                  วันที่ :{' '}
+                </label>
+                <DatePicker defaultValue={moment(new Date(), dateFormat)} style={{}} />
               </Form.Item>
             </Col>
           </Row>
         </Col>
       </Row>
       <Row style={{ width: '100%' }}>
-        <Col xs={24}>
+        <Col xs={24} style={{ padding: '0 1em' }}>
           <Row>
             <Col xs={24}>
               <h1>รายงานการตรวจเลือด</h1>
             </Col>
           </Row>
           <Row>
-            <Col xs={12} style={{ padding: '0 1em' }}>
-              <Form.Item name="bloodGroup" label={<label style={{ fontSize: '20px' }}>Blood gr/Rh</label>}>
-                <Input />
-              </Form.Item>
-              <Form.Item name="hctHb" label={<label style={{ fontSize: '20px' }}>Hct/Hb</label>}>
-                <Input />
-              </Form.Item>
-              <Form.Item name="ofMcvMch" label={<label style={{ fontSize: '20px' }}>OF/MCV, MCH</label>}>
-                <Input />
-              </Form.Item>
-              <Form.Item name="dcip" label={<label style={{ fontSize: '20px' }}>DCIP</label>}>
-                <Input />
-              </Form.Item>
-              <Form.Item name="hbTyping" label={<label style={{ fontSize: '20px' }}>Hb typing</label>}>
-                <Input />
-              </Form.Item>
+            <Col xs={12}>
+              <Row style={{ width: '100%' }}>
+                <Col
+                  xs={24}
+                  style={{
+                    width: '100%',
+                    padding: '0 1em',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <label for="nest-messages_bloodGroup" style={{ textAlign: 'center', fontSize: '20px' }}>
+                    Blood gr/Rh
+                  </label>
+                  <Form.Item name="bloodGroup">
+                    <Input />
+                  </Form.Item>
+                  <label for="nest-messages_hctHb" style={{ textAlign: 'center', fontSize: '20px' }}>
+                    Hct/Hb
+                  </label>
+                  <Form.Item name="hctHb">
+                    <Input />
+                  </Form.Item>
+                  <label for="nest-messages_ofMcvMch" style={{ textAlign: 'center', fontSize: '20px' }}>
+                    OF/MCV, MCH
+                  </label>
+                  <Form.Item name="ofMcvMch">
+                    <Input />
+                  </Form.Item>
+                  <label for="nest-messages_dcip" style={{ textAlign: 'center', fontSize: '20px' }}>
+                    DCIP
+                  </label>
+                  <Form.Item name="dcip">
+                    <Input />
+                  </Form.Item>
+                  <label for="nest-messages_hbTyping" style={{ textAlign: 'center', fontSize: '20px' }}>
+                    Hb typing
+                  </label>
+                  <Form.Item name="hbTyping">
+                    <Input />
+                  </Form.Item>
+                </Col>
+              </Row>
             </Col>
-            <Col
-              xs={12}
-              style={{
-                width: '100%',
-                padding: '0 1em',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-              }}
-            >
-              <Form.Item name="pcr" label={<label style={{ fontSize: '20px' }}>PCR</label>}>
-                <Input />
-              </Form.Item>
-              <Form.Item name="hepatitisBVirus" label={<label style={{ fontSize: '20px' }}>ไวรัสตับอักเสบ บี</label>}>
-                <Input />
-              </Form.Item>
-              <Form.Item name="syphilis" label={<label style={{ fontSize: '20px' }}>ซิฟิลิส</label>}>
-                <Input />
-              </Form.Item>
-              <Form.Item name="hiv" label={<label style={{ fontSize: '20px' }}>ตรวจหาเชื้อเอช ไอ วี</label>}>
-                <Input />
-              </Form.Item>
-              <Form.Item
-                wrapperCol={{ ...layout.wrapperCol }}
-                style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'flex-end', textAlign: 'end' }}
+            <Col xs={12}>
+              <Row
+                style={{
+                  width: '100%',
+                  padding: '0 1em',
+                }}
               >
-                <Button type="primary" htmlType="submit">
-                  บันทึก
-                </Button>
-              </Form.Item>
+                <Col xs={24}>
+                  <label for="nest-messages_pcr" style={{ textAlign: 'center', fontSize: '20px' }}>
+                    PCR
+                  </label>
+                  <Form.Item name="pcr">
+                    <Input />
+                  </Form.Item>
+                  <label for="nest-messages_hepatitisBVirus" style={{ textAlign: 'center', fontSize: '20px' }}>
+                    ไวรัสตับอักเสบ บี
+                  </label>
+                  <Form.Item name="hepatitisBVirus">
+                    <Input />
+                  </Form.Item>
+                  <label for="nest-messages_syphilis" style={{ textAlign: 'center', fontSize: '20px' }}>
+                    ซิฟิลิส
+                  </label>
+                  <Form.Item name="syphilis">
+                    <Input />
+                  </Form.Item>
+                  <label for="nest-messages_hiv" style={{ textAlign: 'center', fontSize: '20px' }}>
+                    ตรวจหาเชื้อเอช ไอ วี
+                  </label>
+                  <Form.Item name="hiv">
+                    <Input />
+                  </Form.Item>
+                  <Form.Item
+                    wrapperCol={{ ...layout.wrapperCol }}
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'flex-end',
+                      alignItems: 'flex-end',
+                      padding: '30px 0 0 0',
+                    }}
+                  >
+                    <Button
+                      type="primary"
+                      htmlType="submit"
+                      style={{
+                        fontSize: '20px',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                      }}
+                    >
+                      บันทึก
+                    </Button>
+                  </Form.Item>
+                </Col>
+              </Row>
             </Col>
           </Row>
         </Col>

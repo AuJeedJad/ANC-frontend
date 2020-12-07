@@ -17,7 +17,7 @@ function RecordCounselAndParentSchool() {
       name="nest-messages"
       onFinish={onFinish}
       style={{
-        borderBottom: '1px solid lightgray',
+        borderTop: '1px solid lightgray',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
@@ -34,12 +34,18 @@ function RecordCounselAndParentSchool() {
           </Row>
           <Row>
             <Col xs={12}>
-              <Form.Item name="coupleCounselingDate1" label="ได้รับก่อนตรวจเลือด วันที่">
+              <Form.Item
+                name="coupleCounselingDate1"
+                label={<label style={{ fontSize: '20px' }}>ได้รับก่อนตรวจเลือด วันที่</label>}
+              >
                 <DatePicker />
               </Form.Item>
             </Col>
             <Col xs={12}>
-              <Form.Item name="coupleCounselingDate2" label="ได้รับหลังตรวจเลือด วันที่">
+              <Form.Item
+                name="coupleCounselingDate2"
+                label={<label style={{ fontSize: '20px' }}>ได้รับหลังตรวจเลือด วันที่</label>}
+              >
                 <DatePicker />
               </Form.Item>
             </Col>
@@ -55,12 +61,18 @@ function RecordCounselAndParentSchool() {
           </Row>
           <Row>
             <Col xs={12}>
-              <Form.Item name="parentSchoolDate1" label="ครั้งที่1 เมื่อวันที่">
+              <Form.Item
+                name="parentSchoolDate1"
+                label={<label style={{ fontSize: '20px' }}>ครั้งที่1 เมื่อวันที่</label>}
+              >
                 <DatePicker />
               </Form.Item>
             </Col>
             <Col xs={12}>
-              <Form.Item name="parentSchoolDate2" label="ครั้งที่2 เมื่อวันที่">
+              <Form.Item
+                name="parentSchoolDate2"
+                label={<label style={{ fontSize: '20px' }}>ครั้งที่2 เมื่อวันที่</label>}
+              >
                 <DatePicker />
               </Form.Item>
             </Col>
@@ -68,11 +80,13 @@ function RecordCounselAndParentSchool() {
         </Col>
       </Row>
       <Row style={{ width: '100%' }}>
-        <Col xs={10}></Col>
-        <Col xs={10}></Col>
-        <Col xs={4} style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'flex-end' }}>
+        <Col xs={24} style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'flex-end', padding: '0 3em' }}>
           <Form.Item wrapperCol={{ ...layout.wrapperCol }}>
-            <Button type="primary" htmlType="submit">
+            <Button
+              type="primary"
+              htmlType="submit"
+              style={{ fontSize: '20px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+            >
               อัพเดท
             </Button>
           </Form.Item>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, Button, Radio, Form, DatePicker, InputNumber, Select } from 'antd';
+import { Row, Col, Button, Form, DatePicker, InputNumber, Select } from 'antd';
 
 const layout = {
   labelCol: { xs: 'auto' },
@@ -17,7 +17,7 @@ function RecordVaccine() {
       name="nest-messages"
       onFinish={onFinish}
       style={{
-        borderBottom: '1px solid lightgray',
+        borderTop: '1px solid lightgray',
         display: 'flex',
         flexDirection: 'column',
         textAlign: 'start',
@@ -30,19 +30,25 @@ function RecordVaccine() {
       </Row>
       <Row>
         <Col xs={12}>
-          <Form.Item name="tetanusCountBefore" label="ก่อนตั้งครรภ์เคยฉีดวัคซีนกี่ครั้ง">
+          <Form.Item
+            name="tetanusCountBefore"
+            label={<label style={{ fontSize: '20px' }}>ก่อนตั้งครรภ์เคยฉีดวัคซีนกี่ครั้ง</label>}
+          >
             <InputNumber />
           </Form.Item>
         </Col>
         <Col xs={12}>
-          <Form.Item name="lastTetanusHxDate" label="ครั้งสุดท้ายวันที่">
+          <Form.Item name="lastTetanusHxDate" label={<label style={{ fontSize: '20px' }}>ครั้งสุดท้ายวันที่</label>}>
             <DatePicker />
           </Form.Item>
         </Col>
       </Row>
       <Row>
         <Col xs={18}>
-          <Form.Item name="tetausDosePefered" label="ปริมาณวัคซีนในระหว่างตั้งครรภ์">
+          <Form.Item
+            name="tetausDosePefered"
+            label={<label style={{ fontSize: '20px' }}>ปริมาณวัคซีนในระหว่างตั้งครรภ์</label>}
+          >
             <Select>
               <Select.Option value="3Does">รับใหม่ 3 เข็ม</Select.Option>
               <Select.Option value="BootsDose">เข็มกระตุ้น</Select.Option>
@@ -53,12 +59,12 @@ function RecordVaccine() {
       </Row>
       <Row style={{ display: 'flex', justifyContent: 'center' }}>
         <Col xs={8}>
-          <Form.Item name="firstTetanusDate" label="ครั้งที่ 1 วันที่">
+          <Form.Item name="firstTetanusDate" label={<label style={{ fontSize: '20px' }}>ครั้งที่ 1 วันที่</label>}>
             <DatePicker />
           </Form.Item>
         </Col>
         <Col xs={10}>
-          <Form.Item name="firstTDPType" label="ชนิด">
+          <Form.Item name="firstTDPType" label={<label style={{ fontSize: '20px' }}>ชนิด</label>}>
             <Select>
               <Select.Option value="TT">บาดทะยัก</Select.Option>
               <Select.Option value="dT">บาดทะยักและคอตีบ</Select.Option>
@@ -69,12 +75,12 @@ function RecordVaccine() {
       </Row>
       <Row style={{ display: 'flex', justifyContent: 'center' }}>
         <Col xs={8}>
-          <Form.Item name="secondTetanusDate" label="ครั้งที่ 2 วันที่">
+          <Form.Item name="secondTetanusDate" label={<label style={{ fontSize: '20px' }}>ครั้งที่ 2 วันที่</label>}>
             <DatePicker />
           </Form.Item>
         </Col>
         <Col xs={10}>
-          <Form.Item name="secondTDPType" label="ชนิด">
+          <Form.Item name="secondTDPType" label={<label style={{ fontSize: '20px' }}>ชนิด</label>}>
             <Select>
               <Select.Option value="TT">บาดทะยัก</Select.Option>
               <Select.Option value="dT">บาดทะยักและคอตีบ</Select.Option>
@@ -85,12 +91,12 @@ function RecordVaccine() {
       </Row>
       <Row style={{ display: 'flex', justifyContent: 'center' }}>
         <Col xs={8}>
-          <Form.Item name="thirdTetanusDate" label="ครั้งที่ 3 วันที่">
+          <Form.Item name="thirdTetanusDate" label={<label style={{ fontSize: '20px' }}>ครั้งที่ 3 วันที่</label>}>
             <DatePicker />
           </Form.Item>
         </Col>
         <Col xs={10}>
-          <Form.Item name="thirdTDPType" label="ชนิด">
+          <Form.Item name="thirdTDPType" label={<label style={{ fontSize: '20px' }}>ชนิด</label>}>
             <Select>
               <Select.Option value="TT">บาดทะยัก</Select.Option>
               <Select.Option value="dT">บาดทะยักและคอตีบ</Select.Option>
@@ -100,20 +106,38 @@ function RecordVaccine() {
         </Col>
       </Row>
       <Row>
-        <Col xs={20}>
-          <h2 style={{ textAlign: 'start', margin: '0' }}>
-            การฉีดวัคซีนป้องกันโรคไข้หวัดใหญ่ตามฤดูกาลเมื่ออายุครรภ์ 4 เดือนขึ้นไป ในช่วงรณรงค์
-          </h2>
-          <Form.Item name="influenzaDate" label="ฉีดวัคซีน 1 ครั้ง เมื่ออายุครรภ์4 เดือนขึ้นไป วันที่">
-            <DatePicker />
-          </Form.Item>
-        </Col>
-        <Col xs={4} style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'flex-end' }}>
-          <Form.Item wrapperCol={{ ...layout.wrapperCol }}>
-            <Button type="primary" htmlType="submit" style={{}}>
-              อัพเดท
-            </Button>
-          </Form.Item>
+        <Col xs={24}>
+          <Row>
+            <Col xs={24}>
+              <h2 style={{ textAlign: 'start', margin: '0' }}>
+                การฉีดวัคซีนป้องกันโรคไข้หวัดใหญ่ตามฤดูกาลเมื่ออายุครรภ์ 4 เดือนขึ้นไป ในช่วงรณรงค์
+              </h2>
+            </Col>
+          </Row>
+          <Row>
+            <Col xs={16}>
+              <Form.Item
+                name="influenzaDate"
+                label={<label style={{ fontSize: '20px' }}>ฉีดวัคซีน 1 ครั้ง เมื่ออายุครรภ์4 เดือนขึ้นไป วันที่</label>}
+              >
+                <DatePicker />
+              </Form.Item>
+            </Col>
+            <Col
+              xs={8}
+              style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'flex-end', padding: '0 3em' }}
+            >
+              <Form.Item wrapperCol={{ ...layout.wrapperCol }}>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  style={{ fontSize: '20px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+                >
+                  อัพเดท
+                </Button>
+              </Form.Item>
+            </Col>
+          </Row>
         </Col>
       </Row>
     </Form>
