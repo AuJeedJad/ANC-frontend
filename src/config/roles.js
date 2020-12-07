@@ -9,6 +9,7 @@ import MotherIndex from '../pages/MotherIndex';
 import RiskEvaluation from '../pages/RiskEvaluation';
 import Dental from '../pages/dental';
 import MotherReport from '../pages/MotherReport';
+import Lab from '../pages/Lab';
 import Terminate from '../pages/Terminate';
 import FastTerminate from '../pages/FastTerminate';
 
@@ -37,6 +38,10 @@ const allPages = {
   risk: {
     url: '/staff/risk',
     page: RiskEvaluation,
+  },
+  lab: {
+    url: '/staff/lab',
+    page: Lab,
   },
   terminate: {
     url: '/staff/terminate',
@@ -83,6 +88,7 @@ const permissionList = {
     allPages.risk,
     allPages.dental,
     allPages.MotherReport,
+    allPages.lab,
     allPages.terminate,
     allPages.fastTerminate,
   ],
