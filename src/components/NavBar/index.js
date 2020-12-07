@@ -47,6 +47,10 @@ function NavBar(props) {
   const [lastTabSelect, setLastTabSelect] = useState(4);
 
   useEffect(() => {
+    setTabSelect(navTabCount - 1);
+  }, [navTab]);
+
+  useEffect(() => {
     if (tabSelect !== 0) {
       props.setShow(false);
     } else {
