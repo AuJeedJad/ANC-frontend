@@ -21,7 +21,7 @@ function RecordDownsyndrome() {
       <Row style={{ width: '100%' }}>
         <Col xs={24}>
           <Row style={{ border: '1px solid lightgray', padding: '1em 0' }}>
-            <Col xs={12} style={{ borderRight: '1px solid #ebf9cc', padding: '0 1em' }}>
+            <Col xs={12} style={{ borderRight: '1px solid lightgrey', padding: '0 1em' }}>
               <Form.Item
                 name="downsyndromeScreen"
                 label={<label style={{ fontSize: '20px' }}>การคัดกรองดาวน์ซินโดรม</label>}
