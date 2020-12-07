@@ -1,31 +1,33 @@
 import axios from 'axios';
 import { Button, Col, Form, Row, Typography } from 'antd';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import MedicalHistory from './components/MedicalHistory';
 import MensCheck from './components/MensCheck';
 import PregnantHistory from './components/PregnantHistory';
+import UserContext from '../../context/UserContext';
 
 function MotherInfomations() {
   const { Title } = Typography;
+  const user = useContext(UserContext);
   const [form] = Form.useForm();
   const [motherCheckState, setMotherIsCheckState] = useState([]);
   const [familyCheckState, setFamilyIsCheckState] = useState([]);
-  const [cesareanSections, setCesareanSections] = useState([]);
+
+  const includeDisease = [
+    'isSeizure',
+    'isDiabetes',
+    'isHypertension',
+    'isHeartDisease',
+    'isThyroid',
+    'isAnemia',
+    'isBirthDefect',
+    'isTwin',
+    'isMentalRetardation',
+    'otherDisease',
+  ];
 
   useEffect(() => {
-    axios.get('/motherInformation/medicalHistory?motherId=1').then((res) => {
-      const includeDisease = [
-        'isSeizure',
-        'isDiabetes',
-        'isHypertension',
-        'isHeartDisease',
-        'isThyroid',
-        'isAnemia',
-        'isBirthDefect',
-        'isTwin',
-        'isMentalRetardation',
-        'otherDisease',
-      ];
+    axios.get(`/motherInformation/medicalHistory?motherId=${user.id}`).then((res) => {
       let arrMotherMedTemp = [];
       let arrFamilyMedTemp = [];
       for (let key in res.data) {
@@ -38,14 +40,14 @@ function MotherInfomations() {
           arrFamilyMedTemp.push(key);
         }
       }
-      form.setFieldsValue({ motherMedicalHistory: arrMotherMedTemp, familyMedicalHistory: arrFamilyMedTemp });
+      form.setFieldsValue({
+        motherMedicalHistory: arrMotherMedTemp,
+        familyMedicalHistory: arrFamilyMedTemp,
+      });
       setMotherIsCheckState(arrMotherMedTemp);
       setFamilyIsCheckState(arrFamilyMedTemp);
-      setCesareanSections(res.data.CesareanSections);
     });
   }, []);
-
-  console.log(form);
 
   const onFinish = (values) => {
     console.log('Success:', values);
@@ -74,7 +76,7 @@ function MotherInfomations() {
           </Row>
           <Row style={{ textAlign: 'center' }}>
             <Col span={24}>
-              <MedicalHistory form={form} cesareanSections={cesareanSections} />
+              <MedicalHistory form={form} />
             </Col>
           </Row>
         </Row>

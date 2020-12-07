@@ -1,21 +1,28 @@
 import axios from 'axios';
 import { Button, Checkbox, Col, Form, Input, Row, Typography } from 'antd';
 import { PlusCircleOutlined } from '@ant-design/icons';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import UserContext from '../../../context/UserContext';
 
-function MedicalHistory() {
+function MedicalHistory(props) {
   const { Title } = Typography;
-  const [cesarean, setCesarean] = useState(0);
+  const user = useContext(UserContext);
+  const [cesareanCount, setCesareanCount] = useState(0);
   const [drugAllergy, setDrugAllergy] = useState(0);
   const [cesareanSections, setCesareanSections] = useState([]);
 
-  const arrCesarean = [];
   const arrDrugAllergy = [];
 
   useEffect(() => {
-    axios.get('/motherInformation/medicalHistory?motherId=1').then((res) => {
-      setCesareanSections([
-        <Form.Item style={{ marginBottom: 4 }}>
+    axios.get(`/motherInformation/medicalHistory?motherId=${user.id}`).then((res) => {
+      for (let i = 0; i < res.data.CesareanSections.length; i++) {
+        props.form.setFieldsValue({
+          cesareanYear: res.data.CesareanSections[i].year,
+          cesareanHospital: res.data.CesareanSections[i].hospital,
+        });
+      }
+      cesareanSections.push([
+        <Form.Item name="cesarean" style={{ marginBottom: 4 }}>
           <Form.Item label="เมื่อ พ.ศ." name="cesareanYear" style={{ display: 'inline-flex', marginRight: 4 }}>
             <Input />
           </Form.Item>
@@ -25,18 +32,12 @@ function MedicalHistory() {
         </Form.Item>,
       ]);
     });
+    setCesareanSections(cesareanSections);
+    setCesareanCount(cesareanSections.length);
   }, []);
 
   const handleCesarean = () => {
-    setCesarean(cesarean + 1);
-  };
-
-  const handleDrugAllergy = () => {
-    setDrugAllergy(drugAllergy + 1);
-  };
-
-  for (let i = 0; i < cesarean; i++) {
-    arrCesarean.push([
+    cesareanSections.push([
       <Form.Item style={{ marginBottom: 4 }}>
         <Form.Item label="เมื่อ พ.ศ." name="cesareanYear" style={{ display: 'inline-flex', marginRight: 4 }}>
           <Input />
@@ -46,7 +47,12 @@ function MedicalHistory() {
         </Form.Item>
       </Form.Item>,
     ]);
-  }
+    setCesareanCount(cesareanSections.length + 1);
+  };
+
+  const handleDrugAllergy = () => {
+    setDrugAllergy(drugAllergy + 1);
+  };
 
   for (let i = 0; i < drugAllergy; i++) {
     arrDrugAllergy.push(
@@ -164,7 +170,7 @@ function MedicalHistory() {
             ประวัติการตั้งครรภ์
           </Button>
         </Form.Item>
-        <Form.Item>{arrCesarean}</Form.Item>
+        <Form.Item>{cesareanSections}</Form.Item>
 
         <Form.Item>
           <Button
