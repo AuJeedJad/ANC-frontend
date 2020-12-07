@@ -28,31 +28,6 @@ function Dental() {
   console.log('examBy', examBy);
   console.log('date', date);
 
-  // dentalCare
-  const [isMouthCare, setIsMouthCare] = React.useState(null);
-  const [isBrushPractice, setIsBrushPractice] = React.useState(null);
-  const [isDryedBrush, setIsDryedBrush] = React.useState(null);
-  const [isFloss, setIsFloss] = React.useState(null);
-  const [otherAdvise, setOtherAdvise] = React.useState('');
-
-  console.log('isMouthCare', isMouthCare);
-  console.log('isBrushPractice', isBrushPractice);
-  console.log('isDryedBrush', isDryedBrush);
-  console.log('isFloss', isFloss);
-  console.log('otherAdvise', otherAdvise);
-
-  //dentalAppointment
-
-  const [dentist, setDentist] = React.useState([]);
-  const [dates, setDates] = React.useState('');
-  const [amount, setAmount] = React.useState('');
-  const [details, setDetails] = React.useState([]);
-
-  console.log('dentist', dentist);
-  console.log('dates', dates);
-  console.log('amount', amount);
-  console.log('details', details);
-
   // onchangeDentalExam
   const onChange = (e) => {
     console.log(e, e.target.checked);
@@ -71,6 +46,19 @@ function Dental() {
     }
   };
 
+  // dentalCare
+  const [isMouthCare, setIsMouthCare] = React.useState(null);
+  const [isBrushPractice, setIsBrushPractice] = React.useState(null);
+  const [isDryedBrush, setIsDryedBrush] = React.useState(null);
+  const [isFloss, setIsFloss] = React.useState(null);
+  const [otherAdvise, setOtherAdvise] = React.useState('');
+
+  console.log('isMouthCare', isMouthCare);
+  console.log('isBrushPractice', isBrushPractice);
+  console.log('isDryedBrush', isDryedBrush);
+  console.log('isFloss', isFloss);
+  console.log('otherAdvise', otherAdvise);
+
   // onchangeDentalCare
   const onChangeDentalCare = (e) => {
     if (e.target.value === 'isMouthCare') {
@@ -85,6 +73,18 @@ function Dental() {
       setOtherAdvise(e.target.value);
     }
   };
+
+  //dentalAppointment
+
+  const [dentist, setDentist] = React.useState([]);
+  const [dates, setDates] = React.useState('');
+  const [amount, setAmount] = React.useState('');
+  const [details, setDetails] = React.useState([]);
+
+  console.log('dentist', dentist);
+  console.log('dates', dates);
+  console.log('amount', amount);
+  console.log('details', details);
 
   // onchangeDentalAppointment
   const onChangeDentalAppointment = (e) => {
@@ -124,7 +124,7 @@ function Dental() {
     }
   };
 
-  // set information
+  // set information to backend
   const addTeethInformation = async () => {
     let objDentalExam = {
       dentalCheck: {
