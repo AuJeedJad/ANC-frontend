@@ -27,9 +27,9 @@ function NavBar(props) {
             { name: `เพิ่มเติม`, path: '' },
             { name: `ทันตกรรม`, path: '/staff/dental' },
             { name: `ดูแลตามอายุครรภ์`, path: '/staff/gaCare' },
-            { name: `หน้าหลักหญิงตั้งครรภ์`, path: '/staff/motherReport' },
             { name: `ตรวจครรภ์`, path: '/staff/anc' },
             { name: `ผล LAB`, path: '/staff/lab' },
+            { name: `หน้าหลักหญิงตั้งครรภ์`, path: '/staff/motherReport' },
           ]
       : [
           { name: `ติดต่อเรา`, path: '/contactUs' },
@@ -43,6 +43,7 @@ function NavBar(props) {
   const navTabWidth = 68 / navTabCount + 32 / (navTabCount - 2);
   const navTabMove = (100 - navTabWidth) / (navTabCount - 1);
   const [tabStatus, setTabStatus] = useState({});
+  const [selectTabStatus, setSelectTabStatus] = useState({});
   const [tabSelect, setTabSelect] = useState(navTabCount - 1);
   const [lastTabSelect, setLastTabSelect] = useState(4);
 
@@ -54,6 +55,12 @@ function NavBar(props) {
     }
   }, [tabSelect, props.show]);
 
+  useEffect(() => {
+    setLastTabSelect(props.page);
+    setZIndex(navTab.findIndex((path) => path.path === props.page));
+    setSelectZIndex(navTab.findIndex((path) => path.path === props.page));
+  }, [props.page]);
+
   const setZIndex = (tabNO) => {
     let newTabStatus = {};
     for (let i = 0; i <= navTabCount - 1; i++) {
@@ -62,8 +69,16 @@ function NavBar(props) {
     setTabStatus(newTabStatus);
   };
 
+  const setSelectZIndex = (tabNO) => {
+    let newTabStatus = {};
+    for (let i = 0; i <= navTabCount - 1; i++) {
+      newTabStatus = i >= tabNO ? { ...newTabStatus, [i]: tabNO - i + 10 } : { ...newTabStatus, [i]: i - tabNO + 10 };
+    }
+    setSelectTabStatus(newTabStatus);
+  };
+
   return (
-    <nav className="nav-container" onMouseLeave={() => setZIndex(tabSelect)}>
+    <nav className="nav-container" onMouseLeave={() => setTabStatus(selectTabStatus)}>
       {navTab.map((topic, ind) => {
         return (
           <Link
@@ -78,7 +93,7 @@ function NavBar(props) {
             }
           >
             <div
-              className={`nav-link ${tabSelect === ind ? 'nav-link--active' : null}`}
+              className={`nav-link ${topic.path === props.page ? 'nav-link--active' : null}`}
               onMouseOver={() => {
                 setZIndex(ind);
               }}

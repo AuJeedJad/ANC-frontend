@@ -4,7 +4,6 @@ import NavBar from '../NavBar/index';
 
 function Layout({ children, role, setRole, page }) {
   const [show, setShow] = useState(false);
-
   return (
     <div className="webLatout">
       <NavBar role={role} setRole={setRole} page={page} show={show} setShow={setShow} />

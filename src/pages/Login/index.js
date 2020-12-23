@@ -147,7 +147,7 @@ function Login(props) {
           style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start', width: '25%', height: '100%' }}
         >
           <button className="btn-content" onClick={() => history.push('/content')}>
-            อ่านบทความ
+            GUEST
           </button>
         </div>
         <div style={{ width: '60%' }}>
