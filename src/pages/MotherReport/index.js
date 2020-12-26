@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useState, useContext } from 'react';
 import './motherReport.css';
 import { useHistory } from 'react-router-dom';
 import { EditOutlined } from '@ant-design/icons';
@@ -7,6 +7,7 @@ import CurrentPregContext from '../../context/CurrentPregContext';
 function MotherReport() {
   const history = useHistory();
   const currentPregContext = useContext(CurrentPregContext);
+  const [] = useState();
   return (
     <div className="page">
       <div className="mother-report-notify">
@@ -29,7 +30,7 @@ function MotherReport() {
           </div>
         </div>
         <div className="card-onethird">
-          <div className="card-header-onethird">Helo</div>
+          <div className="card-header-onethird">Corrected EDC: </div>
           <div className="card-body-onethird">
             <div className="card-content-onethird"> by ...</div>
             <div className="card-icon-onethird">
