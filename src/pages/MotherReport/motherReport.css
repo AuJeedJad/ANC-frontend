@@ -1,0 +1,57 @@
+.mother-report-notify {
+  width: 95%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  /* background-color: black; */
+}
+.card-onethird {
+  max-width: 32%;
+  width: 300 px;
+  height: 15vh;
+  border: 3px var(--primary-color) double;
+  border-radius: 5px;
+}
+.card-header-onethird {
+  width: 100%;
+  background: var(--primaryLightest-color);
+  color: var(--primaryDarkest-color);
+  height: 7vh;
+  font-size: 30px;
+}
+.card-body-onethird {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+.card-content-onethird {
+  max-width: 90%;
+  width: 250px;
+  background-color: black;
+}
+.card-icon-onethird {
+  width: 20px;
+  height: 20px;
+  background-color: var(--primaryLightest-color);
+  border-radius: 50%;
+}
+
+@media only screen and (max-width: 500px) {
+  .card-onethird {
+    max-width: 49%;
+  }
+  .last-card {
+    max-width: 99%;
+    width: 99%;
+    order: 2;
+  }
+  .last-card .card-content-onethird {
+    max-width: 95%;
+    width: 95%;
+  }
+}
+@media only screen and (max-width: 300px) {
+  .card-onethird {
+    max-width: 99%;
+  }
+}
