@@ -3,25 +3,53 @@ import { useHistory } from 'react-router-dom';
 import { notification } from 'antd';
 import './IndexStaff.css';
 import axios from 'axios';
-import { Col, Row, Button, Input, Form, Table, Typography, Menu, Dropdown, message } from 'antd';
-import { DownOutlined } from '@ant-design/icons';
+import { Col, Row, Button, Input, Form, Table, Typography } from 'antd';
 import CurrentPregContext from '../../context/CurrentPregContext';
+import UserContext from '../../context/UserContext';
 
-function handleMenuClick(e) {
-  message.info('Click on menu item.');
-  console.log('click', e);
-}
+const { Title } = Typography;
+
+// function handleMenuClick(e) {
+//   message.info('Click on menu item.');
+//   console.log('click', e);
+// }
+
+// const menu = (
+//   <Menu onClick={handleMenuClick}>
+//     <Menu.Item key="1">ตัวอักษร</Menu.Item>
+//   </Menu>
+// );
 
 function IndexStaff() {
   const [anc, setAnc] = useState([]);
   const [idCard, setIdcard] = useState('');
-  const { mother, setMother } = useContext(CurrentPregContext);
+  const { setMother } = useContext(CurrentPregContext);
+  const { hospitalId } = useContext(UserContext);
 
   const history = useHistory();
 
-  function onClickInstantCheck() {
+  const fetchAnc = () => {
     axios
-      .get(`staff/motherAccount/motherFind?idCard=${idCard}`)
+      .get(`/anc?appointmentDate=${new Date().toISOString()}&checkHospitalId=${hospitalId}&idCard=${idCard}`)
+      .then((res) => {
+        setAnc(res.data.ancs);
+      })
+      .catch((err) => {
+        console.dir(err);
+        notification.error({
+          description: `${err}`,
+        });
+      });
+  };
+
+  useEffect(() => {
+    fetchAnc();
+  }, [idCard]);
+
+  const setSelectedCheck = (selectedIdCard) => {
+    const queryIdcard = selectedIdCard || idCard;
+    axios
+      .get(`staff/motherAccount/motherFind?idCard=${queryIdcard}`)
       .then((res) => {
         setMother({
           currentPregId: res.data.curPregId,
@@ -35,30 +63,53 @@ function IndexStaff() {
         history.push('/staff/motherReport');
       })
       .catch((err) => {
-        console.log(err);
+        console.dir(err);
         notification.error({
           description: `${err}`,
         });
       });
-  }
+  };
+
+  const onClickInstantCheck = () => {
+    setSelectedCheck();
+  };
+
+  const onClickAddQue = async () => {
+    try {
+      const {
+        data: { motherProfile },
+      } = await axios.post('/anc', {
+        idCard,
+        checkHospitalId: hospitalId,
+      });
+      notification.success({
+        description: `เพิ่มคิวการตรวจของคุณ${motherProfile.firstName} ${motherProfile.lastName} สำเร็จ`,
+      });
+      fetchAnc();
+    } catch (err) {
+      console.dir(err);
+      notification.error({
+        description: `${err}`,
+      });
+    }
+  };
+
+  const onClickCheck = (selectedIdCard) => {
+    setSelectedCheck(selectedIdCard);
+  };
 
   const onChangeidCard = (e) => {
     setIdcard(e.target.value);
   };
 
-  useEffect(() => {
-    axios
-      .get(`http://localhost:8000/anc?appointmentDate=${new Date()}&checkHospitalId=1&idCard=${idCard}`)
-      .then((res) => {
-        setAnc(res.data.ancs);
-        console.log(res);
-      })
-      .catch((err) => {});
-  }, [idCard]);
-
-  console.log(idCard);
-
-  const { Title } = Typography;
+  const fixedData = [];
+  for (let i = 0; i < anc.length; i += 1) {
+    fixedData.push({
+      key: i,
+      name: `${anc[i].CurrentPregnancy.MotherProfile.firstName}  ${anc[i].CurrentPregnancy.MotherProfile.lastName}`,
+      id: `${anc[i].CurrentPregnancy.MotherProfile.idCard}`,
+    });
+  }
 
   const fixedColumns = [
     {
@@ -77,28 +128,15 @@ function IndexStaff() {
       sorter: (a, b) => a.id - b.id,
       sortDirections: ['descend', 'ascend'],
     },
+    {
+      title: 'จัดการ',
+      fixed: true,
+      width: 300,
+      render: (text, record) => {
+        return <a onClick={() => onClickCheck(record.id)}>ตรวจ</a>;
+      },
+    },
   ];
-
-  const fixedData = [];
-  for (let i = 0; i < anc.length; i += 1) {
-    fixedData.push({
-      key: i,
-      name: `${anc[i].CurrentPregnancy.MotherProfile.firstName}  ${anc[i].CurrentPregnancy.MotherProfile.lastName}`,
-      id: `${anc[i].CurrentPregnancy.MotherProfile.idCard}`,
-    });
-  }
-
-  // const fixedDat = anc.map((item, index) => ({
-  //   key: index,
-  //   name: `${item.CurrentPregnancy.MotherProfile.firstName} ${item.CurrentPregnancy.MotherProfile.lastName}`,
-  //   id: item.CurrentPregnancy.MotherProfile.idCard,
-  // }));
-
-  const menu = (
-    <Menu onClick={handleMenuClick}>
-      <Menu.Item key="1">ตัวอักษร</Menu.Item>
-    </Menu>
-  );
 
   return (
     <>
@@ -132,14 +170,13 @@ function IndexStaff() {
               style={{
                 display: 'flex',
                 alignItems: 'center',
-                // backgroundColor: 'red',
               }}
             >
               <Form layout="vertical" style={{ padding: '5px', width: '100%' }}>
                 <Form.Item
                   label="กรอกเลขบัตรประชาชน"
                   name="idCard"
-                  rules={[{ required: true, message: 'Please input your username!' }]}
+                  rules={[{ required: true, message: 'กรุณากรอกเลขบัตรประชาชน' }]}
                   onChange={onChangeidCard}
                 >
                   <Input value={idCard || ''} placeholder="เลขบัตรประชาชน" style={{ height: '35px' }} />
@@ -148,6 +185,7 @@ function IndexStaff() {
             </Col>
             <Col span={8} style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
               <Button
+                onClick={onClickAddQue}
                 style={{
                   padding: '5px',
                   width: '40%',
@@ -173,16 +211,15 @@ function IndexStaff() {
           </Row>
           <Row>
             <Col
-              span={20}
+              span={24}
               style={{
                 marginTop: '15px',
                 marginBottom: '60px',
-                paddingLeft: '190px',
                 width: '50px',
               }}
             >
               <Title level={3} style={{ textDecoration: 'underline' }}>
-                นัดหมายวันนี้
+                ตารางนัดหมายวันนี้
               </Title>
               <Table
                 columns={fixedColumns}
@@ -199,7 +236,7 @@ function IndexStaff() {
                 //   )}
               />
             </Col>
-            <Col span={4} style={{ marginTop: '80px', paddingLeft: '25px', width: '50px' }}>
+            {/* <Col span={4} style={{ marginTop: '80px', paddingLeft: '25px', width: '50px' }}>
               <div id="components-dropdown-demo-dropdown-button">
                 <Dropdown overlay={menu}>
                   <Button style={{ borderRadius: '50px', width: '160px', height: '40px' }}>
@@ -207,7 +244,7 @@ function IndexStaff() {
                   </Button>
                 </Dropdown>{' '}
               </div>
-            </Col>
+            </Col> */}
           </Row>
         </Col>
       </Row>
