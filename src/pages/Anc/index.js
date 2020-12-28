@@ -2,13 +2,39 @@ import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { notification } from 'antd';
 // import './IndexAnc.css';
-import { Col, Row, Typography, Form, Input, Table, Button, Empty, Checkbox } from 'antd';
+import { Col, Row, Typography, Form, Input, Table, Button, Empty, Checkbox, InputNumber } from 'antd';
 import { PlusCircleOutlined, SearchOutlined } from '@ant-design/icons';
 import CurrentPregContext from '../../context/CurrentPregContext';
 import UltrasoundResult from '../../components/UltrasoundResult';
 import { formatFullThai } from '../../services/dateFormat';
 
 const { Title } = Typography;
+
+const EditableCell = ({ editing, dataIndex, title, inputType, record, index, children, ...restProps }) => {
+  const inputNode = inputType === 'number' ? <InputNumber /> : <Input />;
+  return (
+    <td {...restProps}>
+      {editing ? (
+        <Form.Item
+          name={dataIndex}
+          style={{
+            margin: 0,
+          }}
+          rules={[
+            {
+              required: true,
+              message: `Please Input ${title}!`,
+            },
+          ]}
+        >
+          {inputNode}
+        </Form.Item>
+      ) : (
+        children
+      )}
+    </td>
+  );
+};
 
 function onChange(checkedValues) {
   console.log('checked = ', checkedValues);
@@ -47,6 +73,46 @@ function Anc() {
   const [form] = Form.useForm();
   const [ancId, setAncId] = useState(null);
   const [ultrasoundResult, setUltrasoundResult] = useState({});
+  const [editingKey, setEditingKey] = useState('');
+
+  const isEditing = (record) => record.key === editingKey;
+
+  const save = async (key) => {
+    try {
+      const row = await form.validateFields();
+      const newData = [...ancs];
+      const index = newData.findIndex((item) => {
+        return key === item.id;
+      });
+
+      if (index > -1) {
+        const item = newData[index];
+        newData.splice(index, 1, { ...item, ...row });
+        setAncs(newData);
+        setEditingKey('');
+      } else {
+        newData.push(row);
+        setAncs(newData);
+        setEditingKey('');
+      }
+    } catch (errInfo) {
+      console.log('Validate Failed:', errInfo);
+    }
+  };
+
+  const edit = (record) => {
+    form.setFieldsValue({
+      name: '',
+      age: '',
+      address: '',
+      ...record,
+    });
+    setEditingKey(record.key);
+  };
+
+  const cancel = () => {
+    setEditingKey('');
+  };
 
   function onChangeNote(e) {
     setNote(e.target.value);
@@ -69,7 +135,7 @@ function Anc() {
   }
 
   const data = ancs.map((item, index) => ({
-    key: index,
+    key: item.id,
     examDate: item.examDate,
     weight: item.weight,
     urineTest: item.urineTest,
@@ -120,31 +186,62 @@ function Anc() {
       title: 'น้ำหนัก ก.ก',
       dataIndex: 'weight',
       key: 'weight',
+      editable: true,
     },
     {
       title: 'การตรวจปัสสาวะ',
       dataIndex: 'urineTest',
       key: 'urineTest',
+      editable: true,
     },
     {
       title: 'ความดันโลหิต ม.ม.ปรอท',
       dataIndex: 'bloodPressure',
       key: 'bloodPressure',
+      editable: true,
     },
     {
       title: 'ขนาดของมดลูก (cm)',
       dataIndex: 'uterusSize',
       key: 'uterusSize',
+      editable: true,
     },
     {
       title: 'ท่าเด็กส่วนนำ/การลง',
       dataIndex: 'childPosture',
       key: 'childPosture',
+      editable: true,
     },
     {
       title: 'เสียงหัวใจเด็ก',
       dataIndex: 'heartSound',
       key: 'heartSound',
+      editable: true,
+    },
+    {
+      title: 'operation',
+      dataIndex: 'operation',
+      render: (_, record) => {
+        const editable = isEditing(record);
+        console.log(record);
+        return editable ? (
+          <span>
+            <a
+              href="javascript:;"
+              onClick={() => save(record.key)}
+              style={{
+                marginRight: 8,
+              }}
+            >
+              Save
+            </a>
+          </span>
+        ) : (
+          <a disabled={editingKey !== ''} onClick={() => edit(record)}>
+            Edit
+          </a>
+        );
+      },
     },
     {
       title: 'ดูรูปอุตร้าซาวต์',
@@ -163,6 +260,22 @@ function Anc() {
       ),
     },
   ];
+  const mergedColumns = columns.map((col) => {
+    if (!col.editable) {
+      return col;
+    }
+
+    return {
+      ...col,
+      onCell: (record) => ({
+        record,
+        inputType: col.dataIndex === 'age' ? 'number' : 'text',
+        dataIndex: col.dataIndex,
+        title: col.title,
+        editing: isEditing(record),
+      }),
+    };
+  });
 
   return (
     <>
@@ -297,7 +410,24 @@ function Anc() {
           </Button>
         </Col>
         <Col span={21} style={{ display: 'flex', justifyContent: 'center' }}>
-          <Table columns={columns} dataSource={data} pagination={false} style={{ width: '100%', marginTop: '20px' }} />
+          {/* <Table columns={columns} dataSource={data} pagination={false} style={{ width: '100%', marginTop: '20px' }} /> */}
+          <Form form={form} component={false}>
+            <Table
+              style={{ width: '100%', marginTop: '20px' }}
+              components={{
+                body: {
+                  cell: EditableCell,
+                },
+              }}
+              bordered
+              dataSource={data}
+              columns={mergedColumns}
+              rowClassName="editable-row"
+              pagination={{
+                onChange: cancel,
+              }}
+            />
+          </Form>
         </Col>
         <Col
           span={21}
