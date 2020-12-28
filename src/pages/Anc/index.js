@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
-import { notification } from 'antd';
+import { notification, Radio } from 'antd';
 // import './IndexAnc.css';
 import { Col, Row, Typography, Form, Input, Table, Button, Empty, Checkbox, InputNumber } from 'antd';
 import { PlusCircleOutlined, SearchOutlined } from '@ant-design/icons';
@@ -77,6 +77,38 @@ function Anc() {
 
   const isEditing = (record) => record.key === editingKey;
 
+  const finishSpecialExamination = async (values) => {
+    try {
+      const exam = [
+        {
+          examination: 'DM',
+          result: values.isDiabetes,
+        },
+        {
+          examination: 'OTHER',
+          result: values.other,
+        },
+        {
+          examination: 'NIPPLE',
+          result: values.nippleExam,
+        },
+      ];
+      await axios.post(`/specialExamination/`, {
+        exam,
+        curPregId: mother.currentPregId,
+      });
+
+      notification.success({
+        description: `แก้ไขสำเร็จ`,
+      });
+    } catch (err) {
+      console.log(err);
+      notification.error({
+        description: `${err}`,
+      });
+    }
+  };
+
   const save = async (key) => {
     try {
       const row = await form.validateFields();
@@ -128,11 +160,11 @@ function Anc() {
     setEditingKey('');
   };
 
-  function onChangeNote(e) {
+  const onChangeNote = (e) => {
     setNote(e.target.value);
-  }
+  };
 
-  function onClickNote() {
+  const onClickNote = () => {
     axios
       .patch(`/currentPregnancy/note/${mother.currentPregId}`, { note: note })
       .then((res) => {
@@ -146,7 +178,7 @@ function Anc() {
           description: `${err}`,
         });
       });
-  }
+  };
 
   const data = ancs.map((item, index) => ({
     key: item.id,
@@ -496,7 +528,7 @@ function Anc() {
             <Title level={3} style={{ textDecoration: 'underline', textAlign: 'center' }}>
               คัดกรอง
             </Title>
-            <Form>
+            <Form onFinish={finishSpecialExamination}>
               <Form.Item
                 label="เบาหวาน"
                 name="isDiabetes"
@@ -511,24 +543,27 @@ function Anc() {
               >
                 <Input />
               </Form.Item>
-              <Form.Item label="รายละเอียด" style={{ display: 'inline-flex' }}>
-                <Checkbox.Group onChange={onChange}>
+              <Form.Item label="การตรวจหัวนม" name="nippleExam" style={{ display: 'inline-flex' }}>
+                <Radio.Group onChange={onChange}>
                   <Row justify="center" style={{ width: '100%' }}>
                     <Col>
-                      <Checkbox value="A">ปกติ</Checkbox>
+                      <Radio value="ปกติ">ปกติ</Radio>
                     </Col>
                     <Col>
-                      <Checkbox value="B">สั้น</Checkbox>
+                      <Radio value="สั้น">สั้น</Radio>
                     </Col>
                     <Col>
-                      <Checkbox value="C">บุ๋ม</Checkbox>
+                      <Radio value="บุ๋ม">บุ๋ม</Radio>
                     </Col>
                     <Col>
-                      <Checkbox value="C">บอด</Checkbox>
+                      <Radio value="บอด">บอด</Radio>
                     </Col>
                   </Row>
-                </Checkbox.Group>
+                </Radio.Group>
               </Form.Item>
+              <Button type="primary" htmlType="submit" style={{ borderRadius: '50px', marginLeft: '15px' }}>
+                บันทึก
+              </Button>
             </Form>
           </Col>
         </Row>
