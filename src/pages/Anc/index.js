@@ -1,13 +1,40 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
-import { notification } from 'antd';
+import { notification, Radio } from 'antd';
 // import './IndexAnc.css';
-import { Col, Row, Typography, Form, Input, Table, Button, Empty, Checkbox } from 'antd';
+import { Col, Row, Typography, Form, Input, Table, Button, Empty, Checkbox, InputNumber } from 'antd';
 import { PlusCircleOutlined, SearchOutlined } from '@ant-design/icons';
 import CurrentPregContext from '../../context/CurrentPregContext';
 import UltrasoundResult from '../../components/UltrasoundResult';
+import { formatFullThai } from '../../services/dateFormat';
 
 const { Title } = Typography;
+
+const EditableCell = ({ editing, dataIndex, title, inputType, record, index, children, ...restProps }) => {
+  const inputNode = inputType === 'number' ? <InputNumber /> : <Input />;
+  return (
+    <td {...restProps}>
+      {editing ? (
+        <Form.Item
+          name={dataIndex}
+          style={{
+            margin: 0,
+          }}
+          rules={[
+            {
+              required: true,
+              message: `Please Input ${title}!`,
+            },
+          ]}
+        >
+          {inputNode}
+        </Form.Item>
+      ) : (
+        children
+      )}
+    </td>
+  );
+};
 
 function onChange(checkedValues) {
   console.log('checked = ', checkedValues);
@@ -46,12 +73,98 @@ function Anc() {
   const [form] = Form.useForm();
   const [ancId, setAncId] = useState(null);
   const [ultrasoundResult, setUltrasoundResult] = useState({});
+  const [editingKey, setEditingKey] = useState('');
 
-  function onChangeNote(e) {
+  const isEditing = (record) => record.key === editingKey;
+
+  const finishSpecialExamination = async (values) => {
+    try {
+      const exam = [
+        {
+          examination: 'DM',
+          result: values.isDiabetes,
+        },
+        {
+          examination: 'OTHER',
+          result: values.other,
+        },
+        {
+          examination: 'NIPPLE',
+          result: values.nippleExam,
+        },
+      ];
+      await axios.post(`/specialExamination/`, {
+        exam,
+        curPregId: mother.currentPregId,
+      });
+
+      notification.success({
+        description: `แก้ไขสำเร็จ`,
+      });
+    } catch (err) {
+      console.log(err);
+      notification.error({
+        description: `${err}`,
+      });
+    }
+  };
+
+  const save = async (key) => {
+    try {
+      const row = await form.validateFields();
+      console.log(row);
+      axios
+        .patch(`/anc/${key}`, row)
+        .then((res) => {
+          notification.success({
+            description: `บันทึกข้อมูลสำเร็จ`,
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+          notification.error({
+            description: `${err}`,
+          });
+        });
+      const newData = [...ancs];
+      const index = newData.findIndex((item) => {
+        return key === item.id;
+      });
+
+      if (index > -1) {
+        const item = newData[index];
+        newData.splice(index, 1, { ...item, ...row });
+        setAncs(newData);
+        setEditingKey('');
+      } else {
+        newData.push(row);
+        setAncs(newData);
+        setEditingKey('');
+      }
+    } catch (errInfo) {
+      console.log('Validate Failed:', errInfo);
+    }
+  };
+
+  const edit = (record) => {
+    form.setFieldsValue({
+      name: '',
+      age: '',
+      address: '',
+      ...record,
+    });
+    setEditingKey(record.key);
+  };
+
+  const cancel = () => {
+    setEditingKey('');
+  };
+
+  const onChangeNote = (e) => {
     setNote(e.target.value);
-  }
+  };
 
-  function onClickNote() {
+  const onClickNote = () => {
     axios
       .patch(`/currentPregnancy/note/${mother.currentPregId}`, { note: note })
       .then((res) => {
@@ -65,10 +178,10 @@ function Anc() {
           description: `${err}`,
         });
       });
-  }
+  };
 
   const data = ancs.map((item, index) => ({
-    key: index,
+    key: item.id,
     examDate: item.examDate,
     weight: item.weight,
     urineTest: item.urineTest,
@@ -76,6 +189,9 @@ function Anc() {
     uterusSize: item.uterusSize,
     childPosture: item.childPosture,
     heartSound: item.heartSound,
+    physicalExamination: item.physicalExamination,
+    examBy: item.examBy,
+    appointmentDate: item.appointmentDate,
     ultrasoundResult: item.id,
   }));
 
@@ -113,36 +229,86 @@ function Anc() {
       title: 'วันที่ตรวจ',
       dataIndex: 'examDate',
       key: 'examDate',
+      render: (text) => formatFullThai(text),
     },
     {
       title: 'น้ำหนัก ก.ก',
       dataIndex: 'weight',
       key: 'weight',
+      editable: true,
     },
     {
       title: 'การตรวจปัสสาวะ',
       dataIndex: 'urineTest',
       key: 'urineTest',
+      editable: true,
     },
     {
       title: 'ความดันโลหิต ม.ม.ปรอท',
       dataIndex: 'bloodPressure',
       key: 'bloodPressure',
+      editable: true,
     },
     {
       title: 'ขนาดของมดลูก (cm)',
       dataIndex: 'uterusSize',
       key: 'uterusSize',
+      editable: true,
     },
     {
       title: 'ท่าเด็กส่วนนำ/การลง',
       dataIndex: 'childPosture',
       key: 'childPosture',
+      editable: true,
     },
     {
       title: 'เสียงหัวใจเด็ก',
       dataIndex: 'heartSound',
       key: 'heartSound',
+      editable: true,
+    },
+    {
+      title: 'ความผิดปกติที่พบ',
+      dataIndex: 'physicalExamination',
+      key: 'physicalExamination',
+      editable: true,
+    },
+    {
+      title: 'ผู้ตรวจ',
+      dataIndex: 'examBy',
+      key: 'examBy',
+      editable: true,
+    },
+    {
+      title: 'วันนัดครั้งต่อไป',
+      dataIndex: 'appointmentDate',
+      key: 'appointmentDate',
+      editable: true,
+    },
+    {
+      title: 'อัพเดท',
+      dataIndex: 'operation',
+      render: (_, record) => {
+        const editable = isEditing(record);
+        console.log(record);
+        return editable ? (
+          <span>
+            <a
+              href="javascript:;"
+              onClick={() => save(record.key)}
+              style={{
+                marginRight: 8,
+              }}
+            >
+              บันทึก
+            </a>
+          </span>
+        ) : (
+          <a disabled={editingKey !== ''} onClick={() => edit(record)}>
+            แก้ไข
+          </a>
+        );
+      },
     },
     {
       title: 'ดูรูปอุตร้าซาวต์',
@@ -161,6 +327,22 @@ function Anc() {
       ),
     },
   ];
+  const mergedColumns = columns.map((col) => {
+    if (!col.editable) {
+      return col;
+    }
+
+    return {
+      ...col,
+      onCell: (record) => ({
+        record,
+        inputType: col.dataIndex === 'age' ? 'number' : 'text',
+        dataIndex: col.dataIndex,
+        title: col.title,
+        editing: isEditing(record),
+      }),
+    };
+  });
 
   return (
     <>
@@ -295,7 +477,24 @@ function Anc() {
           </Button>
         </Col>
         <Col span={21} style={{ display: 'flex', justifyContent: 'center' }}>
-          <Table columns={columns} dataSource={data} pagination={false} style={{ width: '100%', marginTop: '20px' }} />
+          {/* <Table columns={columns} dataSource={data} pagination={false} style={{ width: '100%', marginTop: '20px' }} /> */}
+          <Form form={form} component={false}>
+            <Table
+              style={{ width: '100%', marginTop: '20px' }}
+              components={{
+                body: {
+                  cell: EditableCell,
+                },
+              }}
+              bordered
+              dataSource={data}
+              columns={mergedColumns}
+              rowClassName="editable-row"
+              pagination={{
+                onChange: cancel,
+              }}
+            />
+          </Form>
         </Col>
         <Col
           span={21}
@@ -306,9 +505,9 @@ function Anc() {
             marginBottom: '20px',
           }}
         >
-          <Button type="primary" style={{ borderRadius: '50px' }}>
+          {/* <Button type="primary" style={{ borderRadius: '50px' }}>
             เพิ่มบันทึกผลการตรวจวันนี้ <PlusCircleOutlined />
-          </Button>
+          </Button> */}
         </Col>
         <Row
           style={{
@@ -329,7 +528,7 @@ function Anc() {
             <Title level={3} style={{ textDecoration: 'underline', textAlign: 'center' }}>
               คัดกรอง
             </Title>
-            <Form>
+            <Form onFinish={finishSpecialExamination}>
               <Form.Item
                 label="เบาหวาน"
                 name="isDiabetes"
@@ -344,24 +543,27 @@ function Anc() {
               >
                 <Input />
               </Form.Item>
-              <Form.Item label="รายละเอียด" style={{ display: 'inline-flex' }}>
-                <Checkbox.Group onChange={onChange}>
+              <Form.Item label="การตรวจหัวนม" name="nippleExam" style={{ display: 'inline-flex' }}>
+                <Radio.Group onChange={onChange}>
                   <Row justify="center" style={{ width: '100%' }}>
                     <Col>
-                      <Checkbox value="A">ปกติ</Checkbox>
+                      <Radio value="ปกติ">ปกติ</Radio>
                     </Col>
                     <Col>
-                      <Checkbox value="B">สั้น</Checkbox>
+                      <Radio value="สั้น">สั้น</Radio>
                     </Col>
                     <Col>
-                      <Checkbox value="C">บุ๋ม</Checkbox>
+                      <Radio value="บุ๋ม">บุ๋ม</Radio>
                     </Col>
                     <Col>
-                      <Checkbox value="C">บอด</Checkbox>
+                      <Radio value="บอด">บอด</Radio>
                     </Col>
                   </Row>
-                </Checkbox.Group>
+                </Radio.Group>
               </Form.Item>
+              <Button type="primary" htmlType="submit" style={{ borderRadius: '50px', marginLeft: '15px' }}>
+                บันทึก
+              </Button>
             </Form>
           </Col>
         </Row>
