@@ -6,6 +6,7 @@ import { Col, Row, Typography, Form, Input, Table, Button, Empty, Checkbox } fro
 import { PlusCircleOutlined, SearchOutlined } from '@ant-design/icons';
 import CurrentPregContext from '../../context/CurrentPregContext';
 import UltrasoundResult from '../../components/UltrasoundResult';
+import { formatFullThai } from '../../services/dateFormat';
 
 const { Title } = Typography;
 
@@ -113,6 +114,7 @@ function Anc() {
       title: 'วันที่ตรวจ',
       dataIndex: 'examDate',
       key: 'examDate',
+      render: (text) => formatFullThai(text),
     },
     {
       title: 'น้ำหนัก ก.ก',
