@@ -157,6 +157,9 @@ function Anc() {
     uterusSize: item.uterusSize,
     childPosture: item.childPosture,
     heartSound: item.heartSound,
+    physicalExamination: item.physicalExamination,
+    examBy: item.examBy,
+    appointmentDate: item.appointmentDate,
     ultrasoundResult: item.id,
   }));
 
@@ -233,7 +236,25 @@ function Anc() {
       editable: true,
     },
     {
-      title: 'operation',
+      title: 'ความผิดปกติที่พบ',
+      dataIndex: 'physicalExamination',
+      key: 'physicalExamination',
+      editable: true,
+    },
+    {
+      title: 'ผู้ตรวจ',
+      dataIndex: 'examBy',
+      key: 'examBy',
+      editable: true,
+    },
+    {
+      title: 'วันนัดครั้งต่อไป',
+      dataIndex: 'appointmentDate',
+      key: 'appointmentDate',
+      editable: true,
+    },
+    {
+      title: 'อัพเดท',
       dataIndex: 'operation',
       render: (_, record) => {
         const editable = isEditing(record);
@@ -247,12 +268,12 @@ function Anc() {
                 marginRight: 8,
               }}
             >
-              Save
+              บันทึก
             </a>
           </span>
         ) : (
           <a disabled={editingKey !== ''} onClick={() => edit(record)}>
-            Edit
+            แก้ไข
           </a>
         );
       },
@@ -452,9 +473,9 @@ function Anc() {
             marginBottom: '20px',
           }}
         >
-          <Button type="primary" style={{ borderRadius: '50px' }}>
+          {/* <Button type="primary" style={{ borderRadius: '50px' }}>
             เพิ่มบันทึกผลการตรวจวันนี้ <PlusCircleOutlined />
-          </Button>
+          </Button> */}
         </Col>
         <Row
           style={{
