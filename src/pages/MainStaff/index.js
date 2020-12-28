@@ -60,6 +60,18 @@ function IndexStaff() {
           isTerminate: res.data.isTerminate,
           isActive: !!res.data.isActive,
         });
+        localStorage.setItem(
+          'currentPreg',
+          JSON.stringify({
+            currentPregId: res.data.curPregId,
+            idCard: idCard,
+            firstName: res.data.firstName,
+            lastName: res.data.lastName,
+            GA: res.data.GA,
+            isTerminate: res.data.isTerminate,
+            isActive: !!res.data.isActive,
+          })
+        );
         history.push('/staff/motherReport');
       })
       .catch((err) => {
