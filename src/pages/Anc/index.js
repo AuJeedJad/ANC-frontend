@@ -80,6 +80,20 @@ function Anc() {
   const save = async (key) => {
     try {
       const row = await form.validateFields();
+      console.log(row);
+      axios
+        .patch(`/anc/${key}`, row)
+        .then((res) => {
+          notification.success({
+            description: `บันทึกข้อมูลสำเร็จ`,
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+          notification.error({
+            description: `${err}`,
+          });
+        });
       const newData = [...ancs];
       const index = newData.findIndex((item) => {
         return key === item.id;
