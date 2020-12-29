@@ -25,6 +25,14 @@ const fixedColumns = [
     sorter: (a, b) => a.id - b.id,
     sortDirections: ['descend', 'ascend'],
   },
+  {
+    title: 'ผู้ตรวจ',
+    dataIndex: 'examby',
+    fixed: true,
+    width: 300,
+    sorter: (a, b) => a.id - b.id,
+    sortDirections: ['descend', 'ascend'],
+  },
 ];
 
 function GaCare() {
@@ -51,6 +59,7 @@ function GaCare() {
       key: i,
       name: `${anc[i].CurrentPregnancy.MotherProfile.firstName}  ${anc[i].CurrentPregnancy.MotherProfile.lastName}`,
       id: `${anc[i].CurrentPregnancy.MotherProfile.idCard}`,
+      examby: `${anc[i].examBy}`,
     });
   }
   return (

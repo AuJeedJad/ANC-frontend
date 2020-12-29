@@ -53,7 +53,7 @@ function IndexStaff() {
       .then((res) => {
         setMother({
           currentPregId: res.data.curPregId,
-          idCard: idCard,
+          idCard: queryIdcard,
           firstName: res.data.firstName,
           lastName: res.data.lastName,
           GA: res.data.GA,
