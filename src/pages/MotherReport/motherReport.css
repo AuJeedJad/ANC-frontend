@@ -7,7 +7,7 @@
 .card-onethird {
   max-width: 32%;
   width: 300 px;
-  height: 15vh;
+  min-height: 15vh;
   border: 3px var(--primary-color) double;
   border-radius: 5px;
 }
@@ -16,22 +16,58 @@
   background: var(--primaryLightest-color);
   color: var(--primaryDarkest-color);
   height: 7vh;
-  font-size: 30px;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  position: relative;
 }
 .card-body-onethird {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: center;
 }
 .card-content-onethird {
-  max-width: 90%;
-  width: 250px;
+  max-width: 95%;
+  width: 280px;
+  font-size: 15px;
+  color: var(--primaryDarkest-color);
 }
 .card-icon-onethird {
   width: 20px;
   height: 20px;
   background-color: var(--primaryLightest-color);
   border-radius: 50%;
+  cursor: pointer;
+  margin: 0px 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primaryDarkest-color);
+}
+
+.note-hover {
+  display: none;
+}
+.question {
+  cursor: pointer;
+}
+
+.question:hover + .note-hover {
+  display: flex;
+  position: absolute;
+  background-color: white;
+  font-size: 15px;
+  top: 40px;
+  color: var(--secondaryDarkest-color);
+  background-color: var(--thirdaryLightest-color);
+}
+
+.card-icon-onethird-container {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
 }
 
 @media only screen and (max-width: 500px) {

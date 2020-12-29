@@ -51,6 +51,39 @@ function Sidebar(props) {
 
   const history = useHistory();
 
+  const onLogout = (topic) => {
+    if (topic.action === 'clearToken') {
+      LocalStorage.clearToken();
+      currentPregContext.setMother({
+        currentPregId: '',
+        id: '',
+        idCard: '',
+        firstName: '',
+        lastName: '',
+        GA: '',
+        createdAt: '',
+        isTerminate: false,
+        isActive: false,
+      });
+      props.setRole('guest');
+    }
+    if (topic.action === 'clearMother') {
+      localStorage.removeItem('currentPreg');
+      currentPregContext.setMother({
+        currentPregId: '',
+        id: '',
+        idCard: '',
+        firstName: '',
+        lastName: '',
+        GA: '',
+        createdAt: '',
+        isTerminate: false,
+        isActive: false,
+      });
+    }
+    history.push('/');
+  };
+
   return (
     <div
       className={`side-container ${props.show ? 'nav-sidebar--onclick' : null}`}
@@ -68,40 +101,7 @@ function Sidebar(props) {
       <div className="sidebar-lower">
         {sideTabLower.map((topic) => {
           return (
-            <button
-              className="btn-logout"
-              onClick={() => {
-                if (topic.action === 'clearToken') {
-                  LocalStorage.clearToken();
-                  currentPregContext.setMother({
-                    currentPregId: '',
-                    id: '',
-                    idCard: '',
-                    firstName: '',
-                    lastName: '',
-                    GA: '',
-                    createdAt: '',
-                    isTerminate: false,
-                    isActive: false,
-                  });
-                  props.setRole('guest');
-                }
-                if (topic.action === 'clearMother') {
-                  currentPregContext.setMother({
-                    currentPregId: '',
-                    id: '',
-                    idCard: '',
-                    firstName: '',
-                    lastName: '',
-                    GA: '',
-                    createdAt: '',
-                    isTerminate: false,
-                    isActive: false,
-                  });
-                }
-                history.push('/');
-              }}
-            >
+            <button className="btn-logout" onClick={() => onLogout(topic)}>
               {topic.name}
             </button>
           );
