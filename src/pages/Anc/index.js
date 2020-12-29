@@ -195,6 +195,15 @@ function Anc() {
     ultrasoundResult: item.id,
   }));
 
+  const fecthUltrasoundResult = () => {
+    axios
+      .get(`/ultrasoundResult/?curPregId=${mother.currentPregId}`)
+      .then((res) => {
+        setUltrasoundResult(res.data.ultrasoundResult);
+      })
+      .catch((err) => {});
+  };
+
   useEffect(() => {
     axios
       .get(`/anc?curPregId=${mother.currentPregId}`)
@@ -216,12 +225,7 @@ function Anc() {
       })
       .catch((err) => {});
 
-    axios
-      .get(`/ultrasoundResult/?curPregId=${mother.currentPregId}`)
-      .then((res) => {
-        setUltrasoundResult(res.data.ultrasoundResult);
-      })
-      .catch((err) => {});
+    fecthUltrasoundResult();
   }, []);
 
   const columns = [
@@ -343,10 +347,11 @@ function Anc() {
       }),
     };
   });
-
   return (
     <>
-      {ancId ? <UltrasoundResult ancId={ancId} setAncId={setAncId} /> : null}
+      {ancId ? (
+        <UltrasoundResult ancId={ancId} setAncId={setAncId} fecthUltrasoundResult={fecthUltrasoundResult} />
+      ) : null}
       <Row justify="center">
         <Col
           xs={21}
@@ -547,7 +552,7 @@ function Anc() {
                 <Radio.Group onChange={onChange}>
                   <Row justify="center" style={{ width: '100%' }}>
                     <Col>
-                      <Radio value="ปกติ">ปกติ</Radio>
+                      <Radio value="ปรกติ">ปรกติ</Radio>
                     </Col>
                     <Col>
                       <Radio value="สั้น">สั้น</Radio>
