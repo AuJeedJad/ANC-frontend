@@ -89,7 +89,12 @@ function UltrasoundResult(props) {
         })}
       </div>
       {addNewUs ? (
-        <NewUsResult header="สร้างสรุปผล ultrasound แผ่นใหม่" ancId="2" onCloseClick={() => props.setAncId(null)} />
+        <NewUsResult
+          header="สร้างสรุปผล ultrasound แผ่นใหม่"
+          fecthUltrasoundResult={props.fecthUltrasoundResult}
+          ancId={props.ancId}
+          onCloseClick={() => props.setAncId(null)}
+        />
       ) : (
         <ImageModal
           imageList={usResultList[usResultIdx].image}

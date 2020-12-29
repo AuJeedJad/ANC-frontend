@@ -70,6 +70,8 @@ function NewUltrasoundResult(props) {
         notification.success({
           description: 'เพิ่มใบสรุปผล ultrasound ใหม่ เรียบร้อยแล้ว',
         });
+        props.fecthUltrasoundResult();
+        props.onCloseClick();
       })
       .catch((err) => {
         console.log(err);
