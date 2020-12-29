@@ -5,21 +5,24 @@ import { EditOutlined, QuestionCircleOutlined, CheckCircleOutlined, CloseCircleO
 import CurrentPregContext from '../../context/CurrentPregContext';
 import axios from 'axios';
 import Checkbox from 'antd/lib/checkbox/Checkbox';
+import { formatFullThai } from '../../services/dateFormat';
 
 function MotherReport() {
   const history = useHistory();
   const currentPregContext = useContext(CurrentPregContext);
   const [lastANC, setLastANC] = useState({});
+  const [heal, setHeal] = useState([]);
   const [currentPreg, setCurrentPreg] = useState({});
   const [editEDC, setEditEDC] = useState({ onEdit: false });
   const [note, setNote] = useState({ onEdit: false });
 
   const fetchAnc = () => {
     axios
-      .get(`motherReport/getMotherReport/${currentPregContext.mother.currentPregId}`)
+      .get(`/motherReport/getMotherReport/${currentPregContext.mother.currentPregId}`)
       .then((res) => {
         setLastANC(res.data.lastANC);
         setCurrentPreg(res.data.targetCurPreg);
+        setHeal(res.data.physicalExamination);
       })
       .catch((err) => {
         console.dir(err);
@@ -44,7 +47,53 @@ function MotherReport() {
     });
   };
   const onEditEDCSend = () => {
-    setEditEDC({ onEdit: false });
+    if (!editEDC.correctedBy) {
+      alert('กรุณาเลือก corrected by');
+      return;
+    } else {
+      if (editEDC.correctedBy === 'LMP' && !editEDC.dateByLMP) {
+        alert('คุณเลือกcorrected by LMP แต่ไม่ได้กรอกวันที่โดย LMP');
+        return;
+      }
+      if (editEDC.correctedBy === 'U/S' && !editEDC.dateByUltrasound) {
+        alert('คุณเลือกcorrected by U/S แต่ไม่ได้กรอกวันที่โดย U/S');
+        return;
+      }
+      if (editEDC.correctedBy === 'PV' && !editEDC.dateByPV) {
+        alert('คุณเลือกcorrected by PV แต่ไม่ได้กรอกวันที่โดย PV');
+        return;
+      }
+      if (editEDC.correctedBy === 'Ut Size' && !editEDC.dateByUtSize) {
+        alert('คุณเลือกcorrected by Ut Size แต่ไม่ได้กรอกวันที่โดย Ut Size');
+        return;
+      }
+    }
+    if (!editEDC.dateByLMP && !editEDC.dateByUltrasound && !editEDC.dateByPV && !editEDC.dateByUtSize) {
+      alert('ไม่พบข้อมูลวันที่');
+      return;
+    }
+    if (editEDC.dateByUltrasound && !editEDC.UsAtGA) {
+      alert('กรุณากรอก GA ของ date by ultrasound');
+      return;
+    }
+    if (editEDC.dateByPV && !editEDC.PvAtGA) {
+      alert('กรุณากรอก GA ของ date by PV');
+      return;
+    }
+    if (editEDC.dateByUtSize && !editEDC.UtAtGA) {
+      alert('กรุณากรอก GA ของ date by uterine size');
+      return;
+    }
+
+    axios
+      .patch(`/motherReport/updateCorrectedEDC/${currentPregContext.mother.currentPregId}`, editEDC)
+      .then((res) => {
+        setEditEDC({ onEdit: false });
+        fetchAnc();
+      })
+      .catch((err) => {
+        console.dir(err);
+      });
   };
   const onEditNote = () => {
     setNote({ onEdit: true, content: currentPreg.note });
@@ -323,6 +372,106 @@ function MotherReport() {
                 </div>
               </>
             )}
+          </div>
+        </div>
+      </div>
+      <div className="btn-motherReport-wrap">
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            history.push('/staff/lab');
+          }}
+          className="btn-motherReport"
+        >
+          ผลตรวจทางห้องปฎิบัติการ
+        </button>
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            history.push('/staff/gaCare');
+          }}
+          className="btn-motherReport"
+        >
+          บริการตามช่วงอายุครรภ์
+        </button>
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            history.push('/staff/dental');
+          }}
+          className="btn-motherReport"
+        >
+          ตรวจสุขภาพช่องปาก
+        </button>
+      </div>
+      <div className="btn-motherReport-wrap">
+        <div className="anc-report">
+          <div className="card-header-onethird">ผลตรวจครรภ์ล่าสุด</div>
+          <div className="card-body-onethird">
+            <div className="card-content-onethird">
+              <p>
+                {lastANC.weight ? (
+                  <span>
+                    น้ำหนัก: {lastANC.weight}
+                    {currentPreg.beforePregWeight ? (
+                      <span>[เปลี่ยนไป: {+lastANC.weight - +currentPreg.beforePregWeight} กก.]</span>
+                    ) : null}
+                  </span>
+                ) : null}
+                {lastANC.bloodPressure ? (
+                  <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ความดันโลหิต {lastANC.bloodPressure} </span>
+                ) : null}
+              </p>
+              {lastANC.urineTest ? <p>ผลการตรวจปัสสาวะ: {lastANC.urineTest} </p> : null}
+              <p>
+                {lastANC.uterusSize ? <span>ขนาดมดลูก: {lastANC.uterusSize} ซม.</span> : null}
+                {lastANC.childPosture ? (
+                  <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ท่าเด็ก/ส่วนนำ/การลง: {lastANC.childPosture} </span>
+                ) : null}
+                {lastANC.heartSound ? (
+                  <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;เสียงหัวใจเด็ก: {lastANC.heartSound} </span>
+                ) : null}
+                {lastANC.childMove ? <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;เด็กดิ้น: {lastANC.childMove}</span> : null}
+              </p>
+              {lastANC.physicalExamination ? (
+                <p>การตรวจร่างกายและความผิดปกติที่พบการวินิจฉัยและการรักษา: {lastANC.physicalExamination}</p>
+              ) : null}
+              <p>
+                {lastANC.nutritionEvaResult ? <span>ภาวะโภชนาการ: {lastANC.nutritionEvaResult}</span> : null}
+                {lastANC.nippleExam ? (
+                  <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ตรวจหัวนม/เต้านม: {lastANC.nippleExam}</span>
+                ) : null}
+              </p>
+              <p>
+                {lastANC.gaByLmp ? <span>GA by LMP: {lastANC.gaByLmp}</span> : null}
+                {lastANC.gaByUs ? <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GA by US: {lastANC.gaByUs}</span> : null}
+              </p>
+              {lastANC.examDate ? <p>[ ตรวจครั้งล่าสุดเมื่อวันที่ : {formatFullThai(lastANC.examDate)} ]</p> : null}
+            </div>
+          </div>
+        </div>
+        <div className="anc-report">
+          <div className="card-header-onethird">การวินิฉัยและรักษาที่เคยได้รับ</div>
+          <div className="card-body-onethird">
+            <div className="card-content-onethird">
+              {heal.map((item) => {
+                return (
+                  <p style={{ textAlign: 'left' }}>
+                    [ {formatFullThai(item.examDate)} ] {item.physicalExamination}
+                  </p>
+                );
+              })}
+            </div>
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                history.push('/staff/anc');
+              }}
+              className="btn-motherReport"
+              style={{ minWidth: '80%', width: '80%' }}
+            >
+              บันทึกการตรวจครรภ์วันนี้
+            </button>
           </div>
         </div>
       </div>
