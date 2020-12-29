@@ -233,65 +233,76 @@ function Anc() {
       title: 'วันที่ตรวจ',
       dataIndex: 'examDate',
       key: 'examDate',
+      width: '10%',
       render: (text) => formatFullThai(text),
     },
     {
-      title: 'น้ำหนัก ก.ก',
+      title: 'น้ำหนัก',
       dataIndex: 'weight',
       key: 'weight',
+      width: '5%',
       editable: true,
     },
     {
       title: 'การตรวจปัสสาวะ',
       dataIndex: 'urineTest',
       key: 'urineTest',
+      width: '10%',
       editable: true,
     },
     {
       title: 'ความดันโลหิต ม.ม.ปรอท',
       dataIndex: 'bloodPressure',
       key: 'bloodPressure',
+      width: '5%',
       editable: true,
     },
     {
       title: 'ขนาดของมดลูก (cm)',
       dataIndex: 'uterusSize',
       key: 'uterusSize',
+      width: '5%',
       editable: true,
     },
     {
       title: 'ท่าเด็กส่วนนำ/การลง',
       dataIndex: 'childPosture',
       key: 'childPosture',
+      width: '10%',
       editable: true,
     },
     {
       title: 'เสียงหัวใจเด็ก',
       dataIndex: 'heartSound',
       key: 'heartSound',
+      width: '5%',
       editable: true,
     },
     {
-      title: 'ความผิดปกติที่พบ',
+      title: 'การตรวจร่างกายและความผิดปกติที่พบ การวินิจฉัยและการรักษา',
       dataIndex: 'physicalExamination',
       key: 'physicalExamination',
+      width: '20%',
       editable: true,
     },
     {
       title: 'ผู้ตรวจ',
       dataIndex: 'examBy',
       key: 'examBy',
+      width: '10%',
       editable: true,
     },
     {
       title: 'วันนัดครั้งต่อไป',
       dataIndex: 'appointmentDate',
       key: 'appointmentDate',
+      width: '10%',
       editable: true,
     },
     {
       title: 'อัพเดท',
       dataIndex: 'operation',
+      width: '5%',
       render: (_, record) => {
         const editable = isEditing(record);
         console.log(record);
@@ -318,6 +329,7 @@ function Anc() {
       title: 'ดูรูปอุตร้าซาวต์',
       dataIndex: 'ultrasoundResult',
       key: 'ultrasoundResult',
+      width: '5%',
       render: (text, record) => (
         <Button
           type="primary"
