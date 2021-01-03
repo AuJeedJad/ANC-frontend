@@ -31,7 +31,7 @@ function lab() {
             </Col>
           </Row>
           <Row style={{ display: 'flex', justifyContent: 'center' }}>
-            <Col xs={23}>
+            <Col xs={23} style={{ display: 'flex', justifyContent: 'center' }}>
               <LabResultTable />
             </Col>
           </Row>

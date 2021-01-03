@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import axios from '../../../config/axios';
 import { Row, Col, Input, Button, Radio, Form, DatePicker, notification } from 'antd';
 import moment from 'moment';
+import CurrentPregContext from '../../../context/CurrentPregContext';
 
 function AddLabResult() {
+  const currentPregContext = useContext(CurrentPregContext);
   const dateFormat = 'YYYY-MM-DD';
 
   const layout = {
@@ -15,7 +17,7 @@ function AddLabResult() {
     console.log(values);
     axios
       .post('/labResult', {
-        curPregId: 2,
+        curPregId: currentPregContext.mother.currentPregId,
         role: values.role,
         createdAt: values.createdAt,
         bloodGroup: values.bloodGroup,
