@@ -19,7 +19,7 @@ function PregnantHistory() {
       key: 'id',
     },
     {
-      title: 'ว/ด/ป คลอด/แท้ง',
+      title: 'ป/ด/ว คลอด/แท้ง',
       dataIndex: 'deliverDate',
       key: 'deliverDate',
     },
@@ -34,7 +34,7 @@ function PregnantHistory() {
       key: 'deliverMethod',
     },
     {
-      title: 'น้ำหนักทารก',
+      title: 'น้ำหนักทารก (กรัม)',
       dataIndex: 'childWeight',
       key: 'childWeight',
     },
@@ -64,10 +64,10 @@ function PregnantHistory() {
     const { count, dataSource } = data;
     const newData = {
       id: count + 1,
-      deliverDate: '17-11-2019',
-      birthAtGa: '32',
+      deliverDate: '2019-11-17',
+      birthAtGa: '37',
       deliverMethod: 'คลอดธรรมชาติ',
-      childWeight: '330',
+      childWeight: '3300',
       childGender: 'ชาย',
       birthPlace: 'โรงพยาบาลกรุงเทพ',
       complication: '-',

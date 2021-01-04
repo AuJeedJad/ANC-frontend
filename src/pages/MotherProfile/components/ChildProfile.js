@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Button, Col, Form, Input, notification, Row, Typography } from 'antd';
 import CurrentPregContext from '../../../context/CurrentPregContext';
 
@@ -8,6 +9,8 @@ function ChildProfile() {
   const { mother, setMother } = useContext(CurrentPregContext);
   const [child, setChild] = useState({});
   const [form] = Form.useForm();
+
+  const history = useHistory();
 
   useEffect(() => {
     console.log(child);
@@ -82,7 +85,7 @@ function ChildProfile() {
                       <Button type="primary" style={{ width: '150px', marginRight: '8px' }} htmlType="submit">
                         บันทึก
                       </Button>
-                      <Button type="primary" style={{ width: '150px' }} danger>
+                      <Button type="primary" style={{ width: '150px' }} danger onClick={() => history.push('/')}>
                         ยกเลิก
                       </Button>
                     </Col>

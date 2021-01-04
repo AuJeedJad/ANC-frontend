@@ -15,30 +15,32 @@ function MedicalHistory(props) {
 
   useEffect(() => {
     axios.get(`/motherInformation/medicalHistory?motherId=${user.id}`).then((res) => {
-      for (let i = 0; i < res.data.CesareanSections.length; i++) {
-        props.form.setFieldsValue({
-          cesareanYear: res.data.CesareanSections[i].year,
-          cesareanHospital: res.data.CesareanSections[i].hospital,
-        });
+      if (res.data.CesareanSections.length !== 0) {
+        for (let i = 0; i < res.data.CesareanSections.length; i++) {
+          props.form.setFieldsValue({
+            cesareanYear: res.data.CesareanSections[i].year,
+            cesareanHospital: res.data.CesareanSections[i].hospital,
+          });
+        }
+        cesareanSections.push([
+          <Form.Item key={cesareanCount} style={{ marginBottom: 4 }}>
+            <Form.Item label="เมื่อ พ.ศ." name="cesareanYear" style={{ display: 'inline-flex', marginRight: 4 }}>
+              <Input />
+            </Form.Item>
+            <Form.Item label="โรงพยาบาล" name="cesareanHospital" style={{ display: 'inline-flex', marginRight: 4 }}>
+              <Input />
+            </Form.Item>
+          </Form.Item>,
+        ]);
       }
-      cesareanSections.push([
-        <Form.Item name="cesarean" style={{ marginBottom: 4 }}>
-          <Form.Item label="เมื่อ พ.ศ." name="cesareanYear" style={{ display: 'inline-flex', marginRight: 4 }}>
-            <Input />
-          </Form.Item>
-          <Form.Item label="โรงพยาบาล" name="cesareanHospital" style={{ display: 'inline-flex', marginRight: 4 }}>
-            <Input />
-          </Form.Item>
-        </Form.Item>,
-      ]);
     });
     setCesareanSections(cesareanSections);
-    setCesareanCount(cesareanSections.length);
+    setCesareanCount(cesareanSections + 1);
   }, []);
 
   const handleCesarean = () => {
     cesareanSections.push([
-      <Form.Item style={{ marginBottom: 4 }}>
+      <Form.Item key={cesareanCount} style={{ marginBottom: 4 }}>
         <Form.Item label="เมื่อ พ.ศ." name="cesareanYear" style={{ display: 'inline-flex', marginRight: 4 }}>
           <Input />
         </Form.Item>

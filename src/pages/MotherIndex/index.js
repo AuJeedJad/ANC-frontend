@@ -39,8 +39,8 @@ function MotherIndex() {
             });
         }}
       >
-        <Form form={form} initialValues={{ date: recordTimes, count: count }}>
-          <Form.Item name="date" label="ช่วงเวลา">
+        <Form form={form} initialValues={{ time: recordTimes, count: count }}>
+          <Form.Item name="time" label="ช่วงเวลา">
             <Select
               style={{ display: 'inline-flex', width: 100, margin: '0 8px' }}
               value={recordTimes}
@@ -59,6 +59,11 @@ function MotherIndex() {
     );
   };
 
+  const onSelect = (date) => {
+    setVisible(!visible);
+    console.log(date.format('YYYY-MM-DD'));
+  };
+
   const onCreate = (values) => {
     console.log(`time = ${recordTimes}, count = ${count}`);
     setRecordTimes(values.date);
@@ -68,24 +73,25 @@ function MotherIndex() {
 
   function getListData(value) {
     let listData;
-    switch (value.date()) {
-      case 8:
+    switch (value.format('YYYY-MM-DD')) {
+      case '2021-01-04':
         listData = [
-          { type: 'warning', content: 'This is warning event.' },
-          { type: 'success', content: 'This is usual event.' },
+          { type: 'warning', content: `เช้า : 15 ครั้ง` },
+          { type: 'success', content: `กลางวัน : 28 ครั้ง` },
         ];
         break;
-      case 10:
+      case '2021-01-08':
         listData = [
-          { type: 'warning', content: 'This is warning event.' },
-          { type: 'success', content: 'This is usual event.' },
-          { type: 'error', content: 'This is error event.' },
+          { type: 'warning', content: `เช้า : 16 ครั้ง` },
+          { type: 'success', content: `กลางวัน : 28 ครั้ง` },
+          { type: 'error', content: `เย็น : 19 ครั้ง` },
         ];
         break;
-      case 15:
+      case '2021-01-15':
         listData = [
-          { type: 'warning', content: 'This is warning event' },
-          { type: 'success', content: 'This is very long usual event。。....' },
+          { type: 'warning', content: `เช้า : 17 ครั้ง` },
+          { type: 'success', content: `กลางวัน : 28 ครั้ง` },
+          { type: 'error', content: `เย็น : 24 ครั้ง` },
         ];
         break;
       default:
@@ -99,7 +105,7 @@ function MotherIndex() {
       <ul className="events">
         {listData.map((item) => (
           <li key={item.content}>
-            <Badge status={item.type} text={item.content} />
+            <Badge status={item.type} count={item.count} text={item.content} />
           </li>
         ))}
       </ul>
@@ -187,7 +193,7 @@ function MotherIndex() {
             mode="month"
             headerRender={headerRender}
             style={{ margin: '16px 0' }}
-            onSelect={() => setVisible(!visible)}
+            onSelect={onSelect}
             dateCellRender={dateCellRender}
           ></Calendar>
           <Link to="/mother/information" className="btn-sidebar" style={{ width: '100%', fontSize: 20 }}>

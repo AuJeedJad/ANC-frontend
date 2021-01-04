@@ -5,6 +5,7 @@ import MedicalHistory from './components/MedicalHistory';
 import MensCheck from './components/MensCheck';
 import PregnantHistory from './components/PregnantHistory';
 import UserContext from '../../context/UserContext';
+import { useHistory } from 'react-router-dom';
 
 function MotherInfomations() {
   const { Title } = Typography;
@@ -12,6 +13,8 @@ function MotherInfomations() {
   const [form] = Form.useForm();
   const [motherCheckState, setMotherIsCheckState] = useState([]);
   const [familyCheckState, setFamilyIsCheckState] = useState([]);
+
+  const history = useHistory();
 
   const includeDisease = [
     'isSeizure',
@@ -86,7 +89,7 @@ function MotherInfomations() {
               <Button type="primary" style={{ width: '150px', marginRight: '8px' }} htmlType="submit">
                 บันทึก
               </Button>
-              <Button type="primary" style={{ width: '150px' }} danger>
+              <Button type="primary" style={{ width: '150px' }} danger onClick={() => history.push('/')}>
                 ยกเลิก
               </Button>
             </Col>

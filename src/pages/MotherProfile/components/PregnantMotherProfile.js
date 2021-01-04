@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Button, Col, Form, Image, Input, notification, Row, Select, Typography, Upload } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import UserContext from '../../../context/UserContext';
@@ -7,6 +8,8 @@ import UserContext from '../../../context/UserContext';
 function PregnantMotherProfile() {
   const { Title } = Typography;
   const { Option } = Select;
+
+  const history = useHistory();
 
   const provinceData = [
     'กรุงเทพมหานคร',
@@ -224,7 +227,7 @@ function PregnantMotherProfile() {
                             <Button type="primary" style={{ width: '150px', marginRight: '8px' }} htmlType="submit">
                               บันทึก
                             </Button>
-                            <Button type="primary" style={{ width: '150px' }} danger>
+                            <Button type="primary" style={{ width: '150px' }} danger onClick={() => history.push('/')}>
                               ยกเลิก
                             </Button>
                           </Col>
