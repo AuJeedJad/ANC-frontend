@@ -103,7 +103,7 @@ const allPages = {
 };
 
 const permissionList = {
-  guest: [allPages.login, allPages.contentPage, allPages.motherIndex],
+  guest: [allPages.login, allPages.contentPage, allPages.motherIndex, allPages.motherShopping],
   mother: [
     allPages.contentPage,
     allPages.motherProfile,
