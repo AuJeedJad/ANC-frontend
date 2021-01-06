@@ -71,7 +71,9 @@ function NewUltrasoundResult(props) {
           description: 'เพิ่มใบสรุปผล ultrasound ใหม่ เรียบร้อยแล้ว',
         });
         props.fecthUltrasoundResult();
-        props.onCloseClick();
+        props.fetchUsResult();
+        props.setUsResultIdx(props.listLength);
+        props.setAddNewUs(false);
       })
       .catch((err) => {
         console.log(err);

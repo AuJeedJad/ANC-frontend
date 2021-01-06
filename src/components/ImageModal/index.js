@@ -22,6 +22,7 @@ function ImageModal(props) {
           description: 'Upload Success',
         });
         props.fetchUsResult();
+        setAddImage(!addImage);
       })
       .catch((err) => {
         console.log(err);

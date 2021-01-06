@@ -81,8 +81,12 @@ function UltrasoundResult(props) {
         <NewUsResult
           header="สร้างสรุปผล ultrasound แผ่นใหม่"
           fecthUltrasoundResult={props.fecthUltrasoundResult}
+          fetchUsResult={fetchUsResult}
           ancId={props.ancId}
           onCloseClick={() => props.setAncId(null)}
+          setUsResultIdx={setUsResultIdx}
+          listLength={usResultList.length}
+          setAddNewUs={setAddNewUs}
         />
       ) : (
         <ImageModal
