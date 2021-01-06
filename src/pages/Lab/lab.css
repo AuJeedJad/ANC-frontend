@@ -1,0 +1,20 @@
+table,
+th,
+td {
+  border: 1px solid lightgrey;
+  font-size: 18px;
+}
+
+table {
+  width: 100%;
+}
+
+td {
+  padding: 5px 0;
+}
+
+.headTable {
+  background-color: #f9ffec;
+  font-size: 20px;
+  font-weight: bold;
+}

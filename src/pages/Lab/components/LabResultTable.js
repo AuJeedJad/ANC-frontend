@@ -1,54 +1,100 @@
 import { Button } from 'antd';
 import React from 'react';
 
-function LabResultTable() {
+function LabResultTable({ setLabResult }) {
+  const editLabResult = (type, no) => {
+    setLabResult({ active: true, type, no });
+  };
   return (
-    <table border="1" cellPadding="10" width="100%" style={{ fontSize: '20px' }}>
+    <table>
       <tr>
-        <td rowspan="2">รายงานการตรวจเลือด</td>
-        <td colspan="2">หญิงตั้งครรภ์</td>
-        <td colspan="2">สามี</td>
-      </tr>
-      <tr>
-        <td align="center" style={{ padding: '5px 0px' }}>
-          <div>ครั้งที่ 1</div>
-          <Button
-            type="primary"
-            style={{ fontSize: '18px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}
-          >
-            แก้ไข
-          </Button>
+        <td className="headTable" rowspan="2" style={{ width: '25%' }}>
+          รายงานการตรวจเลือด
         </td>
-        <td align="center" style={{ padding: '5px 0px' }}>
-          <div>ครั้งที่ 2</div>
-          <Button
-            type="primary"
-            style={{ fontSize: '18px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}
-          >
-            แก้ไข
-          </Button>
+        <td className="headTable" colspan="2">
+          หญิงตั้งครรภ์
         </td>
-        <td align="center" style={{ padding: '5px 0px' }}>
-          <div>ครั้งที่ 1</div>
-          <Button
-            type="primary"
-            style={{ fontSize: '18px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}
-          >
-            แก้ไข
-          </Button>
-        </td>
-        <td align="center" style={{ padding: '5px 0px' }}>
-          <div>ครั้งที่ 2</div>
-          <Button
-            type="primary"
-            style={{ fontSize: '18px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}
-          >
-            แก้ไข
-          </Button>
+        <td className="headTable" colspan="2">
+          สามี
         </td>
       </tr>
       <tr>
-        <td align="left" style={{ paddingLeft: '10px' }}>
+        <td className="headTable" align="center">
+          <div>ครั้งที่ 1</div>
+          <Button
+            primary
+            style={{
+              fontSize: '16px',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              boxShadow: '-0.5px -0.5px #52938e',
+            }}
+            onClick={() => editLabResult('mother', 1)}
+          >
+            แก้ไข
+          </Button>
+        </td>
+        <td className="headTable" align="center">
+          <div>ครั้งที่ 2</div>
+          <Button
+            primary
+            style={{
+              fontSize: '16px',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              boxShadow: '-0.5px -0.5px #52938e',
+            }}
+            onClick={() => editLabResult('mother', 2)}
+          >
+            แก้ไข
+          </Button>
+        </td>
+        <td className="headTable" align="center">
+          <div>ครั้งที่ 1</div>
+          <Button
+            primary
+            style={{
+              fontSize: '16px',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              boxShadow: '-0.5px -0.5px #52938e',
+            }}
+            onClick={() => editLabResult('father', 1)}
+          >
+            แก้ไข
+          </Button>
+        </td>
+        <td className="headTable" align="center">
+          <div>ครั้งที่ 2</div>
+          <Button
+            primary
+            style={{
+              fontSize: '16px',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              boxShadow: '-0.5px -0.5px #52938e',
+            }}
+            onClick={() => editLabResult('father', 2)}
+          >
+            แก้ไข
+          </Button>
+        </td>
+      </tr>
+      <tr>
+        <td className="headTable" align="right" style={{ paddingRight: '10px' }}>
+          Date
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td className="headTable" align="left" style={{ paddingLeft: '10px' }}>
           Blood gr/Rh
         </td>
         <td></td>
@@ -57,7 +103,7 @@ function LabResultTable() {
         <td></td>
       </tr>
       <tr>
-        <td align="left" style={{ paddingLeft: '10px' }}>
+        <td className="headTable" align="left" style={{ paddingLeft: '10px' }}>
           Hct/Hb
         </td>
         <td></td>
@@ -66,7 +112,7 @@ function LabResultTable() {
         <td></td>
       </tr>
       <tr>
-        <td align="left" style={{ paddingLeft: '10px' }}>
+        <td className="headTable" align="left" style={{ paddingLeft: '10px' }}>
           OF/MCV, MCH
         </td>
         <td></td>
@@ -75,7 +121,7 @@ function LabResultTable() {
         <td></td>
       </tr>
       <tr>
-        <td align="left" style={{ paddingLeft: '10px' }}>
+        <td className="headTable" align="left" style={{ paddingLeft: '10px' }}>
           DCIP
         </td>
         <td></td>
@@ -84,7 +130,7 @@ function LabResultTable() {
         <td></td>
       </tr>
       <tr>
-        <td align="left" style={{ paddingLeft: '10px' }}>
+        <td className="headTable" align="left" style={{ paddingLeft: '10px' }}>
           Hb typing
         </td>
         <td></td>
@@ -93,7 +139,7 @@ function LabResultTable() {
         <td></td>
       </tr>
       <tr>
-        <td align="left" style={{ paddingLeft: '10px' }}>
+        <td className="headTable" align="left" style={{ paddingLeft: '10px' }}>
           PCR
         </td>
         <td></td>
@@ -102,7 +148,7 @@ function LabResultTable() {
         <td></td>
       </tr>
       <tr>
-        <td align="left" style={{ paddingLeft: '10px' }}>
+        <td className="headTable" align="left" style={{ paddingLeft: '10px' }}>
           ไวรัสตับอักเสบ บี
         </td>
         <td></td>
@@ -111,7 +157,7 @@ function LabResultTable() {
         <td></td>
       </tr>
       <tr>
-        <td align="left" style={{ paddingLeft: '10px' }}>
+        <td className="headTable" align="left" style={{ paddingLeft: '10px' }}>
           ซิฟิลิส
         </td>
         <td></td>
@@ -120,7 +166,7 @@ function LabResultTable() {
         <td></td>
       </tr>
       <tr>
-        <td align="left" style={{ paddingLeft: '10px' }}>
+        <td className="headTable" align="left" style={{ paddingLeft: '10px' }}>
           ตรวจหาเชื้อเอช ไอ วี
         </td>
         <td></td>

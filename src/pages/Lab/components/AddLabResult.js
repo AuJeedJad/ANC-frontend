@@ -1,12 +1,10 @@
 import React, { useContext } from 'react';
 import axios from '../../../config/axios';
 import { Row, Col, Input, Button, Radio, Form, DatePicker, notification } from 'antd';
-import moment from 'moment';
 import CurrentPregContext from '../../../context/CurrentPregContext';
 
-function AddLabResult() {
+function AddLabResult({ labResult, setLabResult }) {
   const currentPregContext = useContext(CurrentPregContext);
-  const dateFormat = 'YYYY-MM-DD';
 
   const layout = {
     labelCol: { xs: 24 },
@@ -15,11 +13,12 @@ function AddLabResult() {
 
   const onFinish = (values) => {
     console.log(values);
+    console.log(typeof values.date);
     axios
       .post('/labResult', {
         curPregId: currentPregContext.mother.currentPregId,
         role: values.role,
-        createdAt: values.createdAt,
+        date: values.date.toDate(),
         bloodGroup: values.bloodGroup,
         hctHb: values.hctHb,
         ofMcvMch: values.ofMcvMch,
@@ -34,6 +33,7 @@ function AddLabResult() {
         notification.success({
           description: 'บันทึกข้อมูลสำเร็จ',
         });
+        setLabResult({ active: false, type: null, no: null });
       });
   };
 
@@ -48,18 +48,17 @@ function AddLabResult() {
         justifyContent: 'flex-start',
         alignItems: 'flex-start',
         textAlign: 'center',
-        border: '1px solid lightgray',
-        width: '60%',
+        width: '100%',
       }}
     >
-      <Row style={{ width: '100%' }}>
-        <Col xs={24}>
+      <Row style={{ width: '100%', backgroundColor: 'white' }}>
+        <Col xs={24} style={{}}>
           <Row>
             <Col xs={24}>
-              <h1>ผลตรวจห้องปฏิบัติการ</h1>
+              <h1 style={{ marginTop: '24px', fontWeight: 'bold' }}>ผลตรวจห้องปฏิบัติการ</h1>
             </Col>
           </Row>
-          <Row>
+          {/* <Row>
             <Col xs={24}>
               <Form.Item name="role">
                 <Radio.Group name="role" defaultValue={null}>
@@ -72,20 +71,20 @@ function AddLabResult() {
                 </Radio.Group>
               </Form.Item>
             </Col>
-          </Row>
+          </Row> */}
           <Row style={{ width: '100%', justifyContent: 'center' }}>
-            <Col xs={24} style={{ padding: '0 1em' }}>
-              <Form.Item name="createdAt">
-                <label for="nest-messages_createdAt" style={{ fontSize: '20px' }}>
-                  วันที่ :{' '}
-                </label>
-                <DatePicker defaultValue={moment(new Date(), dateFormat)} style={{}} />
+            <Col xs={24} style={{ padding: '0 1em', display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
+              <label for="nest-messages_date" style={{ fontSize: '20px', paddingRight: '5px' }}>
+                วันที่ :
+              </label>
+              <Form.Item name="date">
+                <DatePicker />
               </Form.Item>
             </Col>
           </Row>
         </Col>
       </Row>
-      <Row style={{ width: '100%' }}>
+      <Row style={{ width: '100%', backgroundColor: 'white' }}>
         <Col xs={24} style={{ padding: '0 1em' }}>
           <Row>
             <Col xs={24}>
@@ -93,7 +92,7 @@ function AddLabResult() {
             </Col>
           </Row>
           <Row>
-            <Col xs={12}>
+            <Col xs={8}>
               <Row style={{ width: '100%' }}>
                 <Col
                   xs={24}
@@ -123,6 +122,17 @@ function AddLabResult() {
                   <Form.Item name="ofMcvMch">
                     <Input />
                   </Form.Item>
+                </Col>
+              </Row>
+            </Col>
+            <Col xs={8}>
+              <Row
+                style={{
+                  width: '100%',
+                  padding: '0 1em',
+                }}
+              >
+                <Col xs={24}>
                   <label for="nest-messages_dcip" style={{ textAlign: 'center', fontSize: '20px' }}>
                     DCIP
                   </label>
@@ -135,10 +145,16 @@ function AddLabResult() {
                   <Form.Item name="hbTyping">
                     <Input />
                   </Form.Item>
+                  <label for="nest-messages_pcr" style={{ textAlign: 'center', fontSize: '20px' }}>
+                    PCR
+                  </label>
+                  <Form.Item name="pcr">
+                    <Input />
+                  </Form.Item>
                 </Col>
               </Row>
             </Col>
-            <Col xs={12}>
+            <Col xs={8}>
               <Row
                 style={{
                   width: '100%',
@@ -146,12 +162,6 @@ function AddLabResult() {
                 }}
               >
                 <Col xs={24}>
-                  <label for="nest-messages_pcr" style={{ textAlign: 'center', fontSize: '20px' }}>
-                    PCR
-                  </label>
-                  <Form.Item name="pcr">
-                    <Input />
-                  </Form.Item>
                   <label for="nest-messages_hepatitisBVirus" style={{ textAlign: 'center', fontSize: '20px' }}>
                     ไวรัสตับอักเสบ บี
                   </label>
@@ -170,31 +180,63 @@ function AddLabResult() {
                   <Form.Item name="hiv">
                     <Input />
                   </Form.Item>
-                  <Form.Item
-                    wrapperCol={{ ...layout.wrapperCol }}
-                    style={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                      justifyContent: 'flex-end',
-                      alignItems: 'flex-end',
-                      padding: '30px 0 0 0',
-                    }}
-                  >
-                    <Button
-                      type="primary"
-                      htmlType="submit"
-                      style={{
-                        fontSize: '20px',
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                      }}
-                    >
-                      บันทึก
-                    </Button>
-                  </Form.Item>
                 </Col>
               </Row>
+            </Col>
+          </Row>
+          <Row
+            style={{
+              width: '100%',
+              padding: '0 1em',
+            }}
+          >
+            <Col xs={24} style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end' }}>
+              <Form.Item
+                wrapperCol={{ ...layout.wrapperCol }}
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'flex-end',
+                  alignItems: 'flex-end',
+                  padding: '0 15px 0 0',
+                }}
+              >
+                <Button
+                  danger
+                  htmlType="button"
+                  onClick={() => setLabResult({ active: false, type: null, no: null })}
+                  style={{
+                    fontSize: '20px',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}
+                >
+                  ยกเลิก
+                </Button>
+              </Form.Item>
+              <Form.Item
+                wrapperCol={{ ...layout.wrapperCol }}
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'flex-end',
+                  alignItems: 'flex-end',
+                }}
+              >
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  style={{
+                    fontSize: '20px',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}
+                >
+                  บันทึก
+                </Button>
+              </Form.Item>
             </Col>
           </Row>
         </Col>
