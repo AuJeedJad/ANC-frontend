@@ -156,7 +156,7 @@ function NewUltrasoundResult(props) {
                 <button disabled={!validate} type="submit" className="btn-upload">
                   สร้าง
                 </button>
-                <img src={logo} alt="logo" width="50%" />
+                <img src={logo} alt="logo" width="30%" />
               </div>
             </div>
           </div>

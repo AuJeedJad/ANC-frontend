@@ -123,7 +123,8 @@ function MotherReport() {
     borderRadius: '5px',
   };
   return (
-    <div className="page">
+    <div className="page" style={{ justifyContent: 'flex-start' }}>
+      <div> . </div>
       <div className="mother-report-notify">
         <div className="card-onethird">
           <div className="card-header-onethird">
@@ -152,11 +153,7 @@ function MotherReport() {
           </div>
           <div className="card-body-onethird">
             <div className="card-content-onethird"> by {currentPreg.correctedBy}</div>
-            <div className="card-icon-onethird-container">
-              <div className="card-icon-onethird">
-                <EditOutlined />
-              </div>
-            </div>
+            <div className="card-icon-onethird-container"></div>
           </div>
         </div>
         <div className="card-onethird last-card" style={{ height: '30vh' }}>
@@ -475,6 +472,7 @@ function MotherReport() {
           </div>
         </div>
       </div>
+      <div> . </div>
     </div>
   );
 }

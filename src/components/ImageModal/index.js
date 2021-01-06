@@ -21,6 +21,7 @@ function ImageModal(props) {
         notification.success({
           description: 'Upload Success',
         });
+        props.fetchUsResult();
       })
       .catch((err) => {
         console.log(err);
@@ -29,6 +30,15 @@ function ImageModal(props) {
         });
       });
   };
+
+  const changeValue = (fieldName, fieldValue) => {
+    const newValue = props.fieldList.map((item) => {
+      if (item.name !== fieldName) return item;
+      return { name: fieldName, value: fieldValue };
+    });
+    props.onChangeInput(newValue);
+  };
+
   return (
     <>
       <div className="modal-container">
@@ -73,7 +83,12 @@ function ImageModal(props) {
               return (
                 <div className="input-block">
                   <label for={item.name}> {item.name} </label>
-                  <input type="text" id={item.name} value={item.value} onchange={(e) => props.onChangeInput} />
+                  <input
+                    type="text"
+                    id={item.name}
+                    value={item.value}
+                    onChange={(e) => changeValue(item.name, e.target.value)}
+                  />
                 </div>
               );
             })}
