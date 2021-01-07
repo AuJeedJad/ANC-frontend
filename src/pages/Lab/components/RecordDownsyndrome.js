@@ -1,19 +1,63 @@
-import React from 'react';
-import { Row, Col, Input, Button, Radio, Form } from 'antd';
+import React, { useContext, useEffect, useState } from 'react';
+import { Row, Col, Input, Button, Radio, Form, notification } from 'antd';
+import axios from 'axios';
+import CurrentPregContext from '../../../context/CurrentPregContext';
 
 const layout = {
   labelCol: { xs: 'auto' },
   wrapperCol: { xs: 'auto' },
 };
 
-const onFinish = (values) => {
-  console.log(values);
-};
-
 function RecordDownsyndrome() {
+  const [form] = Form.useForm();
+  const { mother } = useContext(CurrentPregContext);
+  const [downsyndromeScreen, setDownsyndromeScreen] = useState(null);
+  const [riskEvaluate, setRiskEvaluate] = useState(null);
+  const [amniocentesis, setAmniocentesis] = useState('');
+  const [otherLabResult, setOtherLabResult] = useState('');
+
+  useEffect(() => {
+    axios
+      .get(`/currentPregnancy/${mother.currentPregId}`)
+      .then((res) => {
+        setDownsyndromeScreen(res.data.currentPregnancy.downsyndromeScreen);
+        setRiskEvaluate(res.data.currentPregnancy.riskEvaluate);
+        setAmniocentesis(res.data.currentPregnancy.amniocentesis);
+        setOtherLabResult(res.data.currentPregnancy.otherLabResult);
+        form.setFieldsValue({
+          downsyndromeScreen,
+          riskEvaluate,
+          amniocentesis,
+          otherLabResult,
+        });
+      })
+      .catch((err) => {});
+  }, []);
+
+  console.log(downsyndromeScreen, riskEvaluate, amniocentesis, otherLabResult);
+
+  const onFinish = (values) => {
+    console.log(values);
+    axios
+      .post('/currentPregnancy/downsyndrome', {
+        curPregId: mother.currentPregId,
+        downsyndromeScreen: values.downsyndromeScreen,
+        riskEvaluate: values.riskEvaluate,
+        amniocentesis: values.amniocentesis,
+        otherLabResult: values.otherLabResult,
+      })
+      .then((res) => {
+        notification.success({
+          description: 'บันทึกข้อมูลสำเร็จ',
+        });
+      })
+      .catch((err) => {});
+  };
+
   return (
     <Form
       {...layout}
+      form={form}
       name="nest-messages"
       onFinish={onFinish}
       style={{ width: '100%', display: 'flex', justifyContent: 'center', textAlign: 'start' }}
