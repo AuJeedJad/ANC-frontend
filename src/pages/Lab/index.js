@@ -10,6 +10,7 @@ import { useState } from 'react';
 
 function Lab() {
   const [labResult, setLabResult] = useState({ active: false, type: null, no: null, labResultId: null });
+  const [triggerLabResult, setTriggerLabResult] = useState(false);
   console.log('labResult useSate', labResult);
   return (
     <div className="page">
@@ -32,7 +33,12 @@ function Lab() {
           }}
         >
           <Col xs={24} style={{ width: '100%' }}>
-            <AddLabResult labResult={labResult} setLabResult={setLabResult} />
+            <AddLabResult
+              labResult={labResult}
+              setLabResult={setLabResult}
+              triggerLabResult={triggerLabResult}
+              setTriggerLabResult={setTriggerLabResult}
+            />
           </Col>
         </Row>
       ) : null}
@@ -58,7 +64,7 @@ function Lab() {
           </Row>
           <Row style={{ display: 'flex', justifyContent: 'center' }}>
             <Col xs={23} style={{ display: 'flex', justifyContent: 'center' }}>
-              <LabResultTable setLabResult={setLabResult} />
+              <LabResultTable setLabResult={setLabResult} triggerLabResult={triggerLabResult} />
             </Col>
           </Row>
           <Row style={{ display: 'flex', justifyContent: 'center' }}>

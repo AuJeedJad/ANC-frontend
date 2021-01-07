@@ -2,10 +2,11 @@ import React, { useContext, useEffect, useState } from 'react';
 import axios from '../../../config/axios';
 import { Row, Col, Input, Button, Radio, Form, DatePicker, notification } from 'antd';
 import CurrentPregContext from '../../../context/CurrentPregContext';
+import moment from 'moment';
 
-function AddLabResult({ labResult, setLabResult }) {
+function AddLabResult({ labResult, setLabResult, triggerLabResult, setTriggerLabResult }) {
   const [form] = Form.useForm();
-  const [dataLabResult, setDataLabResult] = useState([]);
+  // const [dataLabResult, setDataLabResult] = useState([]);
   const currentPregContext = useContext(CurrentPregContext);
 
   const layout = {
@@ -14,25 +15,27 @@ function AddLabResult({ labResult, setLabResult }) {
   };
 
   useEffect(() => {
-    axios
-      .get(`/labResult/${labResult.labResultId}`)
-      .then((res) => {
-        setDataLabResult(res.data.targetLabResult);
-        form.setFieldsValue({
-          role: labResult.type,
-          date: dataLabResult.date,
-          bloodGroup: dataLabResult.bloodGroup,
-          hctHb: dataLabResult.hctHb,
-          ofMcvMch: dataLabResult.ofMcvMch,
-          dcip: dataLabResult.dcip,
-          hbTyping: dataLabResult.hbTyping,
-          pcr: dataLabResult.pcr,
-          hepatitisBVirus: dataLabResult.hepatitisBVirus,
-          syphilis: dataLabResult.syphilis,
-          hiv: dataLabResult.hiv,
-        });
-      })
-      .catch((err) => {});
+    if (labResult.labResultId) {
+      axios
+        .get(`/labResult/${labResult.labResultId}`)
+        .then((res) => {
+          // setDataLabResult(res.data.targetLabResult);
+          form.setFieldsValue({
+            role: labResult.type,
+            date: moment(res.data.targetLabResult.date),
+            bloodGroup: res.data.targetLabResult.bloodGroup,
+            hctHb: res.data.targetLabResult.hctHb,
+            ofMcvMch: res.data.targetLabResult.ofMcvMch,
+            dcip: res.data.targetLabResult.dcip,
+            hbTyping: res.data.targetLabResult.hbTyping,
+            pcr: res.data.targetLabResult.pcr,
+            hepatitisBVirus: res.data.targetLabResult.hepatitisBVirus,
+            syphilis: res.data.targetLabResult.syphilis,
+            hiv: res.data.targetLabResult.hiv,
+          });
+        })
+        .catch((err) => {});
+    }
   }, []);
 
   const onFinish = (values) => {
@@ -59,6 +62,7 @@ function AddLabResult({ labResult, setLabResult }) {
           description: 'บันทึกข้อมูลสำเร็จ',
         });
         setLabResult({ active: false, type: null, no: null });
+        setTriggerLabResult(!triggerLabResult);
       })
       .catch((err) => {});
   };

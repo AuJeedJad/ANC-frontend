@@ -11,30 +11,20 @@ const layout = {
 function RecordDownsyndrome() {
   const [form] = Form.useForm();
   const { mother } = useContext(CurrentPregContext);
-  const [downsyndromeScreen, setDownsyndromeScreen] = useState(null);
-  const [riskEvaluate, setRiskEvaluate] = useState(null);
-  const [amniocentesis, setAmniocentesis] = useState('');
-  const [otherLabResult, setOtherLabResult] = useState('');
 
   useEffect(() => {
     axios
       .get(`/currentPregnancy/${mother.currentPregId}`)
       .then((res) => {
-        setDownsyndromeScreen(res.data.currentPregnancy.downsyndromeScreen);
-        setRiskEvaluate(res.data.currentPregnancy.riskEvaluate);
-        setAmniocentesis(res.data.currentPregnancy.amniocentesis);
-        setOtherLabResult(res.data.currentPregnancy.otherLabResult);
         form.setFieldsValue({
-          downsyndromeScreen,
-          riskEvaluate,
-          amniocentesis,
-          otherLabResult,
+          downsyndromeScreen: res.data.currentPregnancy.downsyndromeScreen,
+          riskEvaluate: res.data.currentPregnancy.riskEvaluate,
+          amniocentesis: res.data.currentPregnancy.amniocentesis,
+          otherLabResult: res.data.currentPregnancy.otherLabResult,
         });
       })
       .catch((err) => {});
   }, []);
-
-  console.log(downsyndromeScreen, riskEvaluate, amniocentesis, otherLabResult);
 
   const onFinish = (values) => {
     console.log(values);

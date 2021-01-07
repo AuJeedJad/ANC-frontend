@@ -1,7 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Row, Col, Button, Form, DatePicker, notification } from 'antd';
 import axios from 'axios';
 import CurrentPregContext from '../../../context/CurrentPregContext';
+import moment from 'moment';
 
 const layout = {
   labelCol: { xs: 14 },
@@ -11,35 +12,28 @@ const layout = {
 function RecordCounselAndParentSchool() {
   const [form] = Form.useForm();
   const { mother } = useContext(CurrentPregContext);
-  const [coupleCounselingDate1, setCoupleCounselingDate1] = useState();
-  const [coupleCounselingDate2, setCoupleCounselingDate2] = useState();
-  const [parentSchoolDate1, setParentSchoolDate1] = useState();
-  const [parentSchoolDate2, setParentSchoolDate2] = useState();
 
   useEffect(() => {
     axios
       .get(`/currentPregnancy/${mother.currentPregId}`)
       .then((res) => {
-        setCoupleCounselingDate1(res.data.currentPregnancy.coupleCounselingDate1);
-        setCoupleCounselingDate2(res.data.currentPregnancy.coupleCounselingDate2);
-        setParentSchoolDate1(res.data.currentPregnancy.parentSchoolDate1);
-        setParentSchoolDate2(res.data.currentPregnancy.parentSchoolDate2);
         form.setFieldsValue({
-          coupleCounselingDate1,
-          coupleCounselingDate2,
-          parentSchoolDate1,
-          parentSchoolDate2,
+          coupleCounselingDate1: res.data.currentPregnancy.coupleCounselingDate1
+            ? moment(res.data.currentPregnancy.coupleCounselingDate1)
+            : null,
+          coupleCounselingDate2: res.data.currentPregnancy.coupleCounselingDate2
+            ? moment(res.data.currentPregnancy.coupleCounselingDate2)
+            : null,
+          parentSchoolDate1: res.data.currentPregnancy.coupleCounselingDate2
+            ? moment(res.data.currentPregnancy.parentSchoolDate1)
+            : null,
+          parentSchoolDate2: res.data.currentPregnancy.coupleCounselingDate2
+            ? moment(res.data.currentPregnancy.parentSchoolDate2)
+            : null,
         });
       })
       .catch((err) => {});
   }, []);
-
-  console.log({
-    coupleCounselingDate1,
-    coupleCounselingDate2,
-    parentSchoolDate1,
-    parentSchoolDate2,
-  });
 
   const onFinish = (values) => {
     console.log(values);
