@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, Table, Input, Button, Radio, Form, DatePicker, InputNumber, Select } from 'antd';
+import { Row, Col, Button, Form, DatePicker, InputNumber } from 'antd';
 
 const layout = {
   labelCol: { xs: 22 },

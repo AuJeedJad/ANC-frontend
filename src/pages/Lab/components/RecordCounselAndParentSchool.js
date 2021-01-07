@@ -1,19 +1,68 @@
-import React from 'react';
-import { Row, Col, Button, Form, DatePicker } from 'antd';
+import React, { useContext, useEffect, useState } from 'react';
+import { Row, Col, Button, Form, DatePicker, notification } from 'antd';
+import axios from 'axios';
+import CurrentPregContext from '../../../context/CurrentPregContext';
 
 const layout = {
   labelCol: { xs: 14 },
   wrapperCol: { xs: 12 },
 };
 
-const onFinish = (values) => {
-  console.log(values);
-};
-
 function RecordCounselAndParentSchool() {
+  const [form] = Form.useForm();
+  const { mother } = useContext(CurrentPregContext);
+  const [coupleCounselingDate1, setCoupleCounselingDate1] = useState();
+  const [coupleCounselingDate2, setCoupleCounselingDate2] = useState();
+  const [parentSchoolDate1, setParentSchoolDate1] = useState();
+  const [parentSchoolDate2, setParentSchoolDate2] = useState();
+
+  useEffect(() => {
+    axios
+      .get(`/currentPregnancy/${mother.currentPregId}`)
+      .then((res) => {
+        setCoupleCounselingDate1(res.data.currentPregnancy.coupleCounselingDate1);
+        setCoupleCounselingDate2(res.data.currentPregnancy.coupleCounselingDate2);
+        setParentSchoolDate1(res.data.currentPregnancy.parentSchoolDate1);
+        setParentSchoolDate2(res.data.currentPregnancy.parentSchoolDate2);
+        form.setFieldsValue({
+          coupleCounselingDate1,
+          coupleCounselingDate2,
+          parentSchoolDate1,
+          parentSchoolDate2,
+        });
+      })
+      .catch((err) => {});
+  }, []);
+
+  console.log({
+    coupleCounselingDate1,
+    coupleCounselingDate2,
+    parentSchoolDate1,
+    parentSchoolDate2,
+  });
+
+  const onFinish = (values) => {
+    console.log(values);
+    axios
+      .post('/currentPregnancy/coupleCounselAndParentSchool', {
+        curPregId: mother.currentPregId,
+        coupleCounselingDate1: values.coupleCounselingDate1.toDate(),
+        coupleCounselingDate2: values.coupleCounselingDate2.toDate(),
+        parentSchoolDate1: values.parentSchoolDate1.toDate(),
+        parentSchoolDate2: values.parentSchoolDate2.toDate(),
+      })
+      .then((res) => {
+        notification.success({
+          description: 'บันทึกข้อมูลสำเร็จ',
+        });
+      })
+      .catch((err) => {});
+  };
+
   return (
     <Form
       {...layout}
+      form={form}
       name="nest-messages"
       onFinish={onFinish}
       style={{
