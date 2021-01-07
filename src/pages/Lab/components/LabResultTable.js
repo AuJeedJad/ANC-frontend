@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import CurrentPregContext from '../../../context/CurrentPregContext';
 
-function LabResultTable({ setLabResult }) {
+function LabResultTable({ setLabResult, triggerLabResult }) {
   const history = useHistory();
   const { mother } = useContext(CurrentPregContext);
   const [dataLabResultMother, setDataLabResultMother] = useState([]);
@@ -25,7 +25,7 @@ function LabResultTable({ setLabResult }) {
         setDataLabResultFather(res.data.allLabResultFather);
       })
       .catch((err) => {});
-  }, []);
+  }, [triggerLabResult]);
 
   return (
     <table>
