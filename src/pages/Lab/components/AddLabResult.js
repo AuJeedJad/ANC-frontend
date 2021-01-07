@@ -1,9 +1,11 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import axios from '../../../config/axios';
 import { Row, Col, Input, Button, Radio, Form, DatePicker, notification } from 'antd';
 import CurrentPregContext from '../../../context/CurrentPregContext';
 
 function AddLabResult({ labResult, setLabResult }) {
+  const [form] = Form.useForm();
+  const [dataLabResult, setDataLabResult] = useState([]);
   const currentPregContext = useContext(CurrentPregContext);
 
   const layout = {
@@ -11,13 +13,36 @@ function AddLabResult({ labResult, setLabResult }) {
     wrapperCol: { xs: 24 },
   };
 
+  useEffect(() => {
+    axios
+      .get(`/labResult/${labResult.labResultId}`)
+      .then((res) => {
+        setDataLabResult(res.data.targetLabResult);
+        form.setFieldsValue({
+          role: labResult.type,
+          date: dataLabResult.date,
+          bloodGroup: dataLabResult.bloodGroup,
+          hctHb: dataLabResult.hctHb,
+          ofMcvMch: dataLabResult.ofMcvMch,
+          dcip: dataLabResult.dcip,
+          hbTyping: dataLabResult.hbTyping,
+          pcr: dataLabResult.pcr,
+          hepatitisBVirus: dataLabResult.hepatitisBVirus,
+          syphilis: dataLabResult.syphilis,
+          hiv: dataLabResult.hiv,
+        });
+      })
+      .catch((err) => {});
+  }, []);
+
   const onFinish = (values) => {
     console.log(values);
     console.log(typeof values.date);
     axios
       .post('/labResult', {
+        labResultId: labResult.labResultId,
         curPregId: currentPregContext.mother.currentPregId,
-        role: values.role,
+        role: labResult.type,
         date: values.date.toDate(),
         bloodGroup: values.bloodGroup,
         hctHb: values.hctHb,
@@ -34,12 +59,14 @@ function AddLabResult({ labResult, setLabResult }) {
           description: 'บันทึกข้อมูลสำเร็จ',
         });
         setLabResult({ active: false, type: null, no: null });
-      });
+      })
+      .catch((err) => {});
   };
 
   return (
     <Form
       {...layout}
+      form={form}
       name="nest-messages"
       onFinish={onFinish}
       style={{
@@ -58,22 +85,14 @@ function AddLabResult({ labResult, setLabResult }) {
               <h1 style={{ marginTop: '24px', fontWeight: 'bold' }}>ผลตรวจห้องปฏิบัติการ</h1>
             </Col>
           </Row>
-          {/* <Row>
-            <Col xs={24}>
-              <Form.Item name="role">
-                <Radio.Group name="role" defaultValue={null}>
-                  <Radio value="mother" style={{ fontSize: '20px' }}>
-                    หญิงตั้งครรภ์
-                  </Radio>
-                  <Radio value="father" style={{ fontSize: '20px' }}>
-                    สามี
-                  </Radio>
-                </Radio.Group>
-              </Form.Item>
+          <Row style={{ width: '100%', justifyContent: 'space-evenly' }}>
+            <Col xs={8} style={{ padding: '0 1em', display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
+              <span style={{ fontSize: '20px', paddingRight: '10px' }}>
+                {labResult.type === 'mother' ? 'หญิงตั้งครรภ์' : 'สามี'}
+              </span>
+              <span style={{ fontSize: '20px' }}>ครั้งที่ : {labResult.no}</span>
             </Col>
-          </Row> */}
-          <Row style={{ width: '100%', justifyContent: 'center' }}>
-            <Col xs={24} style={{ padding: '0 1em', display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
+            <Col xs={8} style={{ padding: '0 1em', display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
               <label for="nest-messages_date" style={{ fontSize: '20px', paddingRight: '5px' }}>
                 วันที่ :
               </label>

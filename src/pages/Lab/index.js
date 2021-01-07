@@ -9,8 +9,8 @@ import RecordVaccine from './components/RecordVaccine';
 import { useState } from 'react';
 
 function Lab() {
-  const [labResult, setLabResult] = useState({ active: false, type: null, no: null });
-
+  const [labResult, setLabResult] = useState({ active: false, type: null, no: null, labResultId: null });
+  console.log('labResult useSate', labResult);
   return (
     <div className="page">
       <div style={{ height: '2%' }}></div>
