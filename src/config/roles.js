@@ -3,6 +3,11 @@ import MotherRegister from '../pages/MotherRegister';
 import ContentPage from '../pages/ContentPage';
 import Anc from '../pages/Anc';
 import MainStaff from '../pages/MainStaff';
+import MotherArticle from '../pages/MotherArticle';
+import MotherArticle1 from '../pages/MotherArticle/Article/Article1';
+import MotherArticle2 from '../pages/MotherArticle/Article/Article2';
+import MotherArticle3 from '../pages/MotherArticle/Article/Article3';
+import MotherArticle4 from '../pages/MotherArticle/Article/Article4';
 import MotherProfile from '../pages/MotherProfile';
 import MotherInformation from '../pages/MotherInformation';
 import MotherIndex from '../pages/MotherIndex';
@@ -85,6 +90,26 @@ const allPages = {
     url: '/mother/profile',
     page: MotherProfile,
   },
+  motherArticle: {
+    url: '/mother/article',
+    page: MotherArticle,
+  },
+  motherArticle1: {
+    url: '/mother/article/1',
+    page: MotherArticle1,
+  },
+  motherArticle2: {
+    url: '/mother/article/2',
+    page: MotherArticle2,
+  },
+  motherArticle3: {
+    url: '/mother/article/3',
+    page: MotherArticle3,
+  },
+  motherArticle4: {
+    url: '/mother/article/4',
+    page: MotherArticle4,
+  },
   motherShopping: {
     url: '/shopping/mom',
     page: MotherShopping,
@@ -106,6 +131,11 @@ const permissionList = {
   guest: [allPages.login, allPages.contentPage, allPages.motherIndex],
   mother: [
     allPages.contentPage,
+    allPages.motherArticle,
+    allPages.motherArticle1,
+    allPages.motherArticle2,
+    allPages.motherArticle3,
+    allPages.motherArticle4,
     allPages.motherProfile,
     allPages.motherInformation,
     allPages.motherIndex,
