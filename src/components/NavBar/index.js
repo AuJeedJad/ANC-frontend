@@ -36,7 +36,7 @@ function NavBar(props) {
           { name: `หาสินค้าสำหรับเด็กอ่อน`, path: '/shopping/baby' },
           { name: `หาสินค้าสำหรับหญิงตั้งครรภ์`, path: '/shopping/mom' },
           { name: `เข้าสู่ระบบ`, path: '/' },
-          { name: `หน้าหลักบทความ`, path: '/content' },
+          { name: `หน้าหลักบทความ`, path: '/mother/article' },
         ];
 
   const navTabCount = navTab.length;
