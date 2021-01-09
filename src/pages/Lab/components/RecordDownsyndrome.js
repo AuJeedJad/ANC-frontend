@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Row, Col, Input, Button, Radio, Form, notification } from 'antd';
 import axios from 'axios';
 import CurrentPregContext from '../../../context/CurrentPregContext';
