@@ -55,10 +55,12 @@ function ImageModal(props) {
                 border: addImage ? '3px dashed var(--thirdary-color)' : null,
               }}
             >
-              <div
-                className={`modal-plus ${addImage ? 'modal-minus' : null}`}
-                onClick={() => setAddImage(!addImage)}
-              ></div>
+              {!props.hide ? (
+                <div
+                  className={`modal-plus ${addImage ? 'modal-minus' : null}`}
+                  onClick={() => setAddImage(!addImage)}
+                ></div>
+              ) : null}
               {addImage ? (
                 <form onSubmit={onUpload}>
                   <div className="card-image-add">
@@ -94,7 +96,7 @@ function ImageModal(props) {
               );
             })}
 
-            <button onClick={props.onSubmitClick}>{props.btnName}</button>
+            {!props.hide ? <button onClick={props.onSubmitClick}>{props.btnName}</button> : null}
           </div>
         </div>
       </div>

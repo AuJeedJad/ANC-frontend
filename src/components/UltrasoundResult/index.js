@@ -9,11 +9,7 @@ function UltrasoundResult(props) {
   const usResultMock = [
     {
       id: '1',
-      value: [
-        { name: 'a', value: 'a' },
-        { name: 'b', value: '1' },
-        { name: 'c', value: 'c' },
-      ],
+      value: [],
       image: [mockImage],
     },
   ];
@@ -100,6 +96,7 @@ function UltrasoundResult(props) {
           header="ผล ultrasound"
           onCloseClick={() => props.setAncId(null)}
           value={usResultList[usResultIdx] ? usResultList[usResultIdx].id : usResultMock[0].id}
+          hide={!usResultList[usResultIdx]}
         />
       )}
     </>

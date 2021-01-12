@@ -76,7 +76,9 @@ function Login(props) {
     <div className="page-login">
       <div className="page-body">
         <div className="head--hide"></div>
-        <h1 className="header-login">สมุดฝากครรภ์ออนไลน์</h1>
+        <h1 className="header-login">
+          สมุดฝากครรภ์ออนไลน์ {role === 'mother' ? '[ มารดา ]' : role === 'staff' ? '[ โรงพยาบาล ]' : null}
+        </h1>
         <div className="card">
           <div className="card-select">
             <img className="logo-login" src={logo} alt="logo" />
