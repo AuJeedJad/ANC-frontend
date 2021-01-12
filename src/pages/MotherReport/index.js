@@ -201,22 +201,32 @@ function MotherReport() {
           )}
         </div>
         <div className="card-onethird">
-          <div className="card-header-onethird">Corrected EDC: </div>
+          <div className="card-header-onethird">
+            Corrected EDC:{' '}
+            {currentPreg.correctedBy === 'PV'
+              ? currentPreg.dateByPV
+              : currentPreg.correctedBy === 'Ut Size'
+              ? currentPreg.dateByUtSize
+              : currentPreg.correctedBy === 'U/S'
+              ? currentPreg.dateByUltrasound
+              : currentPreg.correctedBy === 'LMP'
+              ? currentPreg.dateByLMP
+              : '-'}{' '}
+          </div>
           <div className="card-body-onethird">
             {!editEDC.onEdit ? (
               <>
                 {console.log(editEDC.onEdit)}
                 <div className="card-content-onethird">
                   corrected by : {currentPreg.correctedBy}
-                  <br /> at GA :&nbsp;&nbsp;
+                  <br />
                   {currentPreg.correctedBy === 'PV'
-                    ? currentPreg.PvAtGA
+                    ? 'at GA: ' + currentPreg.PvAtGA + ' weeks'
                     : currentPreg.correctedBy === 'Ut Size'
-                    ? currentPreg.UtAtGA
+                    ? 'at GA: ' + currentPreg.UtAtGA + ' weeks'
                     : currentPreg.correctedBy === 'U/S'
-                    ? currentPreg.UsAtGA
+                    ? 'at GA:' + currentPreg.UsAtGA + ' weeks'
                     : null}
-                  &nbsp;&nbsp;weeks
                 </div>
                 <div className="card-icon-onethird-container">
                   <div className="card-icon-onethird" onClick={onEditEDC}>

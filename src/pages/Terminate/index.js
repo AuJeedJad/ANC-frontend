@@ -9,8 +9,29 @@ function Terminate() {
   const currentPregContext = useContext(CurrentPregContext);
   const [value, setValue] = useState({ terminateDate: null, isBirth: null, terminateAt: null, gender: null });
 
-  const onSubmit = () => {
-    alert('ส่งข้อมูล สร้างchild database');
+  const onSubmit = (e) => {
+    e.preventDefault();
+    axios
+      .patch('/postnatal/terminate', {
+        id: currentPregContext.mother.currentPregId,
+        terminateAt: value.terminateAt,
+        status: value.birthStatus,
+      })
+      .then((res) => {
+        notification.success({
+          description: 'อัพเดทแล้ว สามารถลงทะเบียนครรภ์ใหม่ได้',
+        });
+        currentPregContext.setMother({
+          ...currentPregContext.mother,
+          isTerminate: true,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        notification.error({
+          description: err.response.data.message,
+        });
+      });
   };
   const history = useHistory();
   const onFastTerminateSubmit = (e) => {
@@ -93,20 +114,6 @@ function Terminate() {
               id="terminateDate"
               value={value.terminateDate}
               onChange={(e) => setValue({ ...value, terminateDate: e.target.value })}
-              className="terminateInputBox"
-            />
-          </td>
-        </tr>
-        <tr>
-          <td style={{ textAlign: 'left' }}>
-            <label for="terminateAt">สถานที่คลอดหรือแท้ง: </label>
-          </td>
-          <td style={{ textAlign: 'right', width: '20vw' }}>
-            <input
-              type="text"
-              id="terminateAt"
-              value={value.terminateAt}
-              onChange={(e) => setValue({ ...value, terminateAt: e.target.value })}
               className="terminateInputBox"
             />
           </td>

@@ -17,6 +17,7 @@ function Terminate() {
         id: currentPregContext.mother.currentPregId,
         terminateDate: value.terminateDate,
         terminateAt: value.terminateAt,
+        status: value.birthStatus,
       })
       .then((res) => {
         notification.success({
@@ -64,8 +65,43 @@ function Terminate() {
               </td>
             </tr>
             <tr>
+              <td
+                colspan={2}
+                style={{
+                  textAlign: 'left',
+                  width: '100%',
+                }}
+              >
+                <p>สถานะทารก</p>
+                <label className="checked-container" for="live" style={{ display: 'inline-block', width: '33%' }}>
+                  <input
+                    className="checked-inputCheckbox"
+                    id="live"
+                    type="radio"
+                    name="birthStatus"
+                    checked={value.birthStatus === 'live'}
+                    onChange={(e) => setValue({ ...value, birthStatus: 'live' })}
+                  />
+                  <span class="checkmark"></span>
+                  คลอดมีชีวิต
+                </label>
+                <label className="checked-container" for="death" style={{ display: 'inline-block', width: '33%' }}>
+                  <input
+                    className="checked-inputCheckbox"
+                    id="death"
+                    type="radio"
+                    name="birthStatus"
+                    checked={value.birthStatus === 'death'}
+                    onChange={(e) => setValue({ ...value, birthStatus: 'death' })}
+                  />
+                  <span class="checkmark"></span>
+                  แท้ง/ตายคลอด
+                </label>
+              </td>
+            </tr>
+            <tr>
               <td style={{ textAlign: 'left' }}>
-                <label for="terminateDate">คลอดบุตรหรือแท้งเมื่อ: </label>
+                <label for="terminateDate">สิ้นสุดการตั้งครรภ์เมื่อ: </label>
               </td>
               <td style={{ textAlign: 'right' }}>
                 <input
@@ -79,7 +115,7 @@ function Terminate() {
             </tr>
             <tr>
               <td style={{ textAlign: 'left' }}>
-                <label for="terminateAt">สถานที่คลอดหรือแท้ง: </label>
+                <label for="terminateAt">สถานที่สิ้นสุดการตั้งครรภ์: </label>
               </td>
               <td style={{ textAlign: 'right', width: '20vw' }}>
                 <input
