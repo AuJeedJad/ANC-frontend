@@ -22,7 +22,7 @@ function AddLabResult({ labResult, setLabResult, triggerLabResult, setTriggerLab
           // setDataLabResult(res.data.targetLabResult);
           form.setFieldsValue({
             role: labResult.type,
-            date: moment(res.data.targetLabResult.date),
+            date: res.data.targetLabResult.date ? moment(res.data.targetLabResult.date) : null,
             bloodGroup: res.data.targetLabResult.bloodGroup,
             hctHb: res.data.targetLabResult.hctHb,
             ofMcvMch: res.data.targetLabResult.ofMcvMch,
@@ -41,6 +41,10 @@ function AddLabResult({ labResult, setLabResult, triggerLabResult, setTriggerLab
   const onFinish = (values) => {
     console.log(values);
     console.log(typeof values.date);
+    if (!values.date)
+      notification.error({
+        description: 'กรุณาใส่วันที่',
+      });
     axios
       .post('/labResult', {
         labResultId: labResult.labResultId,

@@ -12,7 +12,7 @@ function NavBar(props) {
           { name: `เพิ่มเติม`, path: '' },
           { name: `สินค้าสำหรับเด็กอ่อน`, path: '/shopping/baby' },
           { name: `สินค้าสำหรับหญิงตั้งครรภ์`, path: '/shopping/mom' },
-          { name: `อ่านบทความ`, path: '/content' },
+          { name: `อ่านบทความ`, path: '/mother/article' },
           { name: `หน้าหลัก`, path: '/' },
         ]
       : props.role === 'staff'
@@ -35,8 +35,8 @@ function NavBar(props) {
           { name: `ติดต่อเรา`, path: '/contactUs' },
           { name: `หาสินค้าสำหรับเด็กอ่อน`, path: '/shopping/baby' },
           { name: `หาสินค้าสำหรับหญิงตั้งครรภ์`, path: '/shopping/mom' },
-          { name: `หน้าหลักบทคาม`, path: '/content' },
           { name: `เข้าสู่ระบบ`, path: '/' },
+          { name: `หน้าหลักบทความ`, path: '/mother/article' },
         ];
 
   const navTabCount = navTab.length;

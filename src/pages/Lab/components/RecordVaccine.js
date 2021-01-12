@@ -1,19 +1,74 @@
-import React from 'react';
-import { Row, Col, Button, Form, DatePicker, InputNumber, Select } from 'antd';
+import React, { useContext, useEffect } from 'react';
+import { Row, Col, Button, Form, DatePicker, InputNumber, Select, notification } from 'antd';
+import axios from 'axios';
+import CurrentPregContext from '../../../context/CurrentPregContext';
+import moment from 'moment';
 
 const layout = {
   labelCol: { xs: 'auto' },
   wrapperCol: { xs: 'auto' },
 };
 
-const onFinish = (values) => {
-  console.log(values);
-};
-
 function RecordVaccine() {
+  const [form] = Form.useForm();
+  const { mother } = useContext(CurrentPregContext);
+
+  useEffect(() => {
+    axios
+      .get(`/vaccine/${mother.currentPregId}`)
+      .then((res) => {
+        form.setFieldsValue({
+          tetanusCountBefore: res.data.targetVaccine.tetanusCountBefore,
+          lastTetanusHxDate: res.data.targetVaccine.lastTetanusHxDate
+            ? moment(res.data.targetVaccine.lastTetanusHxDate)
+            : null,
+          tetausDosePefered: res.data.targetVaccine.tetausDosePefered,
+          firstTetanusDate: res.data.targetVaccine.firstTetanusDate
+            ? moment(res.data.targetVaccine.firstTetanusDate)
+            : null,
+          secondTetanusDate: res.data.targetVaccine.secondTetanusDate
+            ? moment(res.data.targetVaccine.secondTetanusDate)
+            : null,
+          thirdTetanusDate: res.data.targetVaccine.thirdTetanusDate
+            ? moment(res.data.targetVaccine.thirdTetanusDat)
+            : null,
+          influenzaDate: res.data.targetVaccine.influenzaDate ? moment(res.data.targetVaccine.influenzaDate) : null,
+          firstTDPType: res.data.targetVaccine.firstTDPType,
+          secondTDPType: res.data.targetVaccine.secondTDPType,
+          thirdTDPType: res.data.targetVaccine.thirdTDPType,
+        });
+      })
+      .catch((err) => {});
+  }, []);
+
+  const onFinish = (values) => {
+    console.log(values);
+    axios
+      .post('/vaccine', {
+        curPregId: mother.currentPregId,
+        tetanusCountBefore: values.tetanusCountBefore,
+        lastTetanusHxDate: values.lastTetanusHxDate ? values.lastTetanusHxDate.toDate() : null,
+        tetausDosePefered: values.tetausDosePefered,
+        firstTetanusDate: values.firstTetanusDate ? values.firstTetanusDate.toDate() : null,
+        secondTetanusDate: values.secondTetanusDate ? values.secondTetanusDate.toDate() : null,
+        thirdTetanusDate: values.thirdTetanusDate ? values.thirdTetanusDate.toDate() : null,
+        influenzaDate: values.influenzaDate ? values.influenzaDate.toDate() : null,
+        firstTDPType: values.firstTDPType,
+        secondTDPType: values.secondTDPType,
+        thirdTDPType: values.thirdTDPType,
+      })
+      .then((res) => {
+        notification.success({
+          description: 'บันทึกข้อมูลสำเร็จ',
+        });
+      })
+      .catch((err) => {});
+  };
+
   return (
     <Form
       {...layout}
+      form={form}
       name="nest-messages"
       onFinish={onFinish}
       style={{
