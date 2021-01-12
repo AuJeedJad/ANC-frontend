@@ -377,7 +377,8 @@ function Anc() {
           }}
         >
           <Title level={3} style={{ textDecoration: 'underline' }}>
-            ผลการตรวจอัลตร้าซาวน์วันที่
+            ผลการตรวจอัลตร้าซาวน์
+            {ultrasoundResult.examDate ? 'วันที่: ' + ultrasoundResult.examDate.toString().slice(0, 10) : null}
           </Title>
 
           {/* <Form form={form}>
@@ -412,38 +413,42 @@ function Anc() {
               </Form.Item>
             </Row>
           </Form> */}
-          <Row>
-            <Title level={5} style={{ display: 'inline-flex', marginRight: '20px' }}>
-              BPD. {ultrasoundResult.BPD}
-            </Title>
-            <Title level={5} style={{ display: 'inline-flex', margin: '0' }}>
-              FL. {ultrasoundResult.FL}
-            </Title>
-          </Row>
-          <Row>
-            <Title level={5} style={{ display: 'inline-flex', marginRight: '20px' }}>
-              HC. {ultrasoundResult.HC}
-            </Title>
-            <Title level={5} style={{ display: 'inline-flex', margin: '0' }}>
-              AC. {ultrasoundResult.AC}
-            </Title>
-          </Row>
-          <Row>
-            <Title level={5} style={{ display: 'inline-flex', marginRight: '20px' }}>
-              AFI. {ultrasoundResult.AFI}
-            </Title>
-            <Title level={5} style={{ display: 'inline-flex', margin: '0' }}>
-              Placenta. {ultrasoundResult.placenta}
-            </Title>
-          </Row>
-          <Row>
-            <Title level={5} style={{ display: 'inline-flex', marginRight: '20px' }}>
-              EFW. {ultrasoundResult.EFW}
-            </Title>
-            <Title level={5} style={{ display: 'inline-flex', margin: '0' }}>
-              อายุครรภ์. {ultrasoundResult.gestationalAge} สัปดาห์
-            </Title>
-          </Row>
+          {ultrasoundResult.examDate ? (
+            <>
+              <Row>
+                <Title level={5} style={{ display: 'inline-flex', marginRight: '20px', width: '100px' }}>
+                  BPD. {ultrasoundResult.BPD}
+                </Title>
+                <Title level={5} style={{ display: 'inline-flex', margin: '0', width: '100px' }}>
+                  FL. {ultrasoundResult.FL}
+                </Title>
+              </Row>
+              <Row>
+                <Title level={5} style={{ display: 'inline-flex', marginRight: '20px', width: '100px' }}>
+                  HC. {ultrasoundResult.HC}
+                </Title>
+                <Title level={5} style={{ display: 'inline-flex', margin: '0', width: '100px' }}>
+                  AC. {ultrasoundResult.AC}
+                </Title>
+              </Row>
+              <Row>
+                <Title level={5} style={{ display: 'inline-flex', marginRight: '20px', width: '100px' }}>
+                  AFI. {ultrasoundResult.AFI}
+                </Title>
+                <Title level={5} style={{ display: 'inline-flex', margin: '0', width: '100px' }}>
+                  Placenta. {ultrasoundResult.placenta}
+                </Title>
+              </Row>
+              <Row>
+                <Title level={5} style={{ display: 'inline-flex', marginRight: '20px', width: '100px' }}>
+                  EFW. {ultrasoundResult.EFW}
+                </Title>
+                <Title level={5} style={{ display: 'inline-flex', margin: '0', width: '100px' }}>
+                  อายุครรภ์. {ultrasoundResult.gestationalAge} สัปดาห์
+                </Title>
+              </Row>
+            </>
+          ) : null}
         </Col>
         <Col
           xs={21}

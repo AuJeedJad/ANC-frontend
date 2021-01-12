@@ -33,7 +33,7 @@
   object-fit: scale-down;
   position: absolute;
   left: -10%;
-  top: 25%;
+  top: 35%;
 }
 
 .box-role--select {
@@ -163,7 +163,7 @@
     top: 25%;
   }
   .logo-login {
-    top: -10%;
+    top: -30%;
   }
   .box-role--select {
     top: 30%;

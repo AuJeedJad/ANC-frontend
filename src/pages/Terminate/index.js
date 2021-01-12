@@ -71,8 +71,8 @@ function Terminate() {
     <div className="page">
       <table className="page-terminate">
         <tr>
-          <td style={{ textAlign: 'left' }}> คุณ: </td>
-          <td style={{ textAlign: 'left', paddingLeft: '10%' }}>
+          <td colspan={2} style={{ textAlign: 'left' }}>
+            คุณ:&nbsp;&nbsp;&nbsp;
             {currentPregContext.mother.firstName} {currentPregContext.mother.lastName}
           </td>
         </tr>

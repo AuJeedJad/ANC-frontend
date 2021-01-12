@@ -416,44 +416,50 @@ function MotherReport() {
           <div className="card-header-onethird">ผลตรวจครรภ์ล่าสุด</div>
           <div className="card-body-onethird">
             <div className="card-content-onethird">
-              <p>
-                {lastANC.weight ? (
-                  <span>
-                    น้ำหนัก: {lastANC.weight}
-                    {currentPreg.beforePregWeight ? (
-                      <span>[เปลี่ยนไป: {+lastANC.weight - +currentPreg.beforePregWeight} กก.]</span>
+              {lastANC ? (
+                <>
+                  <p>
+                    {lastANC.weight ? (
+                      <span>
+                        น้ำหนัก: {lastANC.weight}
+                        {currentPreg.beforePregWeight ? (
+                          <span>[เปลี่ยนไป: {+lastANC.weight - +currentPreg.beforePregWeight} กก.]</span>
+                        ) : null}
+                      </span>
                     ) : null}
-                  </span>
-                ) : null}
-                {lastANC.bloodPressure ? (
-                  <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ความดันโลหิต {lastANC.bloodPressure} </span>
-                ) : null}
-              </p>
-              {lastANC.urineTest ? <p>ผลการตรวจปัสสาวะ: {lastANC.urineTest} </p> : null}
-              <p>
-                {lastANC.uterusSize ? <span>ขนาดมดลูก: {lastANC.uterusSize} ซม.</span> : null}
-                {lastANC.childPosture ? (
-                  <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ท่าเด็ก/ส่วนนำ/การลง: {lastANC.childPosture} </span>
-                ) : null}
-                {lastANC.heartSound ? (
-                  <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;เสียงหัวใจเด็ก: {lastANC.heartSound} </span>
-                ) : null}
-                {lastANC.childMove ? <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;เด็กดิ้น: {lastANC.childMove}</span> : null}
-              </p>
-              {lastANC.physicalExamination ? (
-                <p>การตรวจร่างกายและความผิดปกติที่พบการวินิจฉัยและการรักษา: {lastANC.physicalExamination}</p>
+                    {lastANC.bloodPressure ? (
+                      <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ความดันโลหิต {lastANC.bloodPressure} </span>
+                    ) : null}
+                  </p>
+                  {lastANC.urineTest ? <p>ผลการตรวจปัสสาวะ: {lastANC.urineTest} </p> : null}
+                  <p>
+                    {lastANC.uterusSize ? <span>ขนาดมดลูก: {lastANC.uterusSize} ซม.</span> : null}
+                    {lastANC.childPosture ? (
+                      <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ท่าเด็ก/ส่วนนำ/การลง: {lastANC.childPosture} </span>
+                    ) : null}
+                    {lastANC.heartSound ? (
+                      <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;เสียงหัวใจเด็ก: {lastANC.heartSound} </span>
+                    ) : null}
+                    {lastANC.childMove ? (
+                      <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;เด็กดิ้น: {lastANC.childMove}</span>
+                    ) : null}
+                  </p>
+                  {lastANC.physicalExamination ? (
+                    <p>การตรวจร่างกายและความผิดปกติที่พบการวินิจฉัยและการรักษา: {lastANC.physicalExamination}</p>
+                  ) : null}
+                  <p>
+                    {lastANC.nutritionEvaResult ? <span>ภาวะโภชนาการ: {lastANC.nutritionEvaResult}</span> : null}
+                    {lastANC.nippleExam ? (
+                      <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ตรวจหัวนม/เต้านม: {lastANC.nippleExam}</span>
+                    ) : null}
+                  </p>
+                  <p>
+                    {lastANC.gaByLmp ? <span>GA by LMP: {lastANC.gaByLmp}</span> : null}
+                    {lastANC.gaByUs ? <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GA by US: {lastANC.gaByUs}</span> : null}
+                  </p>
+                  {lastANC.examDate ? <p>[ ตรวจครั้งล่าสุดเมื่อวันที่ : {formatFullThai(lastANC.examDate)} ]</p> : null}
+                </>
               ) : null}
-              <p>
-                {lastANC.nutritionEvaResult ? <span>ภาวะโภชนาการ: {lastANC.nutritionEvaResult}</span> : null}
-                {lastANC.nippleExam ? (
-                  <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ตรวจหัวนม/เต้านม: {lastANC.nippleExam}</span>
-                ) : null}
-              </p>
-              <p>
-                {lastANC.gaByLmp ? <span>GA by LMP: {lastANC.gaByLmp}</span> : null}
-                {lastANC.gaByUs ? <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GA by US: {lastANC.gaByUs}</span> : null}
-              </p>
-              {lastANC.examDate ? <p>[ ตรวจครั้งล่าสุดเมื่อวันที่ : {formatFullThai(lastANC.examDate)} ]</p> : null}
             </div>
           </div>
         </div>

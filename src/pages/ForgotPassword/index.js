@@ -18,16 +18,14 @@ function GaCare() {
   return (
     <div className="page">
       <div className="page-forgotPassword">
-        <div>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <div className="page-header">
             หญิงตั้งครรภ์ลืมรหัสผ่าน
             <br /> กดเปลี่ยนรหัสผ่าน
-            <div>
-              <button onClick={onClick} className="btn-submit">
-                เปลี่ยนรหัสผ่าน
-              </button>
-            </div>
           </div>
+          <button onClick={onClick} className="btn-submit">
+            เปลี่ยนรหัสผ่าน
+          </button>
         </div>
         <img src={Logo} alt="logo" className="logo-forgotPassword" />
       </div>
