@@ -1,19 +1,62 @@
-import React from 'react';
-import { Row, Col, Button, Form, DatePicker } from 'antd';
+import React, { useContext, useEffect } from 'react';
+import { Row, Col, Button, Form, DatePicker, notification } from 'antd';
+import axios from 'axios';
+import CurrentPregContext from '../../../context/CurrentPregContext';
+import moment from 'moment';
 
 const layout = {
   labelCol: { xs: 14 },
   wrapperCol: { xs: 12 },
 };
 
-const onFinish = (values) => {
-  console.log(values);
-};
-
 function RecordCounselAndParentSchool() {
+  const [form] = Form.useForm();
+  const { mother } = useContext(CurrentPregContext);
+
+  useEffect(() => {
+    axios
+      .get(`/currentPregnancy/${mother.currentPregId}`)
+      .then((res) => {
+        form.setFieldsValue({
+          coupleCounselingDate1: res.data.currentPregnancy.coupleCounselingDate1
+            ? moment(res.data.currentPregnancy.coupleCounselingDate1)
+            : null,
+          coupleCounselingDate2: res.data.currentPregnancy.coupleCounselingDate2
+            ? moment(res.data.currentPregnancy.coupleCounselingDate2)
+            : null,
+          parentSchoolDate1: res.data.currentPregnancy.coupleCounselingDate2
+            ? moment(res.data.currentPregnancy.parentSchoolDate1)
+            : null,
+          parentSchoolDate2: res.data.currentPregnancy.coupleCounselingDate2
+            ? moment(res.data.currentPregnancy.parentSchoolDate2)
+            : null,
+        });
+      })
+      .catch((err) => {});
+  }, []);
+
+  const onFinish = (values) => {
+    console.log(values);
+    axios
+      .post('/currentPregnancy/coupleCounselAndParentSchool', {
+        curPregId: mother.currentPregId,
+        coupleCounselingDate1: values.coupleCounselingDate1.toDate(),
+        coupleCounselingDate2: values.coupleCounselingDate2.toDate(),
+        parentSchoolDate1: values.parentSchoolDate1.toDate(),
+        parentSchoolDate2: values.parentSchoolDate2.toDate(),
+      })
+      .then((res) => {
+        notification.success({
+          description: 'บันทึกข้อมูลสำเร็จ',
+        });
+      })
+      .catch((err) => {});
+  };
+
   return (
     <Form
       {...layout}
+      form={form}
       name="nest-messages"
       onFinish={onFinish}
       style={{

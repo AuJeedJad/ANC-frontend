@@ -1,23 +1,52 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import axios from '../../../config/axios';
 import { Row, Col, Input, Button, Radio, Form, DatePicker, notification } from 'antd';
+import CurrentPregContext from '../../../context/CurrentPregContext';
 import moment from 'moment';
 
-function AddLabResult() {
-  const dateFormat = 'YYYY-MM-DD';
+function AddLabResult({ labResult, setLabResult, triggerLabResult, setTriggerLabResult }) {
+  const [form] = Form.useForm();
+  // const [dataLabResult, setDataLabResult] = useState([]);
+  const currentPregContext = useContext(CurrentPregContext);
 
   const layout = {
     labelCol: { xs: 24 },
     wrapperCol: { xs: 24 },
   };
 
+  useEffect(() => {
+    if (labResult.labResultId) {
+      axios
+        .get(`/labResult/${labResult.labResultId}`)
+        .then((res) => {
+          // setDataLabResult(res.data.targetLabResult);
+          form.setFieldsValue({
+            role: labResult.type,
+            date: moment(res.data.targetLabResult.date),
+            bloodGroup: res.data.targetLabResult.bloodGroup,
+            hctHb: res.data.targetLabResult.hctHb,
+            ofMcvMch: res.data.targetLabResult.ofMcvMch,
+            dcip: res.data.targetLabResult.dcip,
+            hbTyping: res.data.targetLabResult.hbTyping,
+            pcr: res.data.targetLabResult.pcr,
+            hepatitisBVirus: res.data.targetLabResult.hepatitisBVirus,
+            syphilis: res.data.targetLabResult.syphilis,
+            hiv: res.data.targetLabResult.hiv,
+          });
+        })
+        .catch((err) => {});
+    }
+  }, []);
+
   const onFinish = (values) => {
     console.log(values);
+    console.log(typeof values.date);
     axios
       .post('/labResult', {
-        curPregId: 2,
-        role: values.role,
-        createdAt: values.createdAt,
+        labResultId: labResult.labResultId,
+        curPregId: currentPregContext.mother.currentPregId,
+        role: labResult.type,
+        date: values.date.toDate(),
         bloodGroup: values.bloodGroup,
         hctHb: values.hctHb,
         ofMcvMch: values.ofMcvMch,
@@ -32,12 +61,16 @@ function AddLabResult() {
         notification.success({
           description: 'บันทึกข้อมูลสำเร็จ',
         });
-      });
+        setLabResult({ active: false, type: null, no: null });
+        setTriggerLabResult(!triggerLabResult);
+      })
+      .catch((err) => {});
   };
 
   return (
     <Form
       {...layout}
+      form={form}
       name="nest-messages"
       onFinish={onFinish}
       style={{
@@ -46,44 +79,35 @@ function AddLabResult() {
         justifyContent: 'flex-start',
         alignItems: 'flex-start',
         textAlign: 'center',
-        border: '1px solid lightgray',
-        width: '60%',
+        width: '100%',
       }}
     >
-      <Row style={{ width: '100%' }}>
-        <Col xs={24}>
+      <Row style={{ width: '100%', backgroundColor: 'white' }}>
+        <Col xs={24} style={{}}>
           <Row>
             <Col xs={24}>
-              <h1>ผลตรวจห้องปฏิบัติการ</h1>
+              <h1 style={{ marginTop: '24px', fontWeight: 'bold' }}>ผลตรวจห้องปฏิบัติการ</h1>
             </Col>
           </Row>
-          <Row>
-            <Col xs={24}>
-              <Form.Item name="role">
-                <Radio.Group name="role" defaultValue={null}>
-                  <Radio value="mother" style={{ fontSize: '20px' }}>
-                    หญิงตั้งครรภ์
-                  </Radio>
-                  <Radio value="father" style={{ fontSize: '20px' }}>
-                    สามี
-                  </Radio>
-                </Radio.Group>
-              </Form.Item>
+          <Row style={{ width: '100%', justifyContent: 'space-evenly' }}>
+            <Col xs={8} style={{ padding: '0 1em', display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
+              <span style={{ fontSize: '20px', paddingRight: '10px' }}>
+                {labResult.type === 'mother' ? 'หญิงตั้งครรภ์' : 'สามี'}
+              </span>
+              <span style={{ fontSize: '20px' }}>ครั้งที่ : {labResult.no}</span>
             </Col>
-          </Row>
-          <Row style={{ width: '100%', justifyContent: 'center' }}>
-            <Col xs={24} style={{ padding: '0 1em' }}>
-              <Form.Item name="createdAt">
-                <label for="nest-messages_createdAt" style={{ fontSize: '20px' }}>
-                  วันที่ :{' '}
-                </label>
-                <DatePicker defaultValue={moment(new Date(), dateFormat)} style={{}} />
+            <Col xs={8} style={{ padding: '0 1em', display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
+              <label for="nest-messages_date" style={{ fontSize: '20px', paddingRight: '5px' }}>
+                วันที่ :
+              </label>
+              <Form.Item name="date">
+                <DatePicker />
               </Form.Item>
             </Col>
           </Row>
         </Col>
       </Row>
-      <Row style={{ width: '100%' }}>
+      <Row style={{ width: '100%', backgroundColor: 'white' }}>
         <Col xs={24} style={{ padding: '0 1em' }}>
           <Row>
             <Col xs={24}>
@@ -91,7 +115,7 @@ function AddLabResult() {
             </Col>
           </Row>
           <Row>
-            <Col xs={12}>
+            <Col xs={8}>
               <Row style={{ width: '100%' }}>
                 <Col
                   xs={24}
@@ -121,6 +145,17 @@ function AddLabResult() {
                   <Form.Item name="ofMcvMch">
                     <Input />
                   </Form.Item>
+                </Col>
+              </Row>
+            </Col>
+            <Col xs={8}>
+              <Row
+                style={{
+                  width: '100%',
+                  padding: '0 1em',
+                }}
+              >
+                <Col xs={24}>
                   <label for="nest-messages_dcip" style={{ textAlign: 'center', fontSize: '20px' }}>
                     DCIP
                   </label>
@@ -133,10 +168,16 @@ function AddLabResult() {
                   <Form.Item name="hbTyping">
                     <Input />
                   </Form.Item>
+                  <label for="nest-messages_pcr" style={{ textAlign: 'center', fontSize: '20px' }}>
+                    PCR
+                  </label>
+                  <Form.Item name="pcr">
+                    <Input />
+                  </Form.Item>
                 </Col>
               </Row>
             </Col>
-            <Col xs={12}>
+            <Col xs={8}>
               <Row
                 style={{
                   width: '100%',
@@ -144,12 +185,6 @@ function AddLabResult() {
                 }}
               >
                 <Col xs={24}>
-                  <label for="nest-messages_pcr" style={{ textAlign: 'center', fontSize: '20px' }}>
-                    PCR
-                  </label>
-                  <Form.Item name="pcr">
-                    <Input />
-                  </Form.Item>
                   <label for="nest-messages_hepatitisBVirus" style={{ textAlign: 'center', fontSize: '20px' }}>
                     ไวรัสตับอักเสบ บี
                   </label>
@@ -168,31 +203,63 @@ function AddLabResult() {
                   <Form.Item name="hiv">
                     <Input />
                   </Form.Item>
-                  <Form.Item
-                    wrapperCol={{ ...layout.wrapperCol }}
-                    style={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                      justifyContent: 'flex-end',
-                      alignItems: 'flex-end',
-                      padding: '30px 0 0 0',
-                    }}
-                  >
-                    <Button
-                      type="primary"
-                      htmlType="submit"
-                      style={{
-                        fontSize: '20px',
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                      }}
-                    >
-                      บันทึก
-                    </Button>
-                  </Form.Item>
                 </Col>
               </Row>
+            </Col>
+          </Row>
+          <Row
+            style={{
+              width: '100%',
+              padding: '0 1em',
+            }}
+          >
+            <Col xs={24} style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end' }}>
+              <Form.Item
+                wrapperCol={{ ...layout.wrapperCol }}
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'flex-end',
+                  alignItems: 'flex-end',
+                  padding: '0 15px 0 0',
+                }}
+              >
+                <Button
+                  danger
+                  htmlType="button"
+                  onClick={() => setLabResult({ active: false, type: null, no: null })}
+                  style={{
+                    fontSize: '20px',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}
+                >
+                  ยกเลิก
+                </Button>
+              </Form.Item>
+              <Form.Item
+                wrapperCol={{ ...layout.wrapperCol }}
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'flex-end',
+                  alignItems: 'flex-end',
+                }}
+              >
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  style={{
+                    fontSize: '20px',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}
+                >
+                  บันทึก
+                </Button>
+              </Form.Item>
             </Col>
           </Row>
         </Col>

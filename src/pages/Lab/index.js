@@ -1,15 +1,47 @@
 import { Row, Col } from 'antd';
+import './lab.css';
 import AddLabResult from './components/AddLabResult';
 import GetPregHis from './components/GetPregHis';
 import LabResultTable from './components/LabResultTable';
 import RecordCounselAndParentSchool from './components/RecordCounselAndParentSchool';
 import RecordDownsyndrome from './components/RecordDownsyndrome';
 import RecordVaccine from './components/RecordVaccine';
+import { useState } from 'react';
 
-function lab() {
+function Lab() {
+  const [labResult, setLabResult] = useState({ active: false, type: null, no: null, labResultId: null });
+  const [triggerLabResult, setTriggerLabResult] = useState(false);
+  console.log('labResult useSate', labResult);
   return (
     <div className="page">
       <div style={{ height: '2%' }}></div>
+      {labResult.active ? (
+        <Row
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            textAlign: 'center',
+            backgroundColor: 'white',
+            border: '1px solid lightgray',
+            position: 'absolute',
+            zIndex: '2',
+            overflow: 'auto',
+            width: '60%',
+            top: '20vh',
+            boxShadow: '15px 15px #52938e',
+          }}
+        >
+          <Col xs={24} style={{ width: '100%' }}>
+            <AddLabResult
+              labResult={labResult}
+              setLabResult={setLabResult}
+              triggerLabResult={triggerLabResult}
+              setTriggerLabResult={setTriggerLabResult}
+            />
+          </Col>
+        </Row>
+      ) : null}
       <Row style={{ width: '100%', height: '98%' }}>
         {/* left column : TableLabResult, RecordDownsyndrome,RecordLabResult-PopUp */}
         <Col xs={24} md={14} style={{ borderRight: '1px solid lightgrey' }}>
@@ -31,18 +63,13 @@ function lab() {
             </Col>
           </Row>
           <Row style={{ display: 'flex', justifyContent: 'center' }}>
-            <Col xs={23}>
-              <LabResultTable />
+            <Col xs={23} style={{ display: 'flex', justifyContent: 'center' }}>
+              <LabResultTable setLabResult={setLabResult} triggerLabResult={triggerLabResult} />
             </Col>
           </Row>
           <Row style={{ display: 'flex', justifyContent: 'center' }}>
             <Col xs={23} style={{ width: '100%', margin: '1em 0' }}>
               <RecordDownsyndrome />
-            </Col>
-          </Row>
-          <Row>
-            <Col xs={24} style={{ display: 'flex', justifyContent: 'center' }}>
-              <AddLabResult />
             </Col>
           </Row>
         </Col>
@@ -69,4 +96,4 @@ function lab() {
   );
 }
 
-export default lab;
+export default Lab;
