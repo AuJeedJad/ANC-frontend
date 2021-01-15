@@ -149,7 +149,7 @@ function Login(props) {
         <div
           style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start', width: '25%', height: '100%' }}
         >
-          <button className="btn-content" onClick={() => history.push('/content')}>
+          <button className="btn-content" onClick={() => history.push('/mother/article')}>
             GUEST
           </button>
         </div>
