@@ -17,8 +17,12 @@ function GetPregHis() {
   const [height, setHeight] = useState('1');
   const [triggerLabResult, setTriggerLabResult] = useState(false);
 
-  let monthAgeOfLastChild = new Date().getMonth() + 1 + 12 - Number(ageOfLastChildren.slice(5, 7));
-  let yearAgeOfLastChild = new Date().getFullYear() - 1 - Number(ageOfLastChildren.slice(0, 4));
+  let monthAgeOfLastChild = ageOfLastChildren
+    ? new Date().getMonth() + 1 + 12 - Number(ageOfLastChildren.slice(5, 7))
+    : '-';
+  let yearAgeOfLastChild = ageOfLastChildren
+    ? new Date().getFullYear() - 1 - Number(ageOfLastChildren.slice(0, 4))
+    : '-';
   if (monthAgeOfLastChild == 12) {
     monthAgeOfLastChild = 0;
     yearAgeOfLastChild = yearAgeOfLastChild + 1;
@@ -55,9 +59,9 @@ function GetPregHis() {
         curPregId: mother.currentPregId,
         pregnancyNumber: values.pregnancyNumber,
         numberOfCesarean: values.numberOfCesarean,
-        lastPeriodDate: values.lastPeriodDate.toDate(),
+        lastPeriodDate: values.lastPeriodDate ? values.lastPeriodDate.toDate() : null,
         numberOfChildren: values.numberOfChildren,
-        birthDateOfLastChildren: values.birthDateOfLastChildren.toDate(),
+        birthDateOfLastChildren: values.birthDateOfLastChildren ? values.birthDateOfLastChildren.toDate() : null,
         beforePregWeight: values.beforePregWeight,
         beforePregHeight: values.beforePregHeight,
       })
@@ -154,7 +158,7 @@ function GetPregHis() {
         </Col>
         <Col xs={8}>
           <div style={{ fontSize: '20px' }}>ค่า BMI ก่อนตั้งครรภ์</div>
-          <div style={{ fontSize: '20px' }}>{(weight / height / height).toFixed(2)}</div>
+          <div style={{ fontSize: '20px' }}>{!weight || !height ? '-' : (weight / height / height).toFixed(2)}</div>
         </Col>
       </Row>
       <Row>

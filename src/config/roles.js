@@ -128,7 +128,17 @@ const allPages = {
 };
 
 const permissionList = {
-  guest: [allPages.login, allPages.contentPage, allPages.motherIndex, allPages.motherShopping],
+  guest: [
+    allPages.login,
+    allPages.contentPage,
+    allPages.motherIndex,
+    allPages.motherShopping,
+    allPages.motherArticle,
+    allPages.motherArticle1,
+    allPages.motherArticle2,
+    allPages.motherArticle3,
+    allPages.motherArticle4,
+  ],
   mother: [
     allPages.contentPage,
     allPages.motherArticle,

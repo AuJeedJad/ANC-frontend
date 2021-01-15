@@ -4,11 +4,13 @@
   color: var(--primaryDarkest-color);
 }
 .page-terminate {
+  width: 60%;
   font-size: 20px;
   color: var(--primaryDarkest-color);
 }
 .page-terminate tr {
   height: 7vh;
+  width: 60%;
 }
 .btn-terminate {
   width: 90%;

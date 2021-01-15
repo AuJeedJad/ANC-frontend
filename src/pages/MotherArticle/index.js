@@ -193,7 +193,7 @@ function MotherArticle() {
     ),
   };
 
-  const [title, setTitle] = useState('article');
+  const [title, setTitle] = useState('pregnancy');
 
   return (
     <>

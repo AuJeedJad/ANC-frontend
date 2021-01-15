@@ -19,7 +19,7 @@ function Terminate() {
       })
       .then((res) => {
         notification.success({
-          description: 'อัพเดทแล้ว สามารถลงทะเบียนครรภ์ใหม่ได้',
+          description: 'อัพเดทสถานะการตั้งครรภ์ของมารดาแล้ว',
         });
         currentPregContext.setMother({
           ...currentPregContext.mother,
@@ -44,7 +44,7 @@ function Terminate() {
       })
       .then((res) => {
         notification.success({
-          description: 'อัพเดทแล้ว สามารถลงทะเบียนครรภ์ใหม่ได้',
+          description: 'อัพเดทสถานะการตั้งครรภ์ของมารดาแล้ว',
         });
         currentPregContext.setMother({
           currentPregId: '',

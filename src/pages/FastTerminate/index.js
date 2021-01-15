@@ -5,7 +5,7 @@ import axios from '../../config/axios';
 import { notification } from 'antd';
 import { useHistory } from 'react-router-dom';
 
-function Terminate() {
+function FastTerminate() {
   const currentPregContext = useContext(CurrentPregContext);
   const [value, setValue] = useState({ terminateDate: '', terminateAt: '' });
   const history = useHistory();
@@ -149,4 +149,4 @@ function Terminate() {
     </div>
   );
 }
-export default Terminate;
+export default FastTerminate;
